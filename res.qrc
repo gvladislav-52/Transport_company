@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Main.qml</file>
+        <file>Image/Screenshot from 2024-04-16 20-12-31.png</file>
+        <file>Car_page.qml</file>
+        <file>Main_page.qml</file>
+        <file>Image/Screenshot from 2024-03-28 19-18-51.png</file>
+        <file>Image/Screenshot from 2024-04-16 22-26-54.png</file>
+        <file>Button/add.png</file>
+        <file>Button/arrow.png</file>
+        <file>Button/del.png</file>
+        <file>Button/save.png</file>
+        <file>Header.qml</file>
+    </qresource>
+</RCC>
