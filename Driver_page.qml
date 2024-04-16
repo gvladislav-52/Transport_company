@@ -6,7 +6,7 @@ Rectangle {
     anchors.fill: parent
     color: "lightgray"
 
-    property var parameters_name: ["id Автомобилей","id Поставщика","Марка","Модель","Объем двигателя","Мощность двигателя","Кузов","Цвет","Состояние","Цена","Дата выпуска","VIN"]
+    property var parameters_name: ["id Водителя","Фамилия","Имя","Отчетство","Водит. удостоверение","Контактный телефон","E-mail","ГосНомер ТС"]
     property var button_name: ["qrc:/Button/arrow.png","qrc:/Button/add.png","qrc:/Button/save.png","qrc:/Button/del.png","qrc:/Button/arrow.png"]
 
     ColumnLayout
@@ -15,8 +15,8 @@ Rectangle {
 
     Header
     {
-        name_page: "Автомобили"
-        id_page: car_page
+        name_page: "Водители"
+        id_page: driver_page
     }
 
     RowLayout
@@ -33,7 +33,7 @@ Rectangle {
 
             Repeater
             {
-                model: 12
+                model: 8
                 Rectangle
                 {
                     Layout.alignment: Qt.AlignHCenter
@@ -61,7 +61,7 @@ Rectangle {
 
             Item
             {
-                Layout.preferredHeight: parent.height * 0.1
+                Layout.preferredHeight: parent.height * 0.3
                 Layout.preferredWidth: parent.width
             }
         }
@@ -73,7 +73,7 @@ Rectangle {
 
             Repeater
             {
-                model: 12
+                model: 8
                 Rectangle
                 {
                     Layout.alignment: Qt.AlignLeft
@@ -102,7 +102,7 @@ Rectangle {
 
             Item
             {
-                Layout.preferredHeight: parent.height * 0.1
+                Layout.preferredHeight: parent.height * 0.3
                 Layout.preferredWidth: parent.width
             }
         }
@@ -114,7 +114,7 @@ Rectangle {
            Layout.preferredWidth: parent.width * 0.5
            Image
            {
-               source: "qrc:/Image/Screenshot from 2024-04-16 22-26-54.png"
+               source: "qrc:/Image/Screenshot from 2024-03-28 19-18-51.png"
                Layout.alignment: Qt.AlignHCenter
                Layout.preferredHeight: parent.height * 0.7
                Layout.preferredWidth: parent.width * 0.7

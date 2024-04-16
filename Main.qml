@@ -20,4 +20,32 @@ ApplicationWindow {
         visible: false
         enabled: false
     }
+
+    Driver_page
+    {
+        id: driver_page
+        visible: false
+        enabled: false
+    }
+
+    Orders_page
+    {
+        id: orders_page
+        visible: false
+        enabled: false
+    }
+
+    Clients_page
+    {
+        id: clients_page
+        visible: false
+        enabled: false
+    }
+
+    Supplier_page
+    {
+        id: supplier_page
+        visible: false
+        enabled: false
+    }
 }

@@ -6,7 +6,7 @@ Rectangle {
     anchors.fill: parent
     color: "lightgray"
 
-    property var parameters_name: ["id Автомобилей","id Поставщика","Марка","Модель","Объем двигателя","Мощность двигателя","Кузов","Цвет","Состояние","Цена","Дата выпуска","VIN"]
+    property var parameters_name: ["id Клиента","Название компании","Контактное лицо","Контактный телефон","E-mail"]
     property var button_name: ["qrc:/Button/arrow.png","qrc:/Button/add.png","qrc:/Button/save.png","qrc:/Button/del.png","qrc:/Button/arrow.png"]
 
     ColumnLayout
@@ -15,8 +15,8 @@ Rectangle {
 
     Header
     {
-        name_page: "Автомобили"
-        id_page: car_page
+        name_page: "Клиенты"
+        id_page: clients_page
     }
 
     RowLayout
@@ -28,16 +28,17 @@ Rectangle {
 
         ColumnLayout
         {
+            Layout.alignment: Qt.AlignHCenter
             Layout.preferredHeight: parent.height
-            Layout.preferredWidth: parent.width* 0.25
+            Layout.preferredWidth: parent.width* 0.4
 
             Repeater
             {
-                model: 12
+                model: 5
                 Rectangle
                 {
                     Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredHeight: parent.height*0.05
+                    Layout.preferredHeight: parent.height*0.075
                     Layout.preferredWidth: parent.width *0.9
                     color: "red"
                     border.color: "black"
@@ -61,23 +62,24 @@ Rectangle {
 
             Item
             {
-                Layout.preferredHeight: parent.height * 0.1
+                Layout.preferredHeight: parent.height * 0.3
                 Layout.preferredWidth: parent.width
             }
         }
 
         ColumnLayout
         {
+            Layout.alignment: Qt.AlignHCenter
             Layout.preferredHeight: parent.height
-            Layout.preferredWidth: parent.width* 0.25
+            Layout.preferredWidth: parent.width* 0.4
 
             Repeater
             {
-                model: 12
+                model: 5
                 Rectangle
                 {
                     Layout.alignment: Qt.AlignLeft
-                    Layout.preferredHeight: parent.height*0.05
+                    Layout.preferredHeight: parent.height*0.075
                     Layout.preferredWidth: parent.width *0.9
                     color: index !== 0? "#C0E8FF": "gray"
                     border.color: "black"
@@ -102,61 +104,47 @@ Rectangle {
 
             Item
             {
-                Layout.preferredHeight: parent.height * 0.1
+                Layout.preferredHeight: parent.height * 0.3
                 Layout.preferredWidth: parent.width
             }
         }
 
-       ColumnLayout
-       {
-           Layout.alignment: Qt.AlignHCenter
-           Layout.preferredHeight: parent.height
-           Layout.preferredWidth: parent.width * 0.5
-           Image
-           {
-               source: "qrc:/Image/Screenshot from 2024-04-16 22-26-54.png"
-               Layout.alignment: Qt.AlignHCenter
-               Layout.preferredHeight: parent.height * 0.7
-               Layout.preferredWidth: parent.width * 0.7
-               fillMode: Image.PreserveAspectFit
-           }
+    }
 
-           RowLayout
-           {
-               Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-               Layout.preferredHeight: parent.height * 0.3
-               Layout.preferredWidth: parent.width
+    RowLayout
+    {
+        Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+        Layout.preferredHeight: parent.height * 0.2
+        Layout.preferredWidth: parent.width
 
-               Repeater
-               {
-                   model: 5
-                   Button
-                   {
-                       Layout.alignment: Qt.AlignTop
-                       Layout.topMargin: parent.height * 0.1
-                       Layout.preferredHeight: parent.height * 0.4
-                       Layout.preferredWidth: parent.width * 0.15
-                       background: Rectangle
-                       {
-                           color: parent.pressed ? "red" : (parent.hovered ? "darkred" : "gray")
+        Repeater
+        {
+            model: 5
+            Button
+            {
+                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
+                Layout.topMargin: parent.height * 0.1
+                Layout.preferredHeight: parent.height * 0.4
+                Layout.preferredWidth: parent.width * 0.15
+                background: Rectangle
+                {
+                    color: parent.pressed ? "red" : (parent.hovered ? "darkred" : "gray")
 
-                           radius: parent.height * 0.1
-                           border.color: "black"
-                           border.width: parent.width * 0.01
-                       }
-                       Image
-                       {
-                           anchors.centerIn: parent
-                           source: button_name[index]
-                           width: parent.width * 0.7
-                           height: parent.height * 0.7
-                           fillMode: Image.PreserveAspectFit
-                           mirror: index ===0? true: false
-                       }
-                   }
-               }
-           }
-       }
+                    radius: parent.height * 0.1
+                    border.color: "black"
+                    border.width: parent.width * 0.01
+                }
+                Image
+                {
+                    anchors.centerIn: parent
+                    source: button_name[index]
+                    width: parent.width * 0.7
+                    height: parent.height * 0.7
+                    fillMode: Image.PreserveAspectFit
+                    mirror: index ===0? true: false
+                }
+            }
+        }
     }
     }
 }

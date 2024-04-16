@@ -49,7 +49,10 @@ Rectangle
                        switch(index)
                        {
                            case 0:
-                               console.log("Order click")
+                               main_page.visible = false
+                               main_page.enabled = false
+                               orders_page.visible = true
+                               orders_page.enabled = true
                                break;
                            case 1:
                                main_page.visible = false
@@ -107,6 +110,7 @@ Rectangle
                     font.pixelSize: parent.height * 0.3
                     color: "white"
                 }
+                onClicked: Qt.quit()
             }
        }
 
@@ -140,6 +144,32 @@ Rectangle
                        font.bold: true
                        font.pixelSize: parent.height * 0.3
                        color: "white"
+                   }
+                   onClicked:
+                   {
+                       switch(index)
+                       {
+                       case 0:
+                           main_page.visible = false
+                           main_page.enabled = false
+                           supplier_page.visible = true
+                           supplier_page.enabled = true
+                           break
+                       case 1:
+                           main_page.visible = false
+                           main_page.enabled = false
+                           clients_page.visible = true
+                           clients_page.enabled = true
+                           break
+                       case 2:
+                           main_page.visible = false
+                           main_page.enabled = false
+                           driver_page.visible = true
+                           driver_page.enabled = true
+                           break
+                       default:
+                           break
+                       }
                    }
                }
            }

@@ -11,5 +11,10 @@
         <file>Button/del.png</file>
         <file>Button/save.png</file>
         <file>Header.qml</file>
+        <file>Driver_page.qml</file>
+        <file>Orders_page.qml</file>
+        <file>Clients_page.qml</file>
+        <file>Supplier_page.qml</file>
+        <file>Image/Mercedes-Benz.png</file>
     </qresource>
 </RCC>
