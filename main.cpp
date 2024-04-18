@@ -2,7 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QApplication>
-//#include "file_processing.h"
+#include "transport_company.h"
+#include "database_sql.h"
 #include <QThread>
 
 int main(int argc, char *argv[])
@@ -11,12 +12,19 @@ int main(int argc, char *argv[])
 
     //File_processing fileProcessing;
    // qDebug() << "ID Main-thread:\t" << QThread::currentThreadId();
+    Transport_company ts_company;
+    Database_sql db;
+
+    ts_company.setSupplier_vector(db.getSupplierDataVector(0));
+    ts_company.setSupplierMaxIndex(db.getSupplierMaxElement());
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/Main.qml"));
 
     QQmlContext *rootContext = engine.rootContext();
-    //ootContext->setContextProperty("file_proc", &fileProcessing);
+    rootContext->setContextProperty("Transport_company", &ts_company);
+    rootContext->setContextProperty("Database", &db);
+    //rootContext->setContextProperty("Database", &db);
     engine.load(url);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {

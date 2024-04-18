@@ -73,7 +73,7 @@ Rectangle {
 
             Repeater
             {
-                model: 6
+                model: Transport_company.Supplier_vector.length-1
                 Rectangle
                 {
                     Layout.alignment: Qt.AlignLeft
@@ -94,8 +94,9 @@ Rectangle {
                         height: parent.height
                         font.pixelSize: parent.height * 0.8
                         color: "black"
-                        text: qsTr("")
+                        text: qsTr(Transport_company.Supplier_vector[index])
                         horizontalAlignment: TextInput.AlignRight
+                        //getNextSupplierIndex
                     }
                 }
             }
@@ -112,14 +113,16 @@ Rectangle {
            Layout.alignment: Qt.AlignHCenter
            Layout.preferredHeight: parent.height
            Layout.preferredWidth: parent.width * 0.5
+
            Image
            {
-               source: "qrc:/Image/Mercedes-Benz.png"
+               source: Transport_company.Supplier_vector[6]
                Layout.alignment: Qt.AlignHCenter
                Layout.preferredHeight: parent.height * 0.7
                Layout.preferredWidth: parent.width * 0.7
                fillMode: Image.PreserveAspectFit
            }
+
 
            RowLayout
            {
@@ -152,6 +155,21 @@ Rectangle {
                            height: parent.height * 0.7
                            fillMode: Image.PreserveAspectFit
                            mirror: index ===0? true: false
+                       }
+
+                       onClicked:
+                       {
+                           switch(index)
+                           {
+                           case 0:
+                               if(Transport_company.getSupplierIndex(0) > 0)
+                                    Transport_company.setSupplier_vector(Database.getSupplierDataVector(Transport_company.getSupplierIndex(-1)));
+                               break;
+                           case 4:
+                               if(Transport_company.getSupplierIndex(0) < Transport_company.getSupplierMaxIndex()-1)
+                                    Transport_company.setSupplier_vector(Database.getSupplierDataVector(Transport_company.getSupplierIndex(1)));
+                               break;
+                           }
                        }
                    }
                }

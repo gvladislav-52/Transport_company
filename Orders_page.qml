@@ -7,10 +7,12 @@ Rectangle {
     anchors.fill: parent
     color: "lightgray"
 
-    property var parameters_name: ["id Водителя","Фамилия","Имя","Отчетство","Водит. удостоверение","Контактный телефон","E-mail"]
+    property var parameters_name: ["id Заказа","id Клиента","id Водителя","Дата размещения","Дата назначения","Дата исполнения","Адрес доставки"]
     property var button_name: ["qrc:/Button/arrow.png","qrc:/Button/add.png","qrc:/Button/save.png","qrc:/Button/del.png","qrc:/Button/arrow.png"]
     ColumnLayout
     {
+
+        property int test_r: 3
         anchors.fill: parent
         Header
         {
@@ -73,7 +75,7 @@ Rectangle {
                         Layout.alignment: Qt.AlignLeft
                         Layout.preferredHeight: parent.height*0.1
                         Layout.preferredWidth: parent.width *0.9
-                        color: index !== 0? "#C0E8FF": "gray"
+                        color: index > 2? "#C0E8FF": "gray"
                         border.color: "black"
                         border.width: parent.height * 0.005
                         clip: true
@@ -248,7 +250,7 @@ Rectangle {
 
                     Repeater {
                         id: my_food_list_repeater
-                        model: 10
+                        model: 3
 
                         RowLayout {
                             Layout.preferredHeight: my_food_list.height* 0.2
@@ -283,6 +285,7 @@ Rectangle {
                                     }
                                 }
                             }
+
                         }
                     }
                 }
@@ -327,6 +330,7 @@ Rectangle {
                         fillMode: Image.PreserveAspectFit
                         mirror: index ===0? true: false
                     }
+                    //onClicked: my_food_list_repeater.model = ++my_food_list_repeater.model
                 }
             }
         }
