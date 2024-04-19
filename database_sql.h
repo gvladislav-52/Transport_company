@@ -5,6 +5,7 @@
 #include <QSqlDatabase>
 #include <QSqlTableModel>
 #include <QtSql>
+
 class Database_sql : public QObject
 {
     Q_OBJECT
@@ -15,7 +16,7 @@ public slots:
     int getSupplierMaxElement();
     void supplier_createNewData();
     void supplier_addNewData(QVector<QString> vector);
-    void supplier_delData(int index);
+    void delete_Data(int index, QString nameData);
 private:
     QSqlDatabase db;
 signals:

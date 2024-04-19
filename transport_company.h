@@ -2,6 +2,8 @@
 #define TRANSPORT_COMPANY_H
 
 #include <QObject>
+#include <thread>
+#include <mutex>
 
 class Transport_company: public QObject
 {
