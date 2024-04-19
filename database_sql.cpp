@@ -44,7 +44,11 @@ void Database_sql::supplier_createNewData()
 
 void Database_sql::supplier_addNewData(QVector<QString> vector)
 {
-    qDebug() << vector;
     QSqlQuery selectQuery("UPDATE Supplier SET Company = '" + vector.at(1) +"', Address = '" + vector.at(2)+"', Representative = '" + vector.at(3) +"',Phone = '" + vector.at(4) +"', Email = '" + vector.at(5) +"', Image = '" + vector.at(6) +"' WHERE Id_Supplier = '" + vector.at(0) +"'");
+}
+
+void Database_sql::supplier_delData(int index)
+{
+    QSqlQuery selectQuery("DELETE FROM Supplier WHERE Id_Supplier = "+QString::number(index)+"");
 }
 
