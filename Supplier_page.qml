@@ -9,6 +9,8 @@ Rectangle {
     property var parameters_name: ["id Поставщика","Название компании","Адрес","Представитель","Контактный телефон","E-mail"]
     property var button_name: ["qrc:/Button/arrow.png","qrc:/Button/add.png","qrc:/Button/save.png","qrc:/Button/del.png","qrc:/Button/arrow.png"]
 
+    property var inputText_temp: Transport_company.Supplier_vector
+
     ColumnLayout
     {
         anchors.fill: parent
@@ -84,19 +86,26 @@ Rectangle {
                     border.width: parent.height * 0.0025
                     clip: true
                     TextInput {
+                        id: text_weigth
                         anchors
                         {
                             verticalCenter: parent.verticalCenter
                             right: parent.right
                             rightMargin: parent.width * 0.05
                         }
+                        enabled: index === 0 ? false : true
                         width: parent.width * 0.95
                         height: parent.height
                         font.pixelSize: parent.height * 0.8
                         color: "black"
                         text: qsTr(Transport_company.Supplier_vector[index])
                         horizontalAlignment: TextInput.AlignRight
-                        //getNextSupplierIndex
+
+                        onTextChanged:
+                        {
+                            inputText_temp[index] = text_weigth.text
+                            console.log(inputText_temp[index])
+                        }
                     }
                 }
             }
@@ -114,13 +123,19 @@ Rectangle {
            Layout.preferredHeight: parent.height
            Layout.preferredWidth: parent.width * 0.5
 
+           Rectangle
+           {
+               Layout.alignment: Qt.AlignHCenter
+               Layout.preferredHeight: parent.height * 0.6
+               Layout.preferredWidth: parent.width * 0.6
+               radius: parent.height * 0.01
+               color: "white"
            Image
            {
                source: Transport_company.Supplier_vector[6]
-               Layout.alignment: Qt.AlignHCenter
-               Layout.preferredHeight: parent.height * 0.7
-               Layout.preferredWidth: parent.width * 0.7
+               anchors.fill: parent
                fillMode: Image.PreserveAspectFit
+           }
            }
 
 
@@ -164,6 +179,15 @@ Rectangle {
                            case 0:
                                if(Transport_company.getSupplierIndex(0) > 0)
                                     Transport_company.setSupplier_vector(Database.getSupplierDataVector(Transport_company.getSupplierIndex(-1)));
+                               break;
+                           case 1:
+                               Transport_company.setSupplier_vector(Database.getSupplierDataVector(Transport_company.getSupplierMaxIndex()-1));
+                               Transport_company.getSupplierIndex(Transport_company.getSupplierMaxIndex()-1);
+                               break;
+                           case 2:
+                               console.log(inputText_temp)
+                               //Transport_company.setSupplier_vector(inputText_temp);
+                               Database.supplier_addNewData(inputText_temp)
                                break;
                            case 4:
                                if(Transport_company.getSupplierIndex(0) < Transport_company.getSupplierMaxIndex()-1)

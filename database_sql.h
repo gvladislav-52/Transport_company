@@ -13,6 +13,8 @@ public:
 public slots:
     QVector<QString> getSupplierDataVector(int index);
     int getSupplierMaxElement();
+    void supplier_createNewData();
+    void supplier_addNewData(QVector<QString> vector);
 private:
     QSqlDatabase db;
 signals:

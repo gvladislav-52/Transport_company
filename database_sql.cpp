@@ -36,3 +36,15 @@ int Database_sql::getSupplierMaxElement()
 
     return max_element;
 }
+
+void Database_sql::supplier_createNewData()
+{
+    QSqlQuery selectQuery("INSERT INTO Supplier (Company, Address, Representative, Phone, Email,Image) VALUES ('', '', '', '', '','')");
+}
+
+void Database_sql::supplier_addNewData(QVector<QString> vector)
+{
+    qDebug() << vector;
+    QSqlQuery selectQuery("UPDATE Supplier SET Company = '" + vector.at(1) +"', Address = '" + vector.at(2)+"', Representative = '" + vector.at(3) +"',Phone = '" + vector.at(4) +"', Email = '" + vector.at(5) +"', Image = '" + vector.at(6) +"' WHERE Id_Supplier = '" + vector.at(0) +"'");
+}
+

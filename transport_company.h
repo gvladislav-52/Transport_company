@@ -10,13 +10,15 @@ class Transport_company: public QObject
 public:
     Transport_company();
     QVector<QString> getSupplier_vector() const;
-    void setSupplierMaxIndex(int && element);
 signals:
     void Supplier_vectorChanged();
 public slots:
     int getSupplierIndex(int num);
     int getSupplierMaxIndex();
-    void setSupplier_vector(const QVector<QString> &newSupplier_vector);
+    void setSupplier_vector(const QVector<QString> newSupplier_vector);
+    void setSupplierMaxIndex(int element);
+
+    QString getSupplier_wordVector(int index);
 private:
     QVector<QString> m_Supplier_vector;
     int supplier_index = 0;

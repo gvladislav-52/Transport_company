@@ -13,6 +13,7 @@ public:
     explicit database1();
 public slots:
     QVector<QString> supplier_selectAll(int index);
+    void supplier_createNewData();
 private:
     QSqlDatabase db;
 };

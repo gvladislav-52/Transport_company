@@ -24,3 +24,8 @@ QVector<QString> database1::supplier_selectAll(int index)
     }
     return temp_vector;
 }
+
+void database1::supplier_createNewData()
+{
+    QSqlQuery selectQuery("INSERT INTO Supplier (Company, Address, Representative, Phone, Email,Image) VALUES ('ИП АвтоДетали', 'г. Екатеринбург, ул. Пушкина, д. 5', 'Смирнов Александр Васильевич', '+7 (343) 111-2233', 'smirnov@example.com','https://group.mercedes-benz.com/bilder/konzern/tradition/die-entstehung-des-markennamens-mercedes-benz/geschichte-des-mercedes-benz-sterns/daimler-dreizack-stern-mit-lorbeerkranz-2001dig410-w800xh0.jpg')");
+}

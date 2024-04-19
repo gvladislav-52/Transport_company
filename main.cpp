@@ -17,7 +17,6 @@ int main(int argc, char *argv[])
 
     ts_company.setSupplier_vector(db.getSupplierDataVector(0));
     ts_company.setSupplierMaxIndex(db.getSupplierMaxElement());
-
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/Main.qml"));
 
