@@ -15,8 +15,8 @@ int main(int argc, char *argv[])
     Transport_company ts_company;
     Database_sql db;
 
-    ts_company.setSupplier_vector(db.getSupplierDataVector(0));
-    ts_company.setSupplierMaxIndex(db.getSupplierMaxElement());
+    ts_company.setSupplier_vector(db.getDataVector(0,"Supplier"));
+    ts_company.setSupplierMaxIndex(db.getMaxElement("Supplier"));
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/Main.qml"));

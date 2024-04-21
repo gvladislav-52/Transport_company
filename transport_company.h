@@ -17,6 +17,7 @@ signals:
 public slots:
     int getSupplierIndex(int num);
     int getSupplierMaxIndex();
+    void setSupplierIndex(int num);
     void setSupplier_vector(const QVector<QString> newSupplier_vector);
     void setSupplierMaxIndex(int element);
 

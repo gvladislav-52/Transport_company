@@ -12,8 +12,8 @@ class Database_sql : public QObject
 public:
     explicit Database_sql(QObject *parent = nullptr);
 public slots:
-    QVector<QString> getSupplierDataVector(int index);
-    int getSupplierMaxElement();
+    QVector<QString> getDataVector(int index,QString name);
+    int getMaxElement(QString name);
     void supplier_createNewData();
     void supplier_addNewData(QVector<QString> vector);
     void delete_Data(int index, QString nameData);

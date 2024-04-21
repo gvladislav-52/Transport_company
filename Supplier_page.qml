@@ -309,16 +309,19 @@ Rectangle {
                            switch(index)
                            {
                            case 0:
-                               console.log(Transport_company.getSupplierIndex(0))
                                if(Transport_company.getSupplierIndex(0) > 0)
-                                    Transport_company.setSupplier_vector(Database.getSupplierDataVector(Transport_company.getSupplierIndex(-1)));
+                                    Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(-1),"Supplier"));
                                image_textInput.text = Transport_company.Supplier_vector[6];
-
+                               console.log(Transport_company.getSupplierIndex(0))
                                break;
                            case 1:
                                Database.supplier_createNewData();
-                               Transport_company.setSupplier_vector(Database.getSupplierDataVector(Transport_company.getSupplierMaxIndex()));
-                                Transport_company.setSupplierMaxIndex(Database.getSupplierMaxElement());
+                               Transport_company.setSupplier_vector(Database.getDataVector(Database.getMaxElement("Supplier")-1,"Supplier"));
+                               //Transport_company.setSupplierMaxIndex(Database.getMaxElement("Supplier"));
+                               Transport_company.setSupplierMaxIndex(Database.getMaxElement("Supplier"));
+                               //Transport_company.setSupplierMaxIndex(Transport_company.getSupplierMaxIndex());
+                               Transport_company.setSupplierIndex(Database.getMaxElement("Supplier")-1);
+                               //console.log(Transport_company.getSupplierMaxIndex())
                                console.log(Transport_company.getSupplierIndex(0))
                                break;
                            case 2:
@@ -329,13 +332,16 @@ Rectangle {
                            case 3:
                                Database.delete_Data(Transport_company.Supplier_vector[0], "Supplier");
                                if(Transport_company.getSupplierIndex(0) < Transport_company.getSupplierMaxIndex()-1)
-                                    Transport_company.setSupplier_vector(Database.getSupplierDataVector(Transport_company.getSupplierIndex(1)));
+                                  Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(0),"Supplier"));
+                               else
+                                   Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(-1),"Supplier"));
                                Transport_company.setSupplierMaxIndex( Transport_company.getSupplierMaxIndex()-1)
                                break;
                            case 4:
                                if(Transport_company.getSupplierIndex(0) < Transport_company.getSupplierMaxIndex()-1)
-                                    Transport_company.setSupplier_vector(Database.getSupplierDataVector(Transport_company.getSupplierIndex(1)));
+                                    Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(1),"Supplier"));
                                image_textInput.text = Transport_company.Supplier_vector[6];
+                               console.log(Transport_company.getSupplierIndex(0))
                                break;
                            }
                        }

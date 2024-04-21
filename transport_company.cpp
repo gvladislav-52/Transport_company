@@ -35,9 +35,16 @@ void Transport_company::setSupplier_vector(const QVector<QString> newSupplier_ve
 int Transport_company::getSupplierIndex(int num)
 {
     return supplier_index +=num;
+
 }
 
 int Transport_company::getSupplierMaxIndex()
 {
+    qDebug() << supplier_maxIndex-1;
     return supplier_maxIndex;
+}
+
+void Transport_company::setSupplierIndex(int num)
+{
+    supplier_index = num;
 }
