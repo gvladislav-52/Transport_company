@@ -16,7 +16,7 @@ public slots:
     int getMaxElement(QString name);
     void supplier_createNewData();
     void supplier_addNewData(QVector<QString> vector);
-    void delete_Data(int index, QString nameData);
+    void delete_Data(int index, QString nameData, QString id_name);
 private:
     QSqlDatabase db;
 signals:

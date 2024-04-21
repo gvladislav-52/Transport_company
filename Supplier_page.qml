@@ -312,7 +312,7 @@ Rectangle {
                                if(Transport_company.getSupplierIndex(0) > 0)
                                     Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(-1),"Supplier"));
                                image_textInput.text = Transport_company.Supplier_vector[6];
-                               console.log(Transport_company.getSupplierIndex(0))
+                               //console.log(Transport_company.getSupplierIndex(0))
                                break;
                            case 1:
                                Database.supplier_createNewData();
@@ -322,15 +322,13 @@ Rectangle {
                                //Transport_company.setSupplierMaxIndex(Transport_company.getSupplierMaxIndex());
                                Transport_company.setSupplierIndex(Database.getMaxElement("Supplier")-1);
                                //console.log(Transport_company.getSupplierMaxIndex())
-                               console.log(Transport_company.getSupplierIndex(0))
+                               //console.log(Transport_company.getSupplierIndex(0))
                                break;
                            case 2:
-                               console.log(inputText_temp)
-                               //Transport_company.setSupplier_vector(inputText_temp);
                                Database.supplier_addNewData(inputText_temp)
                                break;
                            case 3:
-                               Database.delete_Data(Transport_company.Supplier_vector[0], "Supplier");
+                               Database.delete_Data(Transport_company.Supplier_vector[0], "Supplier","Id_Supplier");
                                if(Transport_company.getSupplierIndex(0) < Transport_company.getSupplierMaxIndex()-1)
                                   Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(0),"Supplier"));
                                else
@@ -341,7 +339,7 @@ Rectangle {
                                if(Transport_company.getSupplierIndex(0) < Transport_company.getSupplierMaxIndex()-1)
                                     Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(1),"Supplier"));
                                image_textInput.text = Transport_company.Supplier_vector[6];
-                               console.log(Transport_company.getSupplierIndex(0))
+                               //console.log(Transport_company.getSupplierIndex(0))
                                break;
                            }
                        }

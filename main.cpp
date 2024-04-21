@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
    // qDebug() << "ID Main-thread:\t" << QThread::currentThreadId();
     Transport_company ts_company;
     Database_sql db;
-
+    qDebug() << "Main thread: " << QThread::currentThreadId();
     ts_company.setSupplier_vector(db.getDataVector(0,"Supplier"));
     ts_company.setSupplierMaxIndex(db.getMaxElement("Supplier"));
 
