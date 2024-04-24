@@ -10,16 +10,20 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    //File_processing fileProcessing;
-   // qDebug() << "ID Main-thread:\t" << QThread::currentThreadId();
     Transport_company ts_company;
     Database_sql db;
     qDebug() << "Main thread: " << QThread::currentThreadId();
-    //ts_company.setSupplier_vector(db.getDataVector(0,"Supplier"));
-   // ts_company.setSupplierMaxIndex(db.getMaxElement("Supplier"));
+    ts_company.setSupplier_vector(db.getDataVector(0,"Supplier","Id_supplier"));
+    ts_company.setSupplierMaxIndex(db.getMaxElement("Supplier"));
+    ts_company.setSupplierIndex(0);
 
-    ts_company.setCars_vector(db.getDataVector(0,"Cars"));
+    ts_company.setCars_vector(db.getDataVector(0,"Cars","Id_car"));
     ts_company.setCarsMaxIndex(db.getMaxElement("Cars"));
+    ts_company.setCarsIndex(0);
+
+    ts_company.setClients_vector(db.getDataVector(0,"Clients","Id_client"));
+    ts_company.setClientsMaxIndex(db.getMaxElement("Clients"));
+    ts_company.setClientsIndex(0);
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/Main.qml"));

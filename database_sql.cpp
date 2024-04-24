@@ -17,6 +17,27 @@ Database_sql::Database_sql(QObject *parent)
     th.join();
 }
 
+//////////////////////////////////////////////////////////////////////////CLIENTS////////////////////////////////////////////////////////////////////////////
+
+void Database_sql::clients_createNewData(QVector<QString> vec)
+{
+    //qDebug() << vec;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("INSERT INTO Clients (Company, Person, Phone, EMail) VALUES ('"+vec[1]+"', '"+ vec[2] +"', '"+ vec[3] +"', '"+ vec[4] +"');");
+    });
+    th.join();
+}
+
+void Database_sql::clients_addNewData(QVector<QString> vector)
+{
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("UPDATE Clients SET Company = '" + vector.at(1) +"', Person = '" + vector.at(2)+"', Phone = '" + vector.at(3) +"',EMail = '" + vector.at(4) +"' WHERE Id_client = '" + vector.at(0) +"'");
+    });
+    th.join();
+}
+
 ///////////////////////////////////////////////////////////////////////////CARS/////////////////////////////////////////////////////////////////////////////
 
 void Database_sql::cars_createNewData(QVector<QString> vec)
@@ -24,7 +45,7 @@ void Database_sql::cars_createNewData(QVector<QString> vec)
     //qDebug() << vec;
     std::thread th([&](){
         QSqlQuery selectQuery(db);
-        selectQuery.exec("INSERT INTO Cars (Id_supplier, Brand, Model, Engine_volume, Power_motor, Body, Color, Status, Price, Release_data, VIN, Image) VALUES (4, '"+ vec[1] +"', '"+ vec[2] +"', "+ vec[3] +", "+ vec[4] +", '"+ vec[5] +"', '"+ vec[6] +"', '"+ vec[7] +"', "+ vec[8] +", '"+ vec[9] +"', '"+ vec[10] +"','"+ vec[11] +"');");
+        selectQuery.exec("INSERT INTO Cars (Id_supplier, Brand, Model, Engine_volume, Power_motor, Body, Color, Status, Price, Image) VALUES ("+vec[1]+", '"+ vec[2] +"', '"+ vec[3] +"', "+ vec[4] +", "+ vec[5] +", '"+ vec[6] +"', '"+ vec[7] +"', '"+ vec[8] +"', "+ vec[9] +", '"+ vec[10]+"');");
     });
     th.join();
 }
@@ -33,50 +54,9 @@ void Database_sql::cars_addNewData(QVector<QString> vector)
 {
     std::thread th([&](){
         QSqlQuery selectQuery(db);
-        selectQuery.exec("UPDATE Cars SET Id_supplier = '" + vector.at(1) +"', Brand = '" + vector.at(2)+"', Model = '" + vector.at(3) +"',Engine_volume = '" + vector.at(4) +"', Power_motor = '" + vector.at(5) +"', Body = '" + vector.at(6) +"', Color = '" + vector.at(7) +"', Status = '"+vector.at(8)+"', Price = '"+vector.at(9)+"', Release_data = '"+vector.at(10)+"', VIN = '"+vector.at(11)+"', Image = '"+vector.at(12)+"' WHERE Id_Supplier = '" + vector.at(0) +"'");
+        selectQuery.exec("UPDATE Cars SET Id_supplier = '" + vector.at(1) +"', Brand = '" + vector.at(2)+"', Model = '" + vector.at(3) +"',Engine_volume = '" + vector.at(4) +"', Power_motor = '" + vector.at(5) +"', Body = '" + vector.at(6) +"', Color = '" + vector.at(7) +"', Status = '"+vector.at(8)+"', Price = '"+vector.at(9)+"', Image = '"+vector.at(10)+"' WHERE Id_car = '" + vector.at(0) +"'");
     });
     th.join();
-}
-
-/////////////////////////////////////////////////////////////////////////SUPPLIER///////////////////////////////////////////////////////////////////////////
-
-void Database_sql::supplier_createNewData()
-{
-    std::thread th([&](){
-        QSqlQuery selectQuery(db);
-        selectQuery.exec("INSERT INTO Supplier (Company, Address, Representative, Phone, Email,Image) VALUES ('', '', '', '', '','')");
-    });
-    th.join();
-}
-
-void Database_sql::supplier_addNewData(QVector<QString> vector)
-{
-    std::thread th([&](){
-        QSqlQuery selectQuery(db);
-        selectQuery.exec("UPDATE Supplier SET Company = '" + vector.at(1) +"', Address = '" + vector.at(2)+"', Representative = '" + vector.at(3) +"',Phone = '" + vector.at(4) +"', Email = '" + vector.at(5) +"', Image = '" + vector.at(6) +"' WHERE Id_Supplier = '" + vector.at(0) +"'");
-    });
-    th.join();
-}
-
-//////////////////////////////////////////////////////////////////////////SOCIAL////////////////////////////////////////////////////////////////////////////
-
-QVector<QString> Database_sql::getDataVector(int index, QString name)
-{
-    QVector<QString> temp_vector;
-    std::thread th([&](){
-        //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
-        QSqlQuery selectQuery(db);
-        selectQuery.exec("SELECT * FROM "+ name +" ORDER BY id_supplier ASC");
-
-    if(selectQuery.seek(index))
-    {
-        QSqlRecord record = selectQuery.record();
-        for (int i = 1; i < record.count(); ++i)
-            temp_vector.append(selectQuery.value(i).toString());
-    }
-    });
-    th.join();
-    return temp_vector;
 }
 
 QVector<QString> Database_sql::getAllSupplierName()
@@ -93,7 +73,86 @@ QVector<QString> Database_sql::getAllSupplierName()
         }
     });
     th.join();
-    qDebug() << temp_vector;
+    return temp_vector;
+}
+
+QString Database_sql::getSupplierId(QString company)
+{
+    QString temp_vector;
+    std::thread th([&](){
+        //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Supplier WHERE Company = '"+company+"' ORDER BY id_supplier ASC");
+
+        while (selectQuery.next())
+            temp_vector = selectQuery.value(0).toString();
+
+    });
+    th.join();
+    return temp_vector;
+}
+
+int Database_sql::getIndexSupplier(QVector<QString> vecName, QString vecData)
+{
+    int index;
+    QString str;
+
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Supplier WHERE id_supplier = '"+vecData+"' ORDER BY id_supplier ASC");
+
+        while (selectQuery.next())
+            str = selectQuery.value(1).toString();
+
+        for(int i = 0; i <vecName.size(); i++)
+            if(vecName[i] == str)
+            {
+                index = i;
+                break;
+            }
+    });
+    th.join();
+    return index;
+}
+
+/////////////////////////////////////////////////////////////////////////SUPPLIER///////////////////////////////////////////////////////////////////////////
+
+void Database_sql::supplier_createNewData(QVector<QString> vector)
+{
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("INSERT INTO Supplier (Company, Address, Representative, Phone, Email,Image) VALUES ('"+vector[1]+"', '"+vector[2]+"', '"+vector[3]+"', '"+vector[4]+"', '"+vector[5]+"','"+vector[6]+"')");
+    });
+    th.join();
+}
+
+void Database_sql::supplier_addNewData(QVector<QString> vector)
+{
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("UPDATE Supplier SET Company = '" + vector.at(1) +"', Address = '" + vector.at(2)+"', Representative = '" + vector.at(3) +"',Phone = '" + vector.at(4) +"', Email = '" + vector.at(5) +"', Image = '" + vector.at(6) +"' WHERE Id_Supplier = '" + vector.at(0) +"'");
+    });
+    th.join();
+}
+
+//////////////////////////////////////////////////////////////////////////SOCIAL////////////////////////////////////////////////////////////////////////////
+
+QVector<QString> Database_sql::getDataVector(int index, QString name, QString sort)
+{
+    QVector<QString> temp_vector;
+    std::thread th([&](){
+        //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM "+ name +" ORDER BY "+sort+" ASC");
+
+    if(selectQuery.seek(index))
+    {
+        QSqlRecord record = selectQuery.record();
+        for (int i = 0; i < record.count(); ++i)
+            temp_vector.append(selectQuery.value(i).toString());
+    }
+    });
+    th.join();
     return temp_vector;
 }
 

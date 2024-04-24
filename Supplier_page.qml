@@ -6,10 +6,11 @@ Rectangle {
     anchors.fill: parent
     color: "lightgray"
 
-    property var parameters_name: ["id Поставщика","Название компании","Адрес","Представитель","Контактный телефон","E-mail"]
+    property var parameters_name: ["№ Страницы","Название компании","Адрес","Представитель","Контактный телефон","E-mail"]
     property var button_name: ["qrc:/Button/arrow.png","qrc:/Button/add.png","qrc:/Button/save.png","qrc:/Button/del.png","qrc:/Button/arrow.png"]
 
-    property var bufferText: ["","","","","","",""]
+    property var bufferTextImage
+    property bool newData: false
 
     ColumnLayout
     {
@@ -73,16 +74,43 @@ Rectangle {
             Layout.preferredHeight: parent.height
             Layout.preferredWidth: parent.width* 0.25
 
+            Rectangle
+            {
+                Layout.alignment: Qt.AlignLeft
+                Layout.preferredHeight: parent.height*0.05
+                Layout.preferredWidth: parent.width *0.9
+                color: "gray"
+                enabled: false
+                border.color: "black"
+                border.width: parent.height * 0.0025
+                clip: true
+                TextInput {
+                    id: text_numer
+                    anchors
+                    {
+                        verticalCenter: parent.verticalCenter
+                        right: parent.right
+                        rightMargin: parent.width * 0.05
+                    }
+                    width: parent.width * 0.95
+                    height: parent.height
+                    font.pixelSize: parent.height * 0.8
+                    color: "black"
+                    text: Transport_company.getSupplierIndex(0)+1
+                    horizontalAlignment: TextInput.AlignRight
+                }
+            }
+
             Repeater
             {
                 id: rectad
-                model: Transport_company.Supplier_vector.length-1
+                model: Transport_company.Supplier_vector.length-2
                 Rectangle
                 {
                     Layout.alignment: Qt.AlignLeft
                     Layout.preferredHeight: parent.height*0.05
                     Layout.preferredWidth: parent.width *0.9
-                    color: index !== 0? "#C0E8FF": "gray"
+                    color: "#C0E8FF"
                     border.color: "black"
                     border.width: parent.height * 0.0025
                     clip: true
@@ -94,17 +122,16 @@ Rectangle {
                             right: parent.right
                             rightMargin: parent.width * 0.05
                         }
-                        enabled: index === 0 ? false : true
                         width: parent.width * 0.95
                         height: parent.height
                         font.pixelSize: parent.height * 0.8
                         color: "black"
-                        text: qsTr(Transport_company.Supplier_vector[index])
+                        text: qsTr(Transport_company.Supplier_vector[index+1])
                         horizontalAlignment: TextInput.AlignRight
 
                         onTextChanged:
                         {
-                            Transport_company.Supplier_vector[index] = text_weigth.text
+                            Transport_company.Supplier_vector[index+1] = text_weigth.text
 
                         }
                     }
@@ -191,14 +218,14 @@ Rectangle {
                                onFocusChanged:
                                {
                                    if (focus) {
-                                       bufferText[6] = image_textInput.text
+                                       bufferTextImage = image_textInput.text
                                        image_textInput.text = ""
                                    }
                                }
 
                                onActiveFocusChanged: {
                                            if (!activeFocus && image_textInput.text === "") {
-                                               image_textInput.text = bufferText[6]
+                                               image_textInput.text = bufferTextImage
                                            }
                                        }
 
@@ -308,37 +335,46 @@ Rectangle {
                            switch(index)
                            {
                            case 0:
+                               if(newData)
+                                   newData = false
                                if(Transport_company.getSupplierIndex(0) > 0)
-                                    Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(-1),"Supplier"));
+                                    Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(-1),"Supplier","Id_supplier"));
                                image_textInput.text = Transport_company.Supplier_vector[6];
-                               //console.log(Transport_company.getSupplierIndex(0))
+                               text_numer.text = Transport_company.getSupplierIndex(0)+1;
                                break;
                            case 1:
-                               Database.supplier_createNewData();
-                               Transport_company.setSupplier_vector(Database.getDataVector(Database.getMaxElement("Supplier")-1,"Supplier"));
-                               //Transport_company.setSupplierMaxIndex(Database.getMaxElement("Supplier"));
-                               Transport_company.setSupplierMaxIndex(Database.getMaxElement("Supplier"));
-                               //Transport_company.setSupplierMaxIndex(Transport_company.getSupplierMaxIndex());
-                               Transport_company.setSupplierIndex(Database.getMaxElement("Supplier")-1);
-                               //console.log(Transport_company.getSupplierMaxIndex())
-                               //console.log(Transport_company.getSupplierIndex(0))
+                               Transport_company.supplier_clearVector();
+                               newData = true;
+                               text_numer.text = Transport_company.getSupplierMaxIndex()+1;
                                break;
                            case 2:
-                               Database.supplier_addNewData(Transport_company.Supplier_vector)
+                               console.log(Transport_company.Supplier_vector)
+                               if(newData)
+                               {
+                                   Database.supplier_createNewData(Transport_company.Supplier_vector)
+                                   Transport_company.setSupplierMaxIndex( Transport_company.getSupplierMaxIndex()+1)
+                                   Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(0),"Supplier","Id_supplier"));
+                                   text_numer.text = Transport_company.getSupplierIndex(0)+1;
+                               }
+                               else
+                                   Database.supplier_addNewData(Transport_company.Supplier_vector);
                                break;
                            case 3:
                                Database.delete_Data(Transport_company.Supplier_vector[0], "Supplier","id_supplier");
                                if(Transport_company.getSupplierIndex(0) < Transport_company.getSupplierMaxIndex()-1)
-                                  Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(0),"Supplier"));
+                                  Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(0),"Supplier","Id_supplier"));
                                else
-                                   Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(-1),"Supplier"));
+                                   Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(-1),"Supplier","Id_supplier"));
                                Transport_company.setSupplierMaxIndex( Transport_company.getSupplierMaxIndex()-1)
+                               text_numer.text = Transport_company.getSupplierIndex(0)+1;
                                break;
                            case 4:
+                               if(newData)
+                                   newData = false
                                if(Transport_company.getSupplierIndex(0) < Transport_company.getSupplierMaxIndex()-1)
-                                    Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(1),"Supplier"));
+                                    Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(1),"Supplier","Id_supplier"));
                                image_textInput.text = Transport_company.Supplier_vector[6];
-                               //console.log(Transport_company.getSupplierIndex(0))
+                               text_numer.text = Transport_company.getSupplierIndex(0)+1;
                                break;
                            }
                        }
