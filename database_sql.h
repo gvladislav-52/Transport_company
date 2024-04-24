@@ -13,10 +13,15 @@ public:
     explicit Database_sql(QObject *parent = nullptr);
 public slots:
     QVector<QString> getDataVector(int index,QString name);
+    QVector<QString> getAllSupplierName();
     int getMaxElement(QString name);
+    void delete_Data(int index, QString nameData, QString id_name);
+
     void supplier_createNewData();
     void supplier_addNewData(QVector<QString> vector);
-    void delete_Data(int index, QString nameData, QString id_name);
+
+    void cars_createNewData(QVector<QString> vec);
+    void cars_addNewData(QVector<QString> vector);
 private:
     QSqlDatabase db;
 signals:

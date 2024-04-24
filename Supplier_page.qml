@@ -9,7 +9,6 @@ Rectangle {
     property var parameters_name: ["id Поставщика","Название компании","Адрес","Представитель","Контактный телефон","E-mail"]
     property var button_name: ["qrc:/Button/arrow.png","qrc:/Button/add.png","qrc:/Button/save.png","qrc:/Button/del.png","qrc:/Button/arrow.png"]
 
-    property var inputText_temp: Transport_company.Supplier_vector
     property var bufferText: ["","","","","","",""]
 
     ColumnLayout
@@ -105,7 +104,7 @@ Rectangle {
 
                         onTextChanged:
                         {
-                            inputText_temp[index] = text_weigth.text
+                            Transport_company.Supplier_vector[index] = text_weigth.text
 
                         }
                     }
@@ -186,7 +185,7 @@ Rectangle {
 
                                onTextChanged:
                                {
-                                   inputText_temp[6] = image_textInput.text
+                                   Transport_company.Supplier_vector[6] = image_textInput.text
                                }
 
                                onFocusChanged:
@@ -209,7 +208,7 @@ Rectangle {
                                        image_logo.enabled =  true
                                        rect_set_logo_name.visible =  false
                                        rect_set_logo_name.enabled =  false
-                                   Database.supplier_addNewData(inputText_temp)
+                                   Database.supplier_addNewData(Transport_company.Supplier_vector)
                                }
                            }
                        }
@@ -325,10 +324,10 @@ Rectangle {
                                //console.log(Transport_company.getSupplierIndex(0))
                                break;
                            case 2:
-                               Database.supplier_addNewData(inputText_temp)
+                               Database.supplier_addNewData(Transport_company.Supplier_vector)
                                break;
                            case 3:
-                               Database.delete_Data(Transport_company.Supplier_vector[0], "Supplier","Id_Supplier");
+                               Database.delete_Data(Transport_company.Supplier_vector[0], "Supplier","id_supplier");
                                if(Transport_company.getSupplierIndex(0) < Transport_company.getSupplierMaxIndex()-1)
                                   Transport_company.setSupplier_vector(Database.getDataVector(Transport_company.getSupplierIndex(0),"Supplier"));
                                else
