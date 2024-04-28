@@ -17,6 +17,27 @@ Database_sql::Database_sql(QObject *parent)
     th.join();
 }
 
+//////////////////////////////////////////////////////////////////////////DRIVERS////////////////////////////////////////////////////////////////////////////
+
+void Database_sql::drivers_createNewData(QVector<QString> vec)
+{
+    //qDebug() << vec;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("INSERT INTO Drivers (LastName, FirstName, DadName, DriverLicense, Phone, Email, CarNumer,Image) VALUES ('"+vec[1]+"', '"+ vec[2] +"', '"+ vec[3] +"', '"+ vec[4] +"','"+vec[5]+"', '"+ vec[6] +"', '"+ vec[7] +"', '"+ vec[8] +"');");
+    });
+    th.join();
+}
+
+void Database_sql::drivers_addNewData(QVector<QString> vector)
+{
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("UPDATE Drivers SET LastName = '" + vector.at(1) +"', FirstName = '" + vector.at(2)+"', DadName = '" + vector.at(3) +"',DriverLicense = '" + vector.at(4) +"',Phone = '" + vector.at(5) +"',Email = '" + vector.at(6) +"',CarNumer = '" + vector.at(7) +"',Image = '" + vector.at(8) +"' WHERE id = '" + vector.at(0) +"'");
+    });
+    th.join();
+}
+
 //////////////////////////////////////////////////////////////////////////CLIENTS////////////////////////////////////////////////////////////////////////////
 
 void Database_sql::clients_createNewData(QVector<QString> vec)

@@ -29,6 +29,9 @@ public slots:
 
     void clients_createNewData(QVector<QString> vec);
     void clients_addNewData(QVector<QString> vector);
+
+    void drivers_createNewData(QVector<QString> vec);
+    void drivers_addNewData(QVector<QString> vector);
 private:
     QSqlDatabase db;
 signals:

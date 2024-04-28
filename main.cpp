@@ -25,6 +25,10 @@ int main(int argc, char *argv[])
     ts_company.setClientsMaxIndex(db.getMaxElement("Clients"));
     ts_company.setClientsIndex(0);
 
+    ts_company.setDrivers_vector(db.getDataVector(0,"Drivers","id"));
+    ts_company.setDriversMaxIndex(db.getMaxElement("Drivers"));
+    ts_company.setDriversIndex(0);
+
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/Main.qml"));
 

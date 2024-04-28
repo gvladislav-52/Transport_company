@@ -33,6 +33,16 @@ void Transport_company::setClientsMaxIndex(int element)
     clients_maxIndex = element;
 }
 
+void Transport_company::setDriversIndex(int num)
+{
+    drivers_index = num;
+}
+
+void Transport_company::setDriversMaxIndex(int element)
+{
+    drivers_maxIndex = element;
+}
+
 void Transport_company::cars_clearVector()
 {
     m_Cars_vector.clear();
@@ -52,6 +62,13 @@ void Transport_company::clients_clearVector()
     m_Clients_vector.clear();
     m_Clients_vector.assign(5,"");
     emit Clients_vectorChanged();
+}
+
+void Transport_company::drivers_clearVector()
+{
+    m_Drivers_vector.clear();
+    m_Drivers_vector.assign(9,"");
+    emit Drivers_vectorChanged();
 }
 
 // QString Transport_company::getSupplier_wordVector(int index)
@@ -97,6 +114,16 @@ int Transport_company::getClientsMaxIndex()
     return clients_maxIndex;
 }
 
+int Transport_company::getDriversIndex(int num)
+{
+    return drivers_index+=num;
+}
+
+int Transport_company::getDriversMaxIndex()
+{
+    return drivers_maxIndex;
+}
+
 void Transport_company::setSupplierIndex(int num)
 {
     supplier_index = num;
@@ -126,4 +153,17 @@ void Transport_company::setClients_vector(const QVector<QString> &newClients_vec
         return;
     m_Clients_vector = newClients_vector;
     emit Clients_vectorChanged();
+}
+
+QVector<QString> Transport_company::getDrivers_vector() const
+{
+    return m_Drivers_vector;
+}
+
+void Transport_company::setDrivers_vector(const QVector<QString> &newDrivers_vector)
+{
+    if (m_Drivers_vector == newDrivers_vector)
+        return;
+    m_Drivers_vector = newDrivers_vector;
+    emit Drivers_vectorChanged();
 }
