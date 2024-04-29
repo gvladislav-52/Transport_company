@@ -17,6 +17,43 @@ Database_sql::Database_sql(QObject *parent)
     th.join();
 }
 
+//////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
+
+QVector<QString> Database_sql::getAllModelCar(QString temp, bool botemp)
+{
+    QVector<QString> temp_vector;
+    std::thread th([&](){
+        //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
+        QSqlQuery selectQuery(db);
+        if(botemp)
+            selectQuery.exec("SELECT * FROM Cars WHERE id_Supplier = '"+getSupplierId(temp)+"'ORDER BY Id_car ASC");
+        else
+            selectQuery.exec("SELECT * FROM Cars ORDER BY Id_car ASC");
+
+        while (selectQuery.next()) {
+            // Получаем первое значение (индекс 0) из текущей строки
+            temp_vector.append(selectQuery.value(3).toString());
+        }
+    });
+    th.join();
+    return temp_vector;
+}
+
+QString Database_sql::getItemCar(QString temp, int index)
+{
+    QString temp_vector;
+    std::thread th([&](){
+        //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Cars WHERE Model = '"+temp+"' ORDER BY id_car ASC");
+
+        while (selectQuery.next())
+            temp_vector = selectQuery.value(index).toString();
+    });
+    th.join();
+    return temp_vector;
+}
+
 //////////////////////////////////////////////////////////////////////////DRIVERS////////////////////////////////////////////////////////////////////////////
 
 void Database_sql::drivers_createNewData(QVector<QString> vec)

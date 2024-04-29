@@ -33,6 +33,8 @@ ApplicationWindow {
         id: orders_page
         visible: false
         enabled: false
+        model_vector_order: Database.getAllModelCar(" ",false)
+        supplier_vector_order: Database.getAllSupplierName()
     }
 
     Clients_page

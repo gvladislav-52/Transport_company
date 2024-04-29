@@ -53,6 +53,9 @@ Rectangle
                                main_page.enabled = false
                                orders_page.visible = true
                                orders_page.enabled = true
+
+                               orders_page.model_vector_order = Database.getAllModelCar(" ",false)
+                               orders_page.supplier_vector_order = Database.getAllSupplierName()
                                break;
                            case 1:
                                main_page.visible = false
