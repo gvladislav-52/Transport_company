@@ -54,6 +54,21 @@ QString Database_sql::getItemCar(QString temp, int index)
     return temp_vector;
 }
 
+QString Database_sql::getCarId(QString company)
+{
+    QString temp_vector;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Cars WHERE Model = '"+company+"' ORDER BY id_car ASC");
+
+        while (selectQuery.next())
+            temp_vector = selectQuery.value(0).toString();
+
+    });
+    th.join();
+    return temp_vector;
+}
+
 //////////////////////////////////////////////////////////////////////////DRIVERS////////////////////////////////////////////////////////////////////////////
 
 void Database_sql::drivers_createNewData(QVector<QString> vec)

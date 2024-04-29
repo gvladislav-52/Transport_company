@@ -10,6 +10,9 @@ Rectangle {
     property var parameters_name: ["id Заказа","id Клиента","id Водителя","Дата размещения","Дата назначения","Дата исполнения","Адрес доставки"]
     property var button_name: ["qrc:/Button/arrow.png","qrc:/Button/add.png","qrc:/Button/save.png","qrc:/Button/del.png","qrc:/Button/arrow.png"]
     property var label_name: ["Марка","Модель","Объем","Мощность","Количество","Скидка","Итоговая цена"]
+
+    property var ttest: [20,36,1,32,213]
+
     property var supplier_vector_order
     property var model_vector_order
 
@@ -19,6 +22,8 @@ Rectangle {
     property var volume: []
     property var power: []
     property var cost: []
+
+    property var testNode: []
 
     ColumnLayout
     {
@@ -86,11 +91,13 @@ Rectangle {
                         Layout.alignment: Qt.AlignLeft
                         Layout.preferredHeight: parent.height*0.1
                         Layout.preferredWidth: parent.width *0.9
-                        color: index > 2? "#C0E8FF": "gray"
+                        color: "#C0E8FF"
                         border.color: "black"
                         border.width: parent.height * 0.005
                         clip: true
+
                         TextInput {
+                            id: text_textInput
                             anchors
                             {
                                 verticalCenter: parent.verticalCenter
@@ -101,9 +108,15 @@ Rectangle {
                             height: parent.height
                             font.pixelSize: parent.height * 0.8
                             color: "black"
-                            text: qsTr("")
-                            horizontalAlignment: TextInput.AlignLeft
+                            text: qsTr(Transport_company.Cars_vector[index+2])
+                            horizontalAlignment: TextInput.AlignRight
+
+                            onTextChanged:
+                            {
+                                Transport_company.Cars_vector[index+2] = text_textInput.text
+                            }
                         }
+
                     }
                 }
             }
@@ -610,7 +623,23 @@ Rectangle {
                     }
                     onClicked:
                     {
-                            my_food_list_repeater.model = ++my_food_list_repeater.model
+                        for(var i = 0; i<marksComboBox.length; i++)
+                        {
+                            testNode[0] = Database.getSupplierId(supplier_vector_order[marksComboBox[i]])
+                            testNode[1] = Database.getCarId(model_vector_order[modelsComboBox[i]])
+                            testNode[2] = volume[i]
+                            testNode[3] = power[i]
+                            testNode[4] = cost[i]
+                            console.log(testNode);
+                        }
+
+                    //         marksComboBox: []
+                    //     modelsComboBox: []
+
+                    //     property var volume: []
+                    //     property var power: []
+                    //     property var cost: []
+
                     }
                 }
             }

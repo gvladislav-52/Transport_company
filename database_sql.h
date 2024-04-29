@@ -17,6 +17,7 @@ public slots:
     QVector<QString> getAllModelCar(QString temp,bool botemp = false);
     QString getItemCar(QString temp,int index);
     QString getSupplierId(QString company);
+    QString getCarId(QString company);
 
     int getIndexSupplier(QVector<QString> temp1, QString temp2);
 
