@@ -19,6 +19,61 @@ Database_sql::Database_sql(QObject *parent)
 
 //////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
 
+QVector<QString> Database_sql::getInvoiceDataVector(QString name, QString sort)
+{
+    QVector<QString> temp_vector;
+    std::thread th([&](){
+        //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM "+ name +" ORDER BY "+sort+" ASC");
+
+        while(selectQuery.next())
+        {
+            QSqlRecord record = selectQuery.record();
+            for (int i = 0; i < record.count(); ++i)
+                temp_vector.append(selectQuery.value(i).toString());
+        }
+    });
+    th.join();
+    return temp_vector;
+}
+
+QString Database_sql::getTextSupplier(QString vecData)
+{
+    QString str;
+    // qDebug() << vecData;
+    // qDebug() << vecName;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Supplier WHERE id_supplier = '"+vecData+"' ORDER BY id_supplier ASC");
+
+        while (selectQuery.next())
+            str = selectQuery.value(1).toString();
+
+    });
+    th.join();
+    return str;
+}
+
+QString Database_sql::getTextCar(QString vecData)
+{
+    QString str;
+    // qDebug() << vecData;
+    // qDebug() << vecName;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Cars WHERE id_car = '"+vecData+"' ORDER BY id_car ASC");
+
+        while (selectQuery.next())
+            str = selectQuery.value(3).toString();
+
+    });
+    th.join();
+    return str;
+}
+
+//////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
+
 QVector<QString> Database_sql::getAllModelCar(QString temp, bool botemp)
 {
     QVector<QString> temp_vector;

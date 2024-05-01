@@ -29,6 +29,12 @@ int main(int argc, char *argv[])
     ts_company.setDriversMaxIndex(db.getMaxElement("Drivers"));
     ts_company.setDriversIndex(0);
 
+
+    ts_company.setInvoice_vector(db.getInvoiceDataVector("Invoice","id_order"));
+    qDebug() << ts_company.getInvoice_vector();
+    ts_company.setInvoiceMaxIndex(db.getMaxElement("Invoice"));
+    ts_company.setInvoiceIndex(0);
+
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/Main.qml"));
 

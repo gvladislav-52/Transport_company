@@ -12,12 +12,15 @@ class Database_sql : public QObject
 public:
     explicit Database_sql(QObject *parent = nullptr);
 public slots:
+    QVector<QString> getInvoiceDataVector(QString name, QString sort);
     QVector<QString> getDataVector(int index, QString name, QString sort);
     QVector<QString> getAllSupplierName();
     QVector<QString> getAllModelCar(QString temp,bool botemp = false);
     QString getItemCar(QString temp,int index);
     QString getSupplierId(QString company);
     QString getCarId(QString company);
+    QString getTextSupplier(QString vecData);
+    QString getTextCar(QString vecData);
 
     int getIndexSupplier(QVector<QString> temp1, QString temp2);
 

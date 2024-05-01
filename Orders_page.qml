@@ -274,7 +274,7 @@ Rectangle {
 
                     Repeater {
                         id: my_food_list_repeater
-                        model: 3
+                        model: Transport_company.Invoice_vector.length%7
 
                         RowLayout {
                             property var ebanIndex: index
@@ -311,13 +311,17 @@ Rectangle {
 
                                     contentItem: Text {
                                         id: marks_text
-                                        text: supplier_vector_order[marksComboBox[ebanIndex]]
+                                        text: Database.getTextSupplier(Transport_company.Invoice_vector[ebanIndex*6+1])
                                         color: "black"
                                         font.bold: true
                                         font.pixelSize: comboBox.height * 0.3
                                         horizontalAlignment: TextInput.AlignHCenter
                                         verticalAlignment: TextInput.AlignVCenter
+
+                                        onTextChanged:
+                                            comboBox1.model = Database.getAllModelCar(Database.getTextSupplier(Transport_company.Invoice_vector[ebanIndex*6+1]),true)
                                     }
+
 
                                     onActivated: {
                                         marksComboBox[ebanIndex] = comboBox.currentIndex
@@ -366,17 +370,27 @@ Rectangle {
 
                                     contentItem: Text {
                                         id: model_text
-                                        text: model_vector_order[modelsComboBox[ebanIndex]]
+                                        text: Database.getTextCar(Transport_company.Invoice_vector[ebanIndex*6+2])
                                         color: "black"
                                         font.bold: true
                                         font.pixelSize: comboBox1.height * 0.3
                                         horizontalAlignment: TextInput.AlignHCenter
                                         verticalAlignment: TextInput.AlignVCenter
+
+                                        onTextChanged:
+                                        {
+                                            volume_text.text = Database.getItemCar(model_text.text,4)
+                                            volume[ebanIndex] = volume_text.text
+                                            power_text.text = Database.getItemCar(model_text.text,5)
+                                            power[ebanIndex] = power_text.text
+                                            cost_text.text = Database.getItemCar(model_text.text,9)
+                                            cost[ebanIndex] = cost_text.text
+                                            cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        }
                                     }
 
                                     onActivated: {
                                         model_text.text = comboBox1.currentText;
-                                        modelsComboBox[ebanIndex] = model_vector_order.indexOf(comboBox1.currentText);
                                         volume_text.text = Database.getItemCar(model_text.text,4)
                                         volume[ebanIndex] = volume_text.text
                                         power_text.text = Database.getItemCar(model_text.text,5)
@@ -465,7 +479,7 @@ Rectangle {
                                     color: "black"
                                     font.bold: true
                                     font.pixelSize: comboBox.height * 0.3
-                                    text: qsTr("")
+                                    text: Transport_company.Invoice_vector[ebanIndex*6+3]
                                     horizontalAlignment: TextInput.AlignHCenter
                                     verticalAlignment: TextInput.AlignVCenter
 
@@ -504,7 +518,7 @@ Rectangle {
                                     color: "black"
                                     font.bold: true
                                     font.pixelSize: comboBox.height * 0.3
-                                    text: qsTr("")
+                                    text: Transport_company.Invoice_vector[ebanIndex*6+4]
                                     horizontalAlignment: TextInput.AlignHCenter
                                     verticalAlignment: TextInput.AlignVCenter
 
@@ -515,7 +529,6 @@ Rectangle {
                                     }
 
                                     onAccepted: {
-
                                         cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                     }
                                 }
