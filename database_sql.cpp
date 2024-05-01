@@ -1,5 +1,7 @@
 #include "database_sql.h"
 #include "thread"
+#include <QSet>
+
 Database_sql::Database_sql(QObject *parent)
     : QObject{parent}
 {
@@ -19,13 +21,14 @@ Database_sql::Database_sql(QObject *parent)
 
 //////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
 
-QVector<QString> Database_sql::getInvoiceDataVector(QString name, QString sort)
+QVector<QString> Database_sql::getInvoiceDataVector(QString name, QString sort, QString order)
 {
     QVector<QString> temp_vector;
+
     std::thread th([&](){
-        //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
         QSqlQuery selectQuery(db);
-        selectQuery.exec("SELECT * FROM "+ name +" ORDER BY "+sort+" ASC");
+
+        selectQuery.exec("SELECT * FROM "+ name +" WHERE id_order = '"+order+"' ORDER BY "+sort+" ASC");
 
         while(selectQuery.next())
         {
@@ -71,6 +74,57 @@ QString Database_sql::getTextCar(QString vecData)
     th.join();
     return str;
 }
+
+QVector<QString> Database_sql::getSupplierVectorName(QString index)
+{
+    QVector<QString> temp_vector;
+    std::thread th([&](){
+        //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT Company FROM Invoice INNER JOIN Supplier ON Invoice.id_supplier = Supplier.id_supplier WHERE Invoice.id_order = '"+index+"'");
+
+        while (selectQuery.next()) {
+            // Получаем первое значение (индекс 0) из текущей строки
+            temp_vector.append(selectQuery.value(0).toString());
+        }
+    });
+    th.join();
+    return temp_vector;
+}
+
+QVector<QString> Database_sql::getCarVectorName(QString index)
+{
+    QVector<QString> temp_vector;
+    std::thread th([&](){
+        //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT Model FROM Cars INNER JOIN Invoice ON Cars.id_car = Invoice.id_car WHERE Invoice.id_order = '"+index+"'");
+
+        while (selectQuery.next()) {
+            // Получаем первое значение (индекс 0) из текущей строки
+            temp_vector.append(selectQuery.value(0).toString());
+        }
+    });
+    th.join();
+    return temp_vector;
+}
+
+// QString Database_sql::getLengthOrder(QString index, bool boltemp)
+// {
+//     QString str;
+//     std::thread th([&](){
+//         QSqlQuery selectQuery(db);
+//         if(boltemp)
+//             selectQuery.exec("SELECT MIN(id_order) FROM Orders WHERE id_order > '"+index+"'");
+//         else
+//             selectQuery.exec("SELECT MAX(id_order) FROM Orders WHERE id_order < '"+index+"'");
+//         while (selectQuery.next())
+//             str = selectQuery.value(0).toString();
+
+//     });
+//     th.join();
+//     return str;
+// }
 
 //////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
 

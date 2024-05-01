@@ -94,6 +94,7 @@ private:
     QVector<QString> m_Invoice_vector;
     int invoice_index = 0;
     int invoice_maxIndex;
+
 };
 
 #endif // TRANSPORT_COMPANY_H

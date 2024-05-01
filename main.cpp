@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     ts_company.setDriversIndex(0);
 
 
-    ts_company.setInvoice_vector(db.getInvoiceDataVector("Invoice","id_order"));
+    ts_company.setInvoice_vector(db.getInvoiceDataVector("Invoice","id_order","4"));
     qDebug() << ts_company.getInvoice_vector();
     ts_company.setInvoiceMaxIndex(db.getMaxElement("Invoice"));
     ts_company.setInvoiceIndex(0);

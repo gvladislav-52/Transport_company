@@ -16,14 +16,14 @@ Rectangle {
     property var supplier_vector_order
     property var model_vector_order
 
-    property var marksComboBox: []
-    property var modelsComboBox: []
+    property var marksComboBox: Database.getSupplierVectorName(testNode)
+    property var modelsComboBox: Database.getCarVectorName(testNode)
 
     property var volume: []
     property var power: []
     property var cost: []
 
-    property var testNode: []
+    property var testNode: "4"
 
     ColumnLayout
     {
@@ -274,7 +274,7 @@ Rectangle {
 
                     Repeater {
                         id: my_food_list_repeater
-                        model: Transport_company.Invoice_vector.length%7
+                        model: marksComboBox.length+1
 
                         RowLayout {
                             property var ebanIndex: index
@@ -311,7 +311,7 @@ Rectangle {
 
                                     contentItem: Text {
                                         id: marks_text
-                                        text: Database.getTextSupplier(Transport_company.Invoice_vector[ebanIndex*6+1])
+                                        text: marksComboBox[ebanIndex]//Database.getTextSupplier(Transport_company.Invoice_vector[(ebanIndex*6)+1])
                                         color: "black"
                                         font.bold: true
                                         font.pixelSize: comboBox.height * 0.3
@@ -319,22 +319,25 @@ Rectangle {
                                         verticalAlignment: TextInput.AlignVCenter
 
                                         onTextChanged:
-                                            comboBox1.model = Database.getAllModelCar(Database.getTextSupplier(Transport_company.Invoice_vector[ebanIndex*6+1]),true)
+                                        {
+                                            marksComboBox[ebanIndex] = marks_text.text
+                                            comboBox1.model = Database.getAllModelCar(Database.getTextSupplier(Transport_company.Invoice_vector[(ebanIndex*6)+1]),true)
+                                        }
                                     }
 
 
-                                    onActivated: {
-                                        marksComboBox[ebanIndex] = comboBox.currentIndex
-                                        marks_text.text = comboBox.textAt(marksComboBox[ebanIndex])
-                                        comboBox1.model = Database.getAllModelCar(comboBox.textAt(marksComboBox[ebanIndex]),true)
-                                        comboBox1.currentIndex = -1;
-                                        model_text.text = ""
+                                        onActivated: {
+                                            Transport_company.Invoice_vector[(ebanIndex*6)+1] = comboBox.currentIndex
+                                            marks_text.text = comboBox.currentText
+                                            comboBox1.model = Database.getAllModelCar(comboBox.textAt(comboBox.currentIndex),true)
+                                            model_text.text = ""
                                             }
 
                                              onActiveFocusChanged:
                                             {
                                                 if(my_food_list_repeater.model-index === 1)
                                                      my_food_list_repeater.model = ++my_food_list_repeater.model
+
                                             }
                                         }
                                     }
@@ -370,7 +373,7 @@ Rectangle {
 
                                     contentItem: Text {
                                         id: model_text
-                                        text: Database.getTextCar(Transport_company.Invoice_vector[ebanIndex*6+2])
+                                        text: modelsComboBox[ebanIndex]//Database.getTextCar(Transport_company.Invoice_vector[(ebanIndex*6)+2])
                                         color: "black"
                                         font.bold: true
                                         font.pixelSize: comboBox1.height * 0.3
@@ -379,12 +382,15 @@ Rectangle {
 
                                         onTextChanged:
                                         {
+                                            modelsComboBox[ebanIndex] = model_text.text
                                             volume_text.text = Database.getItemCar(model_text.text,4)
                                             volume[ebanIndex] = volume_text.text
                                             power_text.text = Database.getItemCar(model_text.text,5)
                                             power[ebanIndex] = power_text.text
                                             cost_text.text = Database.getItemCar(model_text.text,9)
                                             cost[ebanIndex] = cost_text.text
+                                            if(kol_text.text==="0")
+                                                kol_text.text = 1;
                                             cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                         }
                                     }
@@ -479,7 +485,7 @@ Rectangle {
                                     color: "black"
                                     font.bold: true
                                     font.pixelSize: comboBox.height * 0.3
-                                    text: Transport_company.Invoice_vector[ebanIndex*6+3]
+                                    text: Transport_company.Invoice_vector[(ebanIndex*6)+3]
                                     horizontalAlignment: TextInput.AlignHCenter
                                     verticalAlignment: TextInput.AlignVCenter
 
@@ -490,7 +496,8 @@ Rectangle {
                                     }
 
                                     onAccepted: {
-
+                                        if(kol_text.text==="0")
+                                            kol_text.text = 1;
                                         cost_text.text = cost[ebanIndex]*kol_text.text
                                     }
                                 }
@@ -518,7 +525,7 @@ Rectangle {
                                     color: "black"
                                     font.bold: true
                                     font.pixelSize: comboBox.height * 0.3
-                                    text: Transport_company.Invoice_vector[ebanIndex*6+4]
+                                    text: Transport_company.Invoice_vector[(ebanIndex*6)+4]
                                     horizontalAlignment: TextInput.AlignHCenter
                                     verticalAlignment: TextInput.AlignVCenter
 
@@ -529,6 +536,8 @@ Rectangle {
                                     }
 
                                     onAccepted: {
+                                        if(kol_text.text==="0")
+                                            kol_text.text = 1;
                                         cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                     }
                                 }
@@ -563,35 +572,6 @@ Rectangle {
                             }
                         }
                     }
-
-                    // Button
-                    // {
-                    //     Layout.alignment: Qt.AlignBottom| Qt.AlignHCenter
-                    //     Layout.preferredHeight: my_food_list.height * 0.15
-                    //     Layout.preferredWidth: my_food_list.width * 0.35
-                    //     background: Rectangle
-                    //     {
-                    //         color: parent.pressed ? "red" : (parent.hovered ? "darkred" : "gray")
-
-                    //         radius: parent.height * 0.1
-                    //         border.color: "black"
-                    //         border.width: parent.width * 0.01
-
-                    //     }
-                    //     Text
-                    //     {
-                    //         anchors
-                    //         {
-                    //             centerIn: parent
-                    //         }
-
-                    //         text: "Добавить новое значение"
-                    //         font.pixelSize: parent.height * 0.5
-                    //         color: "black"
-                    //     }
-
-                    //     onClicked: my_food_list_repeater.model = ++my_food_list_repeater.model
-                    // }
                 }
             }
        }
@@ -636,23 +616,37 @@ Rectangle {
                     }
                     onClicked:
                     {
-                        for(var i = 0; i<marksComboBox.length; i++)
+                        switch(index)
                         {
-                            testNode[0] = Database.getSupplierId(supplier_vector_order[marksComboBox[i]])
-                            testNode[1] = Database.getCarId(model_vector_order[modelsComboBox[i]])
-                            testNode[2] = volume[i]
-                            testNode[3] = power[i]
-                            testNode[4] = cost[i]
-                            console.log(testNode);
+                        case 0:
+                            Transport_company.invoice_clearVector()
+                            testNode = "4";
+                            volume = []
+                            power = []
+                            cost = []
+
+                            if(Transport_company.getInvoiceIndex(0) < Transport_company.getInvoiceMaxIndex()-1)
+                                 Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order","4"));
+                            my_food_list_repeater.model = marksComboBox.length+1
+                            break;
+                        case 1:
+                            console.log(marksComboBox)
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            Transport_company.invoice_clearVector()
+                            testNode = "5";
+                            volume = []
+                            power = []
+                            cost = []
+                            if(Transport_company.getInvoiceIndex(0) < Transport_company.getInvoiceMaxIndex()-1)
+                                 Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order","5"));
+                            my_food_list_repeater.model = marksComboBox.length+1
+                            break;
                         }
-
-                    //         marksComboBox: []
-                    //     modelsComboBox: []
-
-                    //     property var volume: []
-                    //     property var power: []
-                    //     property var cost: []
-
                     }
                 }
             }
