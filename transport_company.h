@@ -50,8 +50,8 @@ public slots:
     int getOrderIndex(int num);
     int getOrderMaxIndex();
     int getInvoiceIndex(int num);
-    int getInvoiceMaxIndex();
-    int getInvoiceIndexTable();
+    // int getInvoiceMaxIndex();
+    // int getInvoiceIndexTable();
 
 
     void setSupplierIndex(int num);
@@ -66,8 +66,8 @@ public slots:
     void setOrderIndex(int num);
     void setOrderMaxIndex(int element);
     void setInvoiceIndex(int num);
-    void setInvoiceMaxIndex(int element);
-    void setInvoiceIndexTable(int num);
+    //void setInvoiceMaxIndex(int element);
+    //void setInvoiceIndexTable(int num);
 
     void cars_clearVector();
     void supplier_clearVector();
@@ -103,8 +103,8 @@ private:
 
     QVector<QString> m_Invoice_vector;
     int invoice_index = 0;
-    int invoice_maxIndex;
-    int invoice_indexTable = 0;
+    //int invoice_maxIndex;
+    //int invoice_indexTable = 0;
 
     QVector<QString> m_Order_vector;
     int order_index = 0;

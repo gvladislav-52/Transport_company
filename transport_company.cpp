@@ -50,7 +50,7 @@ void Transport_company::setOrderIndex(int num)
 
 void Transport_company::setOrderMaxIndex(int element)
 {
-    order_index = element;
+    order_maxIndex = element;
 }
 
 void Transport_company::setInvoiceIndex(int num)
@@ -58,15 +58,15 @@ void Transport_company::setInvoiceIndex(int num)
     invoice_index = num;
 }
 
-void Transport_company::setInvoiceMaxIndex(int element)
-{
-    invoice_maxIndex = element;
-}
+// void Transport_company::setInvoiceMaxIndex(int element)
+// {
+//     invoice_maxIndex = element;
+// }
 
-void Transport_company::setInvoiceIndexTable(int num)
-{
-    invoice_indexTable += num;
-}
+// void Transport_company::setInvoiceIndexTable(int num)
+// {
+//     invoice_indexTable += num;
+// }
 
 void Transport_company::cars_clearVector()
 {
@@ -178,15 +178,15 @@ int Transport_company::getInvoiceIndex(int num)
     return invoice_index+=num;
 }
 
-int Transport_company::getInvoiceMaxIndex()
-{
-    return invoice_maxIndex;
-}
+// int Transport_company::getInvoiceMaxIndex()
+// {
+//     return invoice_maxIndex;
+// }
 
-int Transport_company::getInvoiceIndexTable()
-{
-    return invoice_indexTable;
-}
+// int Transport_company::getInvoiceIndexTable()
+// {
+//     return invoice_indexTable;
+// }
 
 void Transport_company::setSupplierIndex(int num)
 {
@@ -255,5 +255,6 @@ void Transport_company::setOrder_vector(const QVector<QString> &newOrder_vector)
     if (m_Order_vector == newOrder_vector)
         return;
     m_Order_vector = newOrder_vector;
+    qDebug() << m_Order_vector;
     emit Order_vectorChanged();
 }

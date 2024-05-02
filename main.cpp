@@ -29,6 +29,10 @@ int main(int argc, char *argv[])
     ts_company.setDriversMaxIndex(db.getMaxElement("Drivers"));
     ts_company.setDriversIndex(0);
 
+    ts_company.setOrder_vector(db.getDataVector(0,"Orders","id_order"));
+    ts_company.setOrderMaxIndex(db.getMaxElement("Orders"));
+    ts_company.setOrderIndex(0);
+
 
     ts_company.setInvoice_vector(db.getInvoiceDataVector("Invoice","id_order",4));
     qDebug() << ts_company.getInvoice_vector();
@@ -39,8 +43,8 @@ int main(int argc, char *argv[])
     //qDebug() << db.getIndexOrder(4,true);
     //qDebug() << db.getIndexOrder(6,false);
     ts_company.setInvoiceIndex(db.getIndexOrder(0,true));
-    ts_company.setInvoiceMaxIndex(db.getMaxIndexInvoice());
-    ts_company.setInvoiceIndexTable(0);
+    //ts_company.setInvoiceMaxIndex(db.getMaxIndexInvoice());
+    //ts_company.setInvoiceIndexTable(0);
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/Main.qml"));

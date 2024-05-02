@@ -128,18 +128,18 @@ int Database_sql::getIndexOrder(int vecData, bool curs)
     return str;
 }
 
-int Database_sql::getMaxIndexInvoice()
-{
-    int str;
-    std::thread th([&](){
-        QSqlQuery selectQuery(db);
-            selectQuery.exec("SELECT COUNT(DISTINCT id_order) AS unique_orders FROM Invoice WHERE id_order > -1;");
-        while (selectQuery.next())
-            str = selectQuery.value(0).toInt();
-    });
-    th.join();
-    return str;
-}
+// int Database_sql::getMaxIndexInvoice()
+// {
+//     int str;
+//     std::thread th([&](){
+//         QSqlQuery selectQuery(db);
+//             selectQuery.exec("SELECT COUNT(DISTINCT id_order) AS unique_orders FROM Invoice WHERE id_order > -1;");
+//         while (selectQuery.next())
+//             str = selectQuery.value(0).toInt();
+//     });
+//     th.join();
+//     return str;
+// }
 
 
 

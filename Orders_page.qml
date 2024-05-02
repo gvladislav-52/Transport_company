@@ -18,7 +18,8 @@ Rectangle {
 
     property var marksComboBox: Database.getSupplierVectorName(testNode)
     property var modelsComboBox: Database.getCarVectorName(testNode)
-    //property var countText: Transport_company.Invoice_vector[(ebanIndex*6)+3]
+    property var saleText: []
+    property var kolText: []
 
     property var volume: []
     property var power: []
@@ -109,7 +110,7 @@ Rectangle {
                             height: parent.height
                             font.pixelSize: parent.height * 0.8
                             color: "black"
-                            text: qsTr(Transport_company.Cars_vector[index+2])
+                            text: qsTr(Transport_company.Order_vector[index%4])
                             horizontalAlignment: TextInput.AlignRight
 
                             onTextChanged:
@@ -491,6 +492,11 @@ Rectangle {
                                     horizontalAlignment: TextInput.AlignHCenter
                                     verticalAlignment: TextInput.AlignVCenter
 
+                                    onTextChanged:
+                                    {
+                                        kolText[ebanIndex] = kol_text.text
+                                    }
+
                                     onActiveFocusChanged:
                                     {
                                         if(my_food_list_repeater.model-index === 1)
@@ -530,6 +536,11 @@ Rectangle {
                                     text: Transport_company.Invoice_vector[(ebanIndex*6)+4]
                                     horizontalAlignment: TextInput.AlignHCenter
                                     verticalAlignment: TextInput.AlignVCenter
+
+                                    onTextChanged:
+                                    {
+                                        saleText[ebanIndex] = sale_text.text
+                                    }
 
                                     onActiveFocusChanged:
                                     {
@@ -621,9 +632,12 @@ Rectangle {
                         switch(index)
                         {
                         case 0:
-                            console.log(Transport_company.getInvoiceIndexTable())
-                            if(Transport_company.getInvoiceIndexTable() > 0)
+                            if(Transport_company.getOrderIndex(0) > 0)
                             {
+                                 Transport_company.setOrder_vector(Database.getDataVector(Transport_company.getOrderIndex(-1),"Orders","id_order"));
+                            //console.log(Transport_company.getInvoiceIndexTable())
+                            //if(Transport_company.getInvoiceIndexTable() > 0)
+                            //{
                                 Transport_company.invoice_clearVector()
                                 //testNode = "4";
                                 volume = []
@@ -631,24 +645,27 @@ Rectangle {
                                 cost = []
                                 my_food_list_repeater.model = 0
                             //Transport_company.setIndexOrder(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),false))
-                            Transport_company.setInvoiceIndexTable(-1)
+                            //Transport_company.setInvoiceIndexTable(-1)
                             Transport_company.setInvoiceIndex(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),false));
                             testNode =  Transport_company.getInvoiceIndex(0)
                             Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Transport_company.getInvoiceIndex(0)));
-                            console.log(testNode)
+                            //console.log(testNode)
                              my_food_list_repeater.model = marksComboBox.length+1
                             }
                             break;
                         case 1:
-                            console.log(marksComboBox)
+                            console.log(marksComboBox[0],modelsComboBox[0],kolText[0],saleText[0])
                             break;
                         case 2:
                             break;
                         case 3:
                             break;
                         case 4:
-                            if(Transport_company.getInvoiceIndexTable() < Transport_company.getInvoiceMaxIndex()-1)
+                            if(Transport_company.getOrderIndex(0) < Transport_company.getOrderMaxIndex()-1)
                             {
+                                 Transport_company.setOrder_vector(Database.getDataVector(Transport_company.getOrderIndex(1),"Orders","id_order"));
+                           //if(Transport_company.getInvoiceIndexTable() < Transport_company.getInvoiceMaxIndex()-1)
+                           // {
                                 Transport_company.invoice_clearVector()
                                 //testNode = "5";
                                 volume = []
@@ -657,11 +674,11 @@ Rectangle {
                                 my_food_list_repeater.model = 0
                                 //Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Database.getIndexOrder(Transport_company.getInvoiceIndex(0),true)));
                             //console.log(testNode)
-                            Transport_company.setInvoiceIndexTable(1)
+                            //Transport_company.setInvoiceIndexTable(1)
                             Transport_company.setInvoiceIndex(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),true));
                             testNode =  Transport_company.getInvoiceIndex(0)
                             Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Transport_company.getInvoiceIndex(0)));
-                            console.log(modelsComboBox)
+                            //console.log(modelsComboBox)
                                 my_food_list_repeater.model = marksComboBox.length+1
                             }
                             break;

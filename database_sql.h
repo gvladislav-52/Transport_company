@@ -13,7 +13,7 @@ public:
     explicit Database_sql(QObject *parent = nullptr);
 public slots:
     int getIndexOrder(int vecData, bool curs);
-    int getMaxIndexInvoice();
+    //int getMaxIndexInvoice();
     //QString getLengthOrder(QString index, bool boltemp);
     QVector<QString> getCarVectorName(int index);
     QVector<QString> getSupplierVectorName(int index);
