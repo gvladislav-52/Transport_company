@@ -12,10 +12,12 @@ class Database_sql : public QObject
 public:
     explicit Database_sql(QObject *parent = nullptr);
 public slots:
+    int getIndexOrder(int vecData, bool curs);
+    int getMaxIndexInvoice();
     //QString getLengthOrder(QString index, bool boltemp);
-    QVector<QString> getCarVectorName(QString index);
-    QVector<QString> getSupplierVectorName(QString index);
-    QVector<QString> getInvoiceDataVector(QString name, QString sort, QString order);
+    QVector<QString> getCarVectorName(int index);
+    QVector<QString> getSupplierVectorName(int index);
+    QVector<QString> getInvoiceDataVector(QString name, QString sort, int order);
     QVector<QString> getDataVector(int index, QString name, QString sort);
     QVector<QString> getAllSupplierName();
     QVector<QString> getAllModelCar(QString temp,bool botemp = false);

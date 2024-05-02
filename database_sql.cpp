@@ -21,14 +21,14 @@ Database_sql::Database_sql(QObject *parent)
 
 //////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
 
-QVector<QString> Database_sql::getInvoiceDataVector(QString name, QString sort, QString order)
+QVector<QString> Database_sql::getInvoiceDataVector(QString name, QString sort, int order)
 {
     QVector<QString> temp_vector;
 
     std::thread th([&](){
         QSqlQuery selectQuery(db);
 
-        selectQuery.exec("SELECT * FROM "+ name +" WHERE id_order = '"+order+"' ORDER BY "+sort+" ASC");
+        selectQuery.exec("SELECT * FROM "+ name +" WHERE id_order = '"+QString::number(order)+"' ORDER BY "+sort+" ASC");
 
         while(selectQuery.next())
         {
@@ -75,13 +75,13 @@ QString Database_sql::getTextCar(QString vecData)
     return str;
 }
 
-QVector<QString> Database_sql::getSupplierVectorName(QString index)
+QVector<QString> Database_sql::getSupplierVectorName(int index)
 {
     QVector<QString> temp_vector;
     std::thread th([&](){
         //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
         QSqlQuery selectQuery(db);
-        selectQuery.exec("SELECT Company FROM Invoice INNER JOIN Supplier ON Invoice.id_supplier = Supplier.id_supplier WHERE Invoice.id_order = '"+index+"'");
+        selectQuery.exec("SELECT Company FROM Invoice INNER JOIN Supplier ON Invoice.id_supplier = Supplier.id_supplier WHERE Invoice.id_order = '"+QString::number(index)+"'");
 
         while (selectQuery.next()) {
             // Получаем первое значение (индекс 0) из текущей строки
@@ -92,13 +92,13 @@ QVector<QString> Database_sql::getSupplierVectorName(QString index)
     return temp_vector;
 }
 
-QVector<QString> Database_sql::getCarVectorName(QString index)
+QVector<QString> Database_sql::getCarVectorName(int index)
 {
     QVector<QString> temp_vector;
     std::thread th([&](){
         //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
         QSqlQuery selectQuery(db);
-        selectQuery.exec("SELECT Model FROM Cars INNER JOIN Invoice ON Cars.id_car = Invoice.id_car WHERE Invoice.id_order = '"+index+"'");
+        selectQuery.exec("SELECT Model FROM Cars INNER JOIN Invoice ON Cars.id_car = Invoice.id_car WHERE Invoice.id_order = '"+QString::number(index)+"'");
 
         while (selectQuery.next()) {
             // Получаем первое значение (индекс 0) из текущей строки
@@ -109,22 +109,39 @@ QVector<QString> Database_sql::getCarVectorName(QString index)
     return temp_vector;
 }
 
-// QString Database_sql::getLengthOrder(QString index, bool boltemp)
-// {
-//     QString str;
-//     std::thread th([&](){
-//         QSqlQuery selectQuery(db);
-//         if(boltemp)
-//             selectQuery.exec("SELECT MIN(id_order) FROM Orders WHERE id_order > '"+index+"'");
-//         else
-//             selectQuery.exec("SELECT MAX(id_order) FROM Orders WHERE id_order < '"+index+"'");
-//         while (selectQuery.next())
-//             str = selectQuery.value(0).toString();
+int Database_sql::getIndexOrder(int vecData, bool curs)
+{
+    int str;
+     //qDebug() << vecData;
+    // qDebug() << vecName;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        if(curs)
+            selectQuery.exec("SELECT MIN(id_order) FROM Orders WHERE id_order > "+QString::number(vecData)+"");
+        else
+            selectQuery.exec("SELECT MAX(id_order) FROM Orders WHERE id_order < "+QString::number(vecData)+"");
+        while (selectQuery.next())
+            str = selectQuery.value(0).toInt();
 
-//     });
-//     th.join();
-//     return str;
-// }
+    });
+    th.join();
+    return str;
+}
+
+int Database_sql::getMaxIndexInvoice()
+{
+    int str;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+            selectQuery.exec("SELECT COUNT(DISTINCT id_order) AS unique_orders FROM Invoice WHERE id_order > -1;");
+        while (selectQuery.next())
+            str = selectQuery.value(0).toInt();
+    });
+    th.join();
+    return str;
+}
+
+
 
 //////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
 

@@ -18,6 +18,7 @@ Rectangle {
 
     property var marksComboBox: Database.getSupplierVectorName(testNode)
     property var modelsComboBox: Database.getCarVectorName(testNode)
+    //property var countText: Transport_company.Invoice_vector[(ebanIndex*6)+3]
 
     property var volume: []
     property var power: []
@@ -389,6 +390,7 @@ Rectangle {
                                             power[ebanIndex] = power_text.text
                                             cost_text.text = Database.getItemCar(model_text.text,9)
                                             cost[ebanIndex] = cost_text.text
+
                                             if(kol_text.text==="0")
                                                 kol_text.text = 1;
                                             cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
@@ -619,15 +621,23 @@ Rectangle {
                         switch(index)
                         {
                         case 0:
-                            Transport_company.invoice_clearVector()
-                            testNode = "4";
-                            volume = []
-                            power = []
-                            cost = []
-
-                            if(Transport_company.getInvoiceIndex(0) < Transport_company.getInvoiceMaxIndex()-1)
-                                 Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order","4"));
-                            my_food_list_repeater.model = marksComboBox.length+1
+                            console.log(Transport_company.getInvoiceIndexTable())
+                            if(Transport_company.getInvoiceIndexTable() > 0)
+                            {
+                                Transport_company.invoice_clearVector()
+                                //testNode = "4";
+                                volume = []
+                                power = []
+                                cost = []
+                                my_food_list_repeater.model = 0
+                            //Transport_company.setIndexOrder(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),false))
+                            Transport_company.setInvoiceIndexTable(-1)
+                            Transport_company.setInvoiceIndex(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),false));
+                            testNode =  Transport_company.getInvoiceIndex(0)
+                            Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Transport_company.getInvoiceIndex(0)));
+                            console.log(testNode)
+                             my_food_list_repeater.model = marksComboBox.length+1
+                            }
                             break;
                         case 1:
                             console.log(marksComboBox)
@@ -637,14 +647,23 @@ Rectangle {
                         case 3:
                             break;
                         case 4:
-                            Transport_company.invoice_clearVector()
-                            testNode = "5";
-                            volume = []
-                            power = []
-                            cost = []
-                            if(Transport_company.getInvoiceIndex(0) < Transport_company.getInvoiceMaxIndex()-1)
-                                 Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order","5"));
-                            my_food_list_repeater.model = marksComboBox.length+1
+                            if(Transport_company.getInvoiceIndexTable() < Transport_company.getInvoiceMaxIndex()-1)
+                            {
+                                Transport_company.invoice_clearVector()
+                                //testNode = "5";
+                                volume = []
+                                power = []
+                                cost = []
+                                my_food_list_repeater.model = 0
+                                //Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Database.getIndexOrder(Transport_company.getInvoiceIndex(0),true)));
+                            //console.log(testNode)
+                            Transport_company.setInvoiceIndexTable(1)
+                            Transport_company.setInvoiceIndex(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),true));
+                            testNode =  Transport_company.getInvoiceIndex(0)
+                            Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Transport_company.getInvoiceIndex(0)));
+                            console.log(modelsComboBox)
+                                my_food_list_repeater.model = marksComboBox.length+1
+                            }
                             break;
                         }
                     }

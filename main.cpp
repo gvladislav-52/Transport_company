@@ -30,10 +30,17 @@ int main(int argc, char *argv[])
     ts_company.setDriversIndex(0);
 
 
-    ts_company.setInvoice_vector(db.getInvoiceDataVector("Invoice","id_order","4"));
+    ts_company.setInvoice_vector(db.getInvoiceDataVector("Invoice","id_order",4));
     qDebug() << ts_company.getInvoice_vector();
-    ts_company.setInvoiceMaxIndex(db.getMaxElement("Invoice"));
-    ts_company.setInvoiceIndex(0);
+    //ts_company.setInvoiceMaxIndex(db.getMaxElement("Invoice"));
+    //ts_company.setInvoiceIndex(0);
+
+    //qDebug() << db.getMaxElement("Invoice");
+    //qDebug() << db.getIndexOrder(4,true);
+    //qDebug() << db.getIndexOrder(6,false);
+    ts_company.setInvoiceIndex(db.getIndexOrder(0,true));
+    ts_company.setInvoiceMaxIndex(db.getMaxIndexInvoice());
+    ts_company.setInvoiceIndexTable(0);
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/Main.qml"));
