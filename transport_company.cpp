@@ -255,6 +255,5 @@ void Transport_company::setOrder_vector(const QVector<QString> &newOrder_vector)
     if (m_Order_vector == newOrder_vector)
         return;
     m_Order_vector = newOrder_vector;
-    qDebug() << m_Order_vector;
     emit Order_vectorChanged();
 }

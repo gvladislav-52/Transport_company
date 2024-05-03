@@ -29,7 +29,9 @@ public slots:
     QString getTextSupplier(QString vecData);
     QString getTextCar(QString vecData);
 
+    int getIndexClients(QVector<QString> vecName, QString vecData);
     int getIndexSupplier(QVector<QString> temp1, QString temp2);
+    int getIndexDrivers(QVector<QString> vecName, QString vecData);
 
     int getMaxElement(QString name);
     void delete_Data(int index, QString nameData, QString id_name);

@@ -141,6 +141,50 @@ int Database_sql::getIndexOrder(int vecData, bool curs)
 //     return str;
 // }
 
+int Database_sql::getIndexClients(QVector<QString> vecName, QString vecData)
+{
+    int index;
+    QString str;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Clients WHERE id_client = '"+vecData+"' ORDER BY id_client ASC");
+
+        while (selectQuery.next())
+            str = selectQuery.value(1).toString();
+
+        for(int i = 0; i <vecName.size(); i++)
+            if(vecName[i] == str)
+            {
+                index = i;
+                break;
+            }
+    });
+    th.join();
+    return index;
+}
+
+int Database_sql::getIndexDrivers(QVector<QString> vecName, QString vecData)
+{
+    int index;
+    QString str;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Drivers WHERE id = '"+vecData+"' ORDER BY id ASC");
+
+        while (selectQuery.next())
+            str = selectQuery.value(1).toString();
+
+        for(int i = 0; i <vecName.size(); i++)
+            if(vecName[i] == str)
+            {
+                index = i;
+                break;
+            }
+    });
+    th.join();
+    return index;
+}
+
 QVector<QString> Database_sql::getAllClientsName()
 {
     QVector<QString> temp_vector;

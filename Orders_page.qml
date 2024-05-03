@@ -549,7 +549,7 @@ Rectangle {
                                             cost_text.text = temp
 
                                             sumCost_temp += temp
-                                            console.log(sumCost_temp)
+                                            //console.log(sumCost_temp)
                                         }
                                     }
 
@@ -805,12 +805,17 @@ Rectangle {
                             Transport_company.setInvoiceIndex(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),false));
                             indexVector =  Transport_company.getInvoiceIndex(0)
                             Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Transport_company.getInvoiceIndex(0)));
+                            comboBox_clients.currentIndex = Database.getIndexClients(clients_vector_order,Transport_company.Order_vector[1])
+                            client_text.text = comboBox_clients.currentText
+
+                            comboBox_driver.currentIndex = Database.getIndexDrivers(drivers_vector_order,Transport_company.Order_vector[2])
+                            text_driver.text = comboBox_driver.currentText
                             //console.log(testNode)
                              my_food_list_repeater.model = marksComboBox.length+1
                             }
                             break;
                         case 1:
-                            console.log(marksComboBox[0],modelsComboBox[0],kolText[0],saleText[0])
+                            console.log(marksComboBox[0],modelsComboBox[0],kolText[0],saleText[0],client_text.text,text_driver.text)
                             break;
                         case 2:
                             break;
@@ -835,6 +840,11 @@ Rectangle {
                             Transport_company.setInvoiceIndex(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),true));
                             indexVector =  Transport_company.getInvoiceIndex(0)
                             Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Transport_company.getInvoiceIndex(0)));
+                                comboBox_clients.currentIndex = Database.getIndexClients(clients_vector_order,Transport_company.Order_vector[1])
+                                client_text.text = comboBox_clients.currentText
+
+                                comboBox_driver.currentIndex = Database.getIndexDrivers(drivers_vector_order,Transport_company.Order_vector[2])
+                                text_driver.text = comboBox_driver.currentText
                             //console.log(modelsComboBox)
                                 my_food_list_repeater.model = marksComboBox.length+1
                             }

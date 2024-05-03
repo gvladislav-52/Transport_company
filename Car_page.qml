@@ -111,7 +111,7 @@ Rectangle {
                 clip: true
 
                 ComboBox {
-                    id: comboBox
+                    id: f
                     anchors {
                         verticalCenter: parent.verticalCenter
                     }
