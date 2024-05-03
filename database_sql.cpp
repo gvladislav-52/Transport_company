@@ -141,7 +141,35 @@ int Database_sql::getIndexOrder(int vecData, bool curs)
 //     return str;
 // }
 
+QVector<QString> Database_sql::getAllClientsName()
+{
+    QVector<QString> temp_vector;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT company FROM Clients");
 
+        while (selectQuery.next()) {
+            temp_vector.append(selectQuery.value(0).toString());
+        }
+    });
+    th.join();
+    return temp_vector;
+}
+
+QVector<QString> Database_sql::getAllDriversName()
+{
+    QVector<QString> temp_vector;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT lastName FROM Drivers");
+
+        while (selectQuery.next()) {
+            temp_vector.append(selectQuery.value(0).toString());
+        }
+    });
+    th.join();
+    return temp_vector;
+}
 
 //////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
 

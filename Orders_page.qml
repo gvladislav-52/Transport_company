@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window 2.15
 
@@ -15,17 +15,26 @@ Rectangle {
 
     property var supplier_vector_order
     property var model_vector_order
+    property var clients_vector_order
+    property var drivers_vector_order
 
-    property var marksComboBox: Database.getSupplierVectorName(testNode)
-    property var modelsComboBox: Database.getCarVectorName(testNode)
+    property var marksComboBox: Database.getSupplierVectorName(indexVector)
+    property var modelsComboBox: Database.getCarVectorName(indexVector)
     property var saleText: []
     property var kolText: []
 
     property var volume: []
     property var power: []
     property var cost: []
+    property real sumCost_temp: 0.0
+    property var driver_temp
+    property var clients_temp
 
-    property var testNode: "4"
+    property var indexVector: Transport_company.getInvoiceIndex(0)
+
+    function formatNumberWithSpaces(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
 
     ColumnLayout
     {
@@ -85,9 +94,151 @@ Rectangle {
                 Layout.preferredHeight: parent.height
                 Layout.preferredWidth: parent.width* 0.3
 
+                Rectangle
+                {
+                    Layout.alignment: Qt.AlignLeft
+                    Layout.preferredHeight: parent.height*0.1
+                    Layout.preferredWidth: parent.width *0.9
+                    color: "gray"
+                    border.color: "black"
+                    border.width: parent.height * 0.005
+                    clip: true
+
+                    TextInput {
+                        id: text_idInput
+                        anchors
+                        {
+                            verticalCenter: parent.verticalCenter
+                            right: parent.right
+                            rightMargin: parent.width * 0.05
+                        }
+                        width: parent.width * 0.95
+                        height: parent.height
+                        font.pixelSize: parent.height * 0.8
+                        color: "black"
+                        text: qsTr(Transport_company.Order_vector[0])
+                        horizontalAlignment: TextInput.AlignRight
+
+                        onTextChanged:
+                        {
+                            Transport_company.Order_vector[0] = text_idInput.text
+                        }
+                    }
+                }
+
+                Rectangle
+                {
+                    Layout.alignment: Qt.AlignLeft
+                    Layout.preferredHeight: parent.height*0.1
+                    Layout.preferredWidth: parent.width *0.9
+                    color: "gray"
+                    border.color: "black"
+                    border.width: parent.width * 0.001
+                    clip: true
+
+                     ComboBox {
+                        id: comboBox_clients
+                        anchors
+                        {
+                            verticalCenter: parent.verticalCenter
+                            left: parent.left
+                        }
+                        width: parent.width
+                        height: parent.height
+
+                        model: clients_vector_order
+
+                        currentIndex: 0
+
+                        background: Rectangle {
+                            color: "gray"
+                        border.width: parent && parent.activeFocus ? 2 : 1
+                        }
+
+                        contentItem: Text {
+                            id: client_text
+                            text: "Иванов"
+                            color: "black"
+                            font.pixelSize: parent.height * 0.6
+                            horizontalAlignment: TextInput.AlignRight
+                            verticalAlignment: TextInput.AlignVCenter
+                            onTextChanged:
+                            {
+                                clients_temp = client_text.text
+                                //comboBox_driver.model = Database.getAllModelCar(Database.getTextSupplier(Transport_company.Invoice_vector[(ebanIndex*6)+1]),true)
+                            }
+                        }
+
+
+                            onActivated: {
+                                //Transport_company.Invoice_vector[(ebanIndex*6)+1] = comboBox_driver.currentIndex
+                                client_text.text = comboBox_clients.currentText
+                                //comboBox1.model = Database.getAllModelCar(comboBox.textAt(comboBox.currentIndex),true)
+                                //model_text.text = ""
+                                //}
+                            //}
+                        }
+                    }
+                }
+
+                Rectangle
+                {
+                    Layout.alignment: Qt.AlignLeft
+                    Layout.preferredHeight: parent.height*0.1
+                    Layout.preferredWidth: parent.width *0.9
+                    color: "gray"
+                    border.color: "black"
+                    border.width: parent.width * 0.001
+                    clip: true
+
+                     ComboBox {
+                        id: comboBox_driver
+                        anchors
+                        {
+                            verticalCenter: parent.verticalCenter
+                            left: parent.left
+                        }
+                        width: parent.width
+                        height: parent.height
+
+                        model: drivers_vector_order
+
+                        currentIndex: 0
+
+                        background: Rectangle {
+                            color: "gray"
+                        border.width: parent && parent.activeFocus ? 2 : 1
+                        }
+
+                        contentItem: Text {
+                            id: text_driver
+                            text: "Петрова"
+                            color: "black"
+                            font.pixelSize: parent.height * 0.6
+                            horizontalAlignment: TextInput.AlignRight
+                            verticalAlignment: TextInput.AlignVCenter
+                            onTextChanged:
+                            {
+                                driver_temp = text_driver.text
+                                //comboBox_driver.model = Database.getAllModelCar(Database.getTextSupplier(Transport_company.Invoice_vector[(ebanIndex*6)+1]),true)
+                            }
+                        }
+
+
+                            onActivated: {
+                                //Transport_company.Invoice_vector[(ebanIndex*6)+1] = comboBox_driver.currentIndex
+                                text_driver.text = comboBox_driver.currentText
+                                //comboBox1.model = Database.getAllModelCar(comboBox.textAt(comboBox.currentIndex),true)
+                                //model_text.text = ""
+                                //}
+                            //}
+                        }
+                    }
+                }
+
                 Repeater
                 {
-                    model: 7
+                    model: 4
                     Rectangle
                     {
                         Layout.alignment: Qt.AlignLeft
@@ -110,12 +261,12 @@ Rectangle {
                             height: parent.height
                             font.pixelSize: parent.height * 0.8
                             color: "black"
-                            text: qsTr(Transport_company.Order_vector[index%4])
+                            text: qsTr(Transport_company.Order_vector[index+3])
                             horizontalAlignment: TextInput.AlignRight
 
                             onTextChanged:
                             {
-                                Transport_company.Cars_vector[index+2] = text_textInput.text
+                                Transport_company.Order_vector[index+3] = text_textInput.text
                             }
                         }
 
@@ -169,7 +320,7 @@ Rectangle {
                                 right: parent.right
                                 rightMargin: parent.width * 0.05
                             }
-                            text: qsTr("500.000 RUB")
+                            text: formatNumberWithSpaces(sumCost_temp)
                             font.pixelSize: parent.height* 0.4
                             horizontalAlignment: Text.AlignRight
                         }
@@ -394,7 +545,11 @@ Rectangle {
 
                                             if(kol_text.text==="0")
                                                 kol_text.text = 1;
-                                            cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                            var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                            cost_text.text = temp
+
+                                            sumCost_temp += temp
+                                            console.log(sumCost_temp)
                                         }
                                     }
 
@@ -643,11 +798,12 @@ Rectangle {
                                 volume = []
                                 power = []
                                 cost = []
+                                sumCost_temp = 0
                                 my_food_list_repeater.model = 0
                             //Transport_company.setIndexOrder(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),false))
                             //Transport_company.setInvoiceIndexTable(-1)
                             Transport_company.setInvoiceIndex(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),false));
-                            testNode =  Transport_company.getInvoiceIndex(0)
+                            indexVector =  Transport_company.getInvoiceIndex(0)
                             Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Transport_company.getInvoiceIndex(0)));
                             //console.log(testNode)
                              my_food_list_repeater.model = marksComboBox.length+1
@@ -671,12 +827,13 @@ Rectangle {
                                 volume = []
                                 power = []
                                 cost = []
+                                sumCost_temp = 0
                                 my_food_list_repeater.model = 0
                                 //Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Database.getIndexOrder(Transport_company.getInvoiceIndex(0),true)));
                             //console.log(testNode)
                             //Transport_company.setInvoiceIndexTable(1)
                             Transport_company.setInvoiceIndex(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),true));
-                            testNode =  Transport_company.getInvoiceIndex(0)
+                            indexVector =  Transport_company.getInvoiceIndex(0)
                             Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Transport_company.getInvoiceIndex(0)));
                             //console.log(modelsComboBox)
                                 my_food_list_repeater.model = marksComboBox.length+1
