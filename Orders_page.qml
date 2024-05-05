@@ -815,6 +815,7 @@ Rectangle {
                             }
                             break;
                         case 1:
+                            Transport_company.Order_vector[8] = sumCost_temp
                             Transport_company.Order_vector[1] = Database.getIdClientName(comboBox_clients.textAt(comboBox_clients.currentIndex))
                             Transport_company.Order_vector[2] = Database.getIdDriverName(comboBox_driver.textAt(comboBox_driver.currentIndex))
                             console.log(Transport_company.Order_vector)
