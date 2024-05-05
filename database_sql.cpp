@@ -215,6 +215,66 @@ QVector<QString> Database_sql::getAllDriversName()
     return temp_vector;
 }
 
+QString Database_sql::getIdClientName(QString company)
+{
+    QString temp_vector;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Clients WHERE Company = '"+company+"' ORDER BY id_client ASC");
+
+        while (selectQuery.next())
+            temp_vector = selectQuery.value(1).toString();
+
+    });
+    th.join();
+    return temp_vector;
+}
+
+QString Database_sql::getClientName(QString id)
+{
+    QString temp_vector;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Clients WHERE id_client = '"+id+"' ORDER BY id_client ASC");
+
+        while (selectQuery.next())
+            temp_vector = selectQuery.value(1).toString();
+
+    });
+    th.join();
+    return temp_vector;
+}
+
+QString Database_sql::getDriverName(QString id)
+{
+    QString temp_vector;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Drivers WHERE id = '"+id+"' ORDER BY id ASC");
+
+        while (selectQuery.next())
+            temp_vector = selectQuery.value(1).toString();
+
+    });
+    th.join();
+    return temp_vector;
+}
+
+QString Database_sql::getIdDriverName(QString company)
+{
+    QString temp_vector;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Drivers WHERE LastName = '"+company+"' ORDER BY id ASC");
+
+        while (selectQuery.next())
+            temp_vector = selectQuery.value(1).toString();
+
+    });
+    th.join();
+    return temp_vector;
+}
+
 //////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
 
 QVector<QString> Database_sql::getAllModelCar(QString temp, bool botemp)
@@ -351,7 +411,6 @@ QString Database_sql::getSupplierId(QString company)
 {
     QString temp_vector;
     std::thread th([&](){
-        //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
         QSqlQuery selectQuery(db);
         selectQuery.exec("SELECT * FROM Supplier WHERE Company = '"+company+"' ORDER BY id_supplier ASC");
 

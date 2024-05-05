@@ -157,7 +157,7 @@ Rectangle {
 
                         contentItem: Text {
                             id: client_text
-                            text: "Иванов"
+                            text: Database.getClientName(Transport_company.Order_vector[1])
                             color: "black"
                             font.pixelSize: parent.height * 0.6
                             horizontalAlignment: TextInput.AlignRight
@@ -212,7 +212,7 @@ Rectangle {
 
                         contentItem: Text {
                             id: text_driver
-                            text: "Петрова"
+                            text: Database.getDriverName(Transport_company.Order_vector[2])
                             color: "black"
                             font.pixelSize: parent.height * 0.6
                             horizontalAlignment: TextInput.AlignRight
@@ -815,6 +815,9 @@ Rectangle {
                             }
                             break;
                         case 1:
+                            Transport_company.Order_vector[1] = Database.getIdClientName(comboBox_clients.textAt(comboBox_clients.currentIndex))
+                            Transport_company.Order_vector[2] = Database.getIdDriverName(comboBox_driver.textAt(comboBox_driver.currentIndex))
+                            console.log(Transport_company.Order_vector)
                             console.log(marksComboBox[0],modelsComboBox[0],kolText[0],saleText[0],client_text.text,text_driver.text)
                             break;
                         case 2:

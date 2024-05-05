@@ -15,6 +15,8 @@ public slots:
     int getIndexOrder(int vecData, bool curs);
     //int getMaxIndexInvoice();
     //QString getLengthOrder(QString index, bool boltemp);
+    QString getDriverName(QString id);
+    QString getClientName(QString company);
     QVector<QString> getAllDriversName();
     QVector<QString> getAllClientsName();
     QVector<QString> getCarVectorName(int index);
@@ -25,6 +27,8 @@ public slots:
     QVector<QString> getAllModelCar(QString temp,bool botemp = false);
     QString getItemCar(QString temp,int index);
     QString getSupplierId(QString company);
+    QString getIdDriverName(QString company);
+    QString getIdClientName(QString company);
     QString getCarId(QString company);
     QString getTextSupplier(QString vecData);
     QString getTextCar(QString vecData);
