@@ -316,6 +316,7 @@ Rectangle {
 
                         Text
                         {
+                            id: cost_text_sum
                             anchors
                             {
                                 verticalCenter: parent.verticalCenter
@@ -549,12 +550,12 @@ Rectangle {
                                             if(kol_text.text==="0")
                                                 kol_text.text = 1;
                                             var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+
                                             cost_text.text = temp
 
                                             sumCost_temp += temp
-                                            //console.log(sumCost_temp)
 
-                                            if(newData)
+                                            if(marks_text.text === "")
                                                 model_text.text = " "
                                         }
                                     }
@@ -567,6 +568,13 @@ Rectangle {
                                         power[ebanIndex] = power_text.text
                                         cost_text.text = Database.getItemCar(model_text.text,9)
                                         cost[ebanIndex] = cost_text.text
+
+                                        if(kol_text.text==="0")
+                                            kol_text.text = 1;
+                                        var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        cost_text.text = temp
+
+                                        sumCost_temp += temp
                                     }
                                 }
                             }
@@ -656,6 +664,7 @@ Rectangle {
                                     onTextChanged:
                                     {
                                         kolText[ebanIndex] = kol_text.text
+
                                     }
 
                                     onActiveFocusChanged:
@@ -742,6 +751,12 @@ Rectangle {
                                     text: cost[ebanIndex]
                                     horizontalAlignment: TextInput.AlignHCenter
                                     verticalAlignment: TextInput.AlignVCenter
+
+                                    onTextChanged:
+                                    {
+                                        if(marks_text.text === "")
+                                            cost_text.text = " "
+                                    }
                                 }
                             }
                         }
