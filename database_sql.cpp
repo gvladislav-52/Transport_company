@@ -230,6 +230,21 @@ QString Database_sql::getIdClientName(QString company)
     return temp_vector;
 }
 
+QString Database_sql::getIdCarName(QString mark)
+{
+    QString temp_vector;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Cars WHERE model = '"+mark+"' ORDER BY id_car ASC");
+
+        while (selectQuery.next())
+            temp_vector = selectQuery.value(0).toString();
+
+    });
+    th.join();
+    return temp_vector;
+}
+
 QString Database_sql::getClientName(QString id)
 {
     QString temp_vector;

@@ -29,6 +29,8 @@ public slots:
     QString getSupplierId(QString company);
     QString getIdDriverName(QString company);
     QString getIdClientName(QString company);
+    QString getIdCarName(QString mark);
+
     QString getCarId(QString company);
     QString getTextSupplier(QString vecData);
     QString getTextCar(QString vecData);

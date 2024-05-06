@@ -27,10 +27,12 @@ Rectangle {
     property var power: []
     property var cost: []
     property real sumCost_temp: 0.0
-    property var driver_temp
-    property var clients_temp
+    property var driver_temp: Database.getDriverName(Transport_company.Order_vector[2])
+    property var clients_temp: Database.getClientName(Transport_company.Order_vector[1])
 
     property var indexVector: Transport_company.getInvoiceIndex(0)
+
+    property var newData: false
 
     function formatNumberWithSpaces(number) {
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -157,7 +159,7 @@ Rectangle {
 
                         contentItem: Text {
                             id: client_text
-                            text: Database.getClientName(Transport_company.Order_vector[1])
+                            text: clients_temp
                             color: "black"
                             font.pixelSize: parent.height * 0.6
                             horizontalAlignment: TextInput.AlignRight
@@ -212,7 +214,7 @@ Rectangle {
 
                         contentItem: Text {
                             id: text_driver
-                            text: Database.getDriverName(Transport_company.Order_vector[2])
+                            text: driver_temp
                             color: "black"
                             font.pixelSize: parent.height * 0.6
                             horizontalAlignment: TextInput.AlignRight
@@ -473,6 +475,7 @@ Rectangle {
 
                                         onTextChanged:
                                         {
+
                                             marksComboBox[ebanIndex] = marks_text.text
                                             comboBox1.model = Database.getAllModelCar(Database.getTextSupplier(Transport_company.Invoice_vector[(ebanIndex*6)+1]),true)
                                         }
@@ -550,6 +553,9 @@ Rectangle {
 
                                             sumCost_temp += temp
                                             //console.log(sumCost_temp)
+
+                                            if(newData)
+                                                model_text.text = " "
                                         }
                                     }
 
@@ -787,6 +793,8 @@ Rectangle {
                         switch(index)
                         {
                         case 0:
+                            if(newData)
+                                newData = false
                             if(Transport_company.getOrderIndex(0) > 0)
                             {
                                  Transport_company.setOrder_vector(Database.getDataVector(Transport_company.getOrderIndex(-1),"Orders","id_order"));
@@ -815,17 +823,32 @@ Rectangle {
                             }
                             break;
                         case 1:
+                            newData = true;
+                            Transport_company.order_clearVector();
+                            Transport_company.invoice_clearVector()
+                            //testNode = "4";
+                            volume = []
+                            power = []
+                            cost = []
+                            sumCost_temp = 0
+                            indexVector = 0;
+                            client_text.text = "Выберете клиента"
+                            text_driver.text = "Выберете водителя"
+                            my_food_list_repeater.model = 1;
+                            break;
+                        case 2:
                             Transport_company.Order_vector[8] = sumCost_temp
                             Transport_company.Order_vector[1] = Database.getIdClientName(comboBox_clients.textAt(comboBox_clients.currentIndex))
                             Transport_company.Order_vector[2] = Database.getIdDriverName(comboBox_driver.textAt(comboBox_driver.currentIndex))
                             console.log(Transport_company.Order_vector)
-                            console.log(marksComboBox[0],modelsComboBox[0],kolText[0],saleText[0],client_text.text,text_driver.text)
-                            break;
-                        case 2:
+                            for(let i = 0; i < marksComboBox.length; i++)
+                                console.log(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
                             break;
                         case 3:
                             break;
                         case 4:
+                            if(newData)
+                                newData = false
                             if(Transport_company.getOrderIndex(0) < Transport_company.getOrderMaxIndex()-1)
                             {
                                  Transport_company.setOrder_vector(Database.getDataVector(Transport_company.getOrderIndex(1),"Orders","id_order"));
