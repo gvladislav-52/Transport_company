@@ -550,7 +550,6 @@ Rectangle {
                                             if(kol_text.text==="0")
                                                 kol_text.text = 1;
                                             var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
-
                                             cost_text.text = temp
 
                                             sumCost_temp += temp
@@ -568,13 +567,6 @@ Rectangle {
                                         power[ebanIndex] = power_text.text
                                         cost_text.text = Database.getItemCar(model_text.text,9)
                                         cost[ebanIndex] = cost_text.text
-
-                                        if(kol_text.text==="0")
-                                            kol_text.text = 1;
-                                        var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
-                                        cost_text.text = temp
-
-                                        sumCost_temp += temp
                                     }
                                 }
                             }
@@ -657,7 +649,8 @@ Rectangle {
                                     color: "black"
                                     font.bold: true
                                     font.pixelSize: comboBox.height * 0.3
-                                    text: Transport_company.Invoice_vector[(ebanIndex*6)+3]
+                                    text: if(newData) return kolText[ebanIndex]
+                                            else return Transport_company.Invoice_vector[(ebanIndex*6)+3]
                                     horizontalAlignment: TextInput.AlignHCenter
                                     verticalAlignment: TextInput.AlignVCenter
 
@@ -676,7 +669,10 @@ Rectangle {
                                     onAccepted: {
                                         if(kol_text.text==="0")
                                             kol_text.text = 1;
-                                        cost_text.text = cost[ebanIndex]*kol_text.text
+                                        if(sale_text.text === "")
+                                            cost_text.text = cost[ebanIndex]*kol_text.text
+                                        else
+                                            cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                     }
                                 }
                             }
@@ -703,7 +699,8 @@ Rectangle {
                                     color: "black"
                                     font.bold: true
                                     font.pixelSize: comboBox.height * 0.3
-                                    text: Transport_company.Invoice_vector[(ebanIndex*6)+4]
+                                    text: if(newData) return saleText[ebanIndex]
+                                            else return Transport_company.Invoice_vector[(ebanIndex*6)+4]
                                     horizontalAlignment: TextInput.AlignHCenter
                                     verticalAlignment: TextInput.AlignVCenter
 
@@ -722,6 +719,8 @@ Rectangle {
                                         if(kol_text.text==="0")
                                             kol_text.text = 1;
                                         cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        console.log((cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100))
+                                        sumCost_temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                     }
                                 }
                             }
@@ -842,6 +841,8 @@ Rectangle {
                             Transport_company.order_clearVector();
                             Transport_company.invoice_clearVector()
                             //testNode = "4";
+                            kolText = []
+                            saleText = []
                             volume = []
                             power = []
                             cost = []
