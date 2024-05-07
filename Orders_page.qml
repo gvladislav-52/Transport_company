@@ -551,8 +551,8 @@ Rectangle {
                                                 kol_text.text = 1;
                                             var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                             cost_text.text = temp
-
-                                            sumCost_temp += temp
+                                            if(!newData)
+                                                sumCost_temp += temp
 
                                             if(marks_text.text === "")
                                                 model_text.text = " "
@@ -719,8 +719,9 @@ Rectangle {
                                         if(kol_text.text==="0")
                                             kol_text.text = 1;
                                         cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
-                                        console.log((cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100))
-                                        sumCost_temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        //console.log((cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100))
+                                        //sumCost_temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        sumCost_temp += (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                     }
                                 }
                             }
