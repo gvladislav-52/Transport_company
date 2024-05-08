@@ -21,6 +21,8 @@ Database_sql::Database_sql(QObject *parent)
 
 //////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
 
+
+
 QVector<QString> Database_sql::getInvoiceDataVector(QString name, QString sort, int order)
 {
     QVector<QString> temp_vector;
@@ -215,15 +217,15 @@ QVector<QString> Database_sql::getAllDriversName()
     return temp_vector;
 }
 
-QString Database_sql::getIdClientName(QString company)
+int Database_sql::getIdClientName(QString company)
 {
-    QString temp_vector;
+    int temp_vector;
     std::thread th([&](){
         QSqlQuery selectQuery(db);
         selectQuery.exec("SELECT * FROM Clients WHERE Company = '"+company+"' ORDER BY id_client ASC");
 
         while (selectQuery.next())
-            temp_vector = selectQuery.value(1).toString();
+            temp_vector = selectQuery.value(0).toInt();
 
     });
     th.join();
@@ -275,15 +277,15 @@ QString Database_sql::getDriverName(QString id)
     return temp_vector;
 }
 
-QString Database_sql::getIdDriverName(QString company)
+int Database_sql::getIdDriverName(QString company)
 {
-    QString temp_vector;
+    int temp_vector;
     std::thread th([&](){
         QSqlQuery selectQuery(db);
         selectQuery.exec("SELECT * FROM Drivers WHERE LastName = '"+company+"' ORDER BY id ASC");
 
         while (selectQuery.next())
-            temp_vector = selectQuery.value(1).toString();
+            temp_vector = selectQuery.value(0).toInt();
 
     });
     th.join();
@@ -291,6 +293,17 @@ QString Database_sql::getIdDriverName(QString company)
 }
 
 //////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
+
+void Database_sql::orders_createNewData(QVector<QString> vec)
+{
+    //qDebug() << vec;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("INSERT INTO Orders (id_client, id, delivery_address, placement_date, assignment_date, execution_date, sumcost_new) VALUES ("+vec[1]+", '"+ vec[2] +"', '"+ vec[3] +"', "+ vec[4] +", "+ vec[5] +", '"+ vec[6] +"', '"+ vec[7] +"'");
+    });
+    qDebug() << vec;
+    th.join();
+}
 
 QVector<QString> Database_sql::getAllModelCar(QString temp, bool botemp)
 {
@@ -342,7 +355,7 @@ QString Database_sql::getCarId(QString company)
     return temp_vector;
 }
 
-//////////////////////////////////////////////////////////////////////////DRIVERS////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////DRIVERS////////////////////////////////////////////////////////////////////////////
 
 void Database_sql::drivers_createNewData(QVector<QString> vec)
 {

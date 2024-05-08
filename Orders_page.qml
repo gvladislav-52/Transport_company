@@ -854,9 +854,10 @@ Rectangle {
                             my_food_list_repeater.model = 1;
                             break;
                         case 2:
-                            Transport_company.Order_vector[8] = sumCost_temp
+                            Transport_company.Order_vector[7] = sumCost_temp
                             Transport_company.Order_vector[1] = Database.getIdClientName(comboBox_clients.textAt(comboBox_clients.currentIndex))
                             Transport_company.Order_vector[2] = Database.getIdDriverName(comboBox_driver.textAt(comboBox_driver.currentIndex))
+                            Database.orders_createNewData(Transport_company.Order_vector)
                             console.log(Transport_company.Order_vector)
                             for(let i = 0; i < marksComboBox.length; i++)
                                 console.log(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
