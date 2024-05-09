@@ -20,8 +20,18 @@ Database_sql::Database_sql(QObject *parent)
 }
 
 //////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
+//console.log(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
 
-
+void Database_sql::invoices_createNewData(QString supplierId, QString carId, QString kol, QString sale, QString orderId)
+{
+    //qDebug() << vec;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        //selectQuery.exec("INSERT INTO Orders (id_client, id, delivery_address, placement_date, assignment_date, execution_date, sumcost_new) VALUES ("+vec[1]+", '"+ vec[2] +"', '"+ vec[6] +"', "+ vec[3] +", "+ vec[4] +", '"+ vec[5] +"', '"+ vec[7] +"'");
+        selectQuery.exec("INSERT INTO Invoice (id_supplier, id_car, kolvo, sale, id_order) VALUES ('"+supplierId+"', '"+carId+"', '"+kol+"', '"+sale+"', '"+orderId+"')");
+    });
+    th.join();
+}
 
 QVector<QString> Database_sql::getInvoiceDataVector(QString name, QString sort, int order)
 {

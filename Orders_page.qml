@@ -861,9 +861,9 @@ Rectangle {
                                 Database.orders_createNewData(Transport_company.Order_vector)
                             else
                                 Database.orders_addNewData(Transport_company.Order_vector)
-                            console.log(Transport_company.Order_vector)
                             for(let i = 0; i < marksComboBox.length; i++)
-                                console.log(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
+                                Database.invoices_createNewData(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
+                                //console.log(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
                             break;
                         case 3:
                             break;
