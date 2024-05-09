@@ -857,7 +857,10 @@ Rectangle {
                             Transport_company.Order_vector[7] = sumCost_temp
                             Transport_company.Order_vector[1] = Database.getIdClientName(comboBox_clients.textAt(comboBox_clients.currentIndex))
                             Transport_company.Order_vector[2] = Database.getIdDriverName(comboBox_driver.textAt(comboBox_driver.currentIndex))
-                            Database.orders_createNewData(Transport_company.Order_vector)
+                            if(newData)
+                                Database.orders_createNewData(Transport_company.Order_vector)
+                            else
+                                Database.orders_addNewData(Transport_company.Order_vector)
                             console.log(Transport_company.Order_vector)
                             for(let i = 0; i < marksComboBox.length; i++)
                                 console.log(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])

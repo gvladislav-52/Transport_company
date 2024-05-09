@@ -12,6 +12,7 @@ class Database_sql : public QObject
 public:
     explicit Database_sql(QObject *parent = nullptr);
 public slots:
+    void orders_addNewData(QVector<QString> vector);
     void orders_createNewData(QVector<QString> vec);
     int getIndexOrder(int vecData, bool curs);
     //int getMaxIndexInvoice();

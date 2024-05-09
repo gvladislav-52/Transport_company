@@ -299,9 +299,19 @@ void Database_sql::orders_createNewData(QVector<QString> vec)
     //qDebug() << vec;
     std::thread th([&](){
         QSqlQuery selectQuery(db);
-        selectQuery.exec("INSERT INTO Orders (id_client, id, delivery_address, placement_date, assignment_date, execution_date, sumcost_new) VALUES ("+vec[1]+", '"+ vec[2] +"', '"+ vec[3] +"', "+ vec[4] +", "+ vec[5] +", '"+ vec[6] +"', '"+ vec[7] +"'");
+        //selectQuery.exec("INSERT INTO Orders (id_client, id, delivery_address, placement_date, assignment_date, execution_date, sumcost_new) VALUES ("+vec[1]+", '"+ vec[2] +"', '"+ vec[6] +"', "+ vec[3] +", "+ vec[4] +", '"+ vec[5] +"', '"+ vec[7] +"'");
+        selectQuery.exec("INSERT INTO Orders (id_client, id, execution_date, placement_date, assignment_date, delivery_address, sumcost_new) VALUES ('"+vec[1]+"', '"+vec[2]+"', '"+vec[3]+"', '"+vec[4]+"', '"+vec[5]+"', '"+vec[6]+"', '"+vec[7]+"')");
     });
-    qDebug() << vec;
+    th.join();
+}
+
+void Database_sql::orders_addNewData(QVector<QString> vector)
+{
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("UPDATE Orders SET id_client = '"+vector[1]+"', id = '"+vector[2]+"', execution_date = '"+vector[3]+"', placement_date = '"+vector[4]+"',  assignment_date = '"+vector[5]+"',  delivery_address = '"+vector[6]+"',  sumcost_new = '"+vector[7]+"'  WHERE id_order = '"+vector[0]+"';");
+        //selectQuery.exec("UPDATE Orders SET id_client = '" + vector.at(1) +"', id = '" + vector.at(2)+"', delivery_address = '" + vector.at(6) +"',placement_date = '" + vector.at(3) +"', assignment_date = '" + vector.at(4) +"', execution_date = '" + vector.at(5) +"', sumcost_new = '" + vector.at(7) +"' WHERE id_order = '" + vector.at(0) +"'");
+    });
     th.join();
 }
 
