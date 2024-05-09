@@ -858,12 +858,18 @@ Rectangle {
                             Transport_company.Order_vector[1] = Database.getIdClientName(comboBox_clients.textAt(comboBox_clients.currentIndex))
                             Transport_company.Order_vector[2] = Database.getIdDriverName(comboBox_driver.textAt(comboBox_driver.currentIndex))
                             if(newData)
+                            {
                                 Database.orders_createNewData(Transport_company.Order_vector)
+                                for(let i = 0; i < marksComboBox.length; i++)
+                                    Database.invoices_createNewData(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
+
+                            }
                             else
+                            {
                                 Database.orders_addNewData(Transport_company.Order_vector)
-                            for(let i = 0; i < marksComboBox.length; i++)
-                                Database.invoices_createNewData(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
-                                //console.log(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
+                                for(let i = 0; i < marksComboBox.length; i++)
+                                    Database.invoices_addNewData(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
+                            }
                             break;
                         case 3:
                             break;

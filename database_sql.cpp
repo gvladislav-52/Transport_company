@@ -33,6 +33,16 @@ void Database_sql::invoices_createNewData(QString supplierId, QString carId, QSt
     th.join();
 }
 
+void Database_sql::invoices_addNewData(QString supplierId, QString carId, QString kol, QString sale, QString orderId)
+{
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("UPDATE Invoice SET id_supplier = '"+supplierId+"', id_car = '"+carId+"', kolvo = '"+kol+"', sale = '"+sale+"' WHERE id_order = '"+orderId+"'");
+        //selectQuery.exec("UPDATE Orders SET id_client = '" + vector.at(1) +"', id = '" + vector.at(2)+"', delivery_address = '" + vector.at(6) +"',placement_date = '" + vector.at(3) +"', assignment_date = '" + vector.at(4) +"', execution_date = '" + vector.at(5) +"', sumcost_new = '" + vector.at(7) +"' WHERE id_order = '" + vector.at(0) +"'");
+    });
+    th.join();
+}
+
 QVector<QString> Database_sql::getInvoiceDataVector(QString name, QString sort, int order)
 {
     QVector<QString> temp_vector;
