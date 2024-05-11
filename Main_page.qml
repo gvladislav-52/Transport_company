@@ -58,6 +58,9 @@ Rectangle
                                orders_page.supplier_vector_order = Database.getAllSupplierName()
                                orders_page.clients_vector_order = Database.getAllClientsName()
                                orders_page.drivers_vector_order = Database.getAllDriversName()
+
+
+                               Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Transport_company.getInvoiceIndex(0)));
                                break;
                            case 1:
                                main_page.visible = false

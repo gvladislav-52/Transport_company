@@ -22,6 +22,19 @@ Database_sql::Database_sql(QObject *parent)
 //////////////////////////////////////////////////////////////////////////ORDERS////////////////////////////////////////////////////////////////////////////
 //console.log(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
 
+void Database_sql::invoice_truncate(QString index)
+{
+    QEventLoop loop;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("DELETE FROM invoice WHERE id_order = "+index+"");
+
+        loop.quit();
+    });
+    loop.exec();
+    th.join();
+}
+
 void Database_sql::invoices_createNewData(QString supplierId, QString carId, QString kol, QString sale, QString orderId)
 {
     //qDebug() << vec;

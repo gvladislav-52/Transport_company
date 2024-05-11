@@ -567,6 +567,16 @@ Rectangle {
                                         power[ebanIndex] = power_text.text
                                         cost_text.text = Database.getItemCar(model_text.text,9)
                                         cost[ebanIndex] = cost_text.text
+
+                                        if(kol_text.text==="0")
+                                            kol_text.text = 1;
+                                        var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        cost_text.text = temp
+                                        if(!newData)
+                                            sumCost_temp += temp
+
+                                        if(marks_text.text === "")
+                                            model_text.text = " "
                                     }
                                 }
                             }
@@ -657,6 +667,12 @@ Rectangle {
                                     onTextChanged:
                                     {
                                         kolText[ebanIndex] = kol_text.text
+                                        if(kol_text.text==="0")
+                                            kol_text.text = 1;
+                                        if(sale_text.text === "")
+                                            cost_text.text = cost[ebanIndex]*kol_text.text
+                                        else
+                                            cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
 
                                     }
 
@@ -883,6 +899,13 @@ Rectangle {
                             }
                             break;
                         case 3:
+                            Database.invoice_truncate(Transport_company.Order_vector[0])
+                            Database.delete_Data(Transport_company.Order_vector[0], "Orders","id_order");
+                            if(Transport_company.getOrderIndex(0) < Transport_company.getOrderMaxIndex()-1)
+                                Transport_company.setOrder_vector(Database.getDataVector(Transport_company.getOrderIndex(1),"Orders","id_order"));
+                            else
+                                Transport_company.setOrder_vector(Database.getDataVector(Transport_company.getOrderIndex(-1),"Orders","id_order"));
+                            Transport_company.setOrderMaxIndex(Transport_company.getOrderMaxIndex()-1)
                             break;
                         case 4:
                             if(newData)
