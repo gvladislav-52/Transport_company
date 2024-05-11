@@ -11,7 +11,6 @@ QVector<QString> Transport_company::getSupplier_vector() const
 void Transport_company::setSupplierMaxIndex(int element)
 {
     supplier_maxIndex = element;
-    //lol
 }
 
 void Transport_company::setCarsIndex(int num)

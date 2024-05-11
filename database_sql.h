@@ -12,6 +12,8 @@ class Database_sql : public QObject
 public:
     explicit Database_sql(QObject *parent = nullptr);
 public slots:
+
+    QVector<QString> getIdInvoice(int index);
     void invoices_addNewData(QString supplierId, QString carId, QString kol, QString sale, QString orderId);
     void invoices_createNewData(QString supplierId, QString carId, QString kol, QString sale, QString orderId);
     void orders_addNewData(QVector<QString> vector);

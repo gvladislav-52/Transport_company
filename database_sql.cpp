@@ -37,10 +37,26 @@ void Database_sql::invoices_addNewData(QString supplierId, QString carId, QStrin
 {
     std::thread th([&](){
         QSqlQuery selectQuery(db);
-        selectQuery.exec("UPDATE Invoice SET id_supplier = '"+supplierId+"', id_car = '"+carId+"', kolvo = '"+kol+"', sale = '"+sale+"' WHERE id_order = '"+orderId+"'");
+        selectQuery.exec("UPDATE Invoice SET id_supplier = '"+supplierId+"', id_car = '"+carId+"', kolvo = '"+kol+"', sale = '"+sale+"' WHERE id_invoice = 3");
         //selectQuery.exec("UPDATE Orders SET id_client = '" + vector.at(1) +"', id = '" + vector.at(2)+"', delivery_address = '" + vector.at(6) +"',placement_date = '" + vector.at(3) +"', assignment_date = '" + vector.at(4) +"', execution_date = '" + vector.at(5) +"', sumcost_new = '" + vector.at(7) +"' WHERE id_order = '" + vector.at(0) +"'");
     });
+
     th.join();
+}
+
+QVector<QString> Database_sql::getIdInvoice(int index)
+{
+    QVector<QString> temp_vector;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT * FROM Invoice  WHERE id_order = '"+QString::number(index)+"' ");
+
+        while (selectQuery.next()) {
+            temp_vector.append(selectQuery.value(0).toString());
+        }
+    });
+    th.join();
+    return temp_vector;
 }
 
 QVector<QString> Database_sql::getInvoiceDataVector(QString name, QString sort, int order)
