@@ -33,11 +33,11 @@ void Database_sql::invoices_createNewData(QString supplierId, QString carId, QSt
     th.join();
 }
 
-void Database_sql::invoices_addNewData(QString supplierId, QString carId, QString kol, QString sale, QString orderId)
+void Database_sql::invoices_addNewData(QString supplierId, QString carId, QString kol, QString sale, QString invoiceId)
 {
     std::thread th([&](){
         QSqlQuery selectQuery(db);
-        selectQuery.exec("UPDATE Invoice SET id_supplier = '"+supplierId+"', id_car = '"+carId+"', kolvo = '"+kol+"', sale = '"+sale+"' WHERE id_invoice = 3");
+        selectQuery.exec("UPDATE Invoice SET id_supplier = '"+supplierId+"', id_car = '"+carId+"', kolvo = '"+kol+"', sale = '"+sale+"' WHERE id_invoice = '"+invoiceId+"'");
         //selectQuery.exec("UPDATE Orders SET id_client = '" + vector.at(1) +"', id = '" + vector.at(2)+"', delivery_address = '" + vector.at(6) +"',placement_date = '" + vector.at(3) +"', assignment_date = '" + vector.at(4) +"', execution_date = '" + vector.at(5) +"', sumcost_new = '" + vector.at(7) +"' WHERE id_order = '" + vector.at(0) +"'");
     });
 
@@ -332,12 +332,16 @@ int Database_sql::getIdDriverName(QString company)
 
 void Database_sql::orders_createNewData(QVector<QString> vec)
 {
-    //qDebug() << vec;
+    QEventLoop loop;
+
     std::thread th([&](){
         QSqlQuery selectQuery(db);
-        //selectQuery.exec("INSERT INTO Orders (id_client, id, delivery_address, placement_date, assignment_date, execution_date, sumcost_new) VALUES ("+vec[1]+", '"+ vec[2] +"', '"+ vec[6] +"', "+ vec[3] +", "+ vec[4] +", '"+ vec[5] +"', '"+ vec[7] +"'");
         selectQuery.exec("INSERT INTO Orders (id_client, id, execution_date, placement_date, assignment_date, delivery_address, sumcost_new) VALUES ('"+vec[1]+"', '"+vec[2]+"', '"+vec[3]+"', '"+vec[4]+"', '"+vec[5]+"', '"+vec[6]+"', '"+vec[7]+"')");
+
+        loop.quit(); // Выход из цикла QEventLoop после завершения выполнения запроса
     });
+
+    loop.exec(); // Ожидание завершения выполнения запроса
     th.join();
 }
 

@@ -876,7 +876,7 @@ Rectangle {
                                 for(let i = 0; i < marksComboBox.length; i++)
                                 {
                                     if(temp_vector[i] !== "-1")
-                                        Database.invoices_addNewData(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
+                                        Database.invoices_addNewData(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], temp_vector[i])
                                     else
                                         Database.invoices_createNewData(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
                                 }
