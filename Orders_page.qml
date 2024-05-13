@@ -26,16 +26,18 @@ Rectangle {
     property var volume: []
     property var power: []
     property var cost: []
-    property real sumCost_temp: 0.0
+    property real sumCost_temp: 0
     property var driver_temp: Database.getDriverName(Transport_company.Order_vector[2])
     property var clients_temp: Database.getClientName(Transport_company.Order_vector[1])
 
     property var indexVector: Transport_company.getInvoiceIndex(0)
 
+    property var vectorSum: []
+
     property var newData: false
 
     function formatNumberWithSpaces(number) {
-            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/, " ");
         }
 
     ColumnLayout
@@ -493,7 +495,11 @@ Rectangle {
                                              onActiveFocusChanged:
                                             {
                                                 if(my_food_list_repeater.model-index === 1)
+                                                {
                                                      my_food_list_repeater.model = ++my_food_list_repeater.model
+                                                    // sumCost_temp = 0.0
+                                                }
+
 
                                             }
                                         }
@@ -549,8 +555,9 @@ Rectangle {
 
                                             if(kol_text.text==="0")
                                                 kol_text.text = 1;
-                                            var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
-                                            cost_text.text = temp
+                                            //var temp = Database.getItemCar(model_text.text,9)
+                                          var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                           cost_text.text = temp
                                             if(!newData)
                                                 sumCost_temp += temp
 
@@ -571,9 +578,11 @@ Rectangle {
                                         if(kol_text.text==="0")
                                             kol_text.text = 1;
                                         var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                       // var temp = cost[ebanIndex]
                                         cost_text.text = temp
                                         if(!newData)
                                             sumCost_temp += temp
+
 
                                         if(marks_text.text === "")
                                             model_text.text = " "
@@ -734,9 +743,12 @@ Rectangle {
                                     onAccepted: {
                                         if(kol_text.text==="0")
                                             kol_text.text = 1;
+                                        if(!newData)
+                                            sumCost_temp -= cost_text.text
                                         cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                         //console.log((cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100))
                                         //sumCost_temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+
                                         sumCost_temp += (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                     }
                                 }

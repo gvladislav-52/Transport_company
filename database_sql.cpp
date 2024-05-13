@@ -147,7 +147,7 @@ QVector<QString> Database_sql::getSupplierVectorName(int index)
     std::thread th([&](){
         //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
         QSqlQuery selectQuery(db);
-        selectQuery.exec("SELECT Company FROM Invoice INNER JOIN Supplier ON Invoice.id_supplier = Supplier.id_supplier WHERE Invoice.id_order = '"+QString::number(index)+"'");
+        selectQuery.exec("SELECT Company FROM Invoice INNER JOIN Supplier ON Invoice.id_supplier = Supplier.id_supplier WHERE Invoice.id_order = '"+QString::number(index)+"'ORDER BY id_invoice asc");
 
         while (selectQuery.next()) {
             // Получаем первое значение (индекс 0) из текущей строки
@@ -164,7 +164,7 @@ QVector<QString> Database_sql::getCarVectorName(int index)
     std::thread th([&](){
         //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
         QSqlQuery selectQuery(db);
-        selectQuery.exec("SELECT Model FROM Cars INNER JOIN Invoice ON Cars.id_car = Invoice.id_car WHERE Invoice.id_order = '"+QString::number(index)+"'");
+        selectQuery.exec("SELECT Model FROM Cars INNER JOIN Invoice ON Cars.id_car = Invoice.id_car WHERE Invoice.id_order = '"+QString::number(index)+"'ORDER BY id_invoice asc");
 
         while (selectQuery.next()) {
             // Получаем первое значение (индекс 0) из текущей строки
@@ -399,16 +399,16 @@ QVector<QString> Database_sql::getAllModelCar(QString temp, bool botemp)
     return temp_vector;
 }
 
-QString Database_sql::getItemCar(QString temp, int index)
+int Database_sql::getItemCar(QString temp, int index)
 {
-    QString temp_vector;
+    int temp_vector;
     std::thread th([&](){
         //qDebug() << "getDataVector thread: " << QThread::currentThreadId();
         QSqlQuery selectQuery(db);
         selectQuery.exec("SELECT * FROM Cars WHERE Model = '"+temp+"' ORDER BY id_car ASC");
 
         while (selectQuery.next())
-            temp_vector = selectQuery.value(index).toString();
+            temp_vector = selectQuery.value(index).toInt();
     });
     th.join();
     return temp_vector;

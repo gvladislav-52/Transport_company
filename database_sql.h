@@ -32,7 +32,7 @@ public slots:
     QVector<QString> getDataVector(int index, QString name, QString sort);
     QVector<QString> getAllSupplierName();
     QVector<QString> getAllModelCar(QString temp,bool botemp = false);
-    QString getItemCar(QString temp,int index);
+    int getItemCar(QString temp,int index);
     QString getSupplierId(QString company);
     int getIdDriverName(QString company);
     int getIdClientName(QString company);
