@@ -43,18 +43,19 @@ void Database_sql::invoices_createNewData(QString supplierId, QString carId, QSt
         //selectQuery.exec("INSERT INTO Orders (id_client, id, delivery_address, placement_date, assignment_date, execution_date, sumcost_new) VALUES ("+vec[1]+", '"+ vec[2] +"', '"+ vec[6] +"', "+ vec[3] +", "+ vec[4] +", '"+ vec[5] +"', '"+ vec[7] +"'");
         selectQuery.exec("INSERT INTO Invoice (id_supplier, id_car, kolvo, sale, id_order) VALUES ('"+supplierId+"', '"+carId+"', '"+kol+"', '"+sale+"', '"+orderId+"')");
     });
+        qDebug() << "invoice";
     th.join();
 }
 
 void Database_sql::invoices_addNewData(QString supplierId, QString carId, QString kol, QString sale, QString invoiceId)
 {
-    std::thread th([&](){
+    //std::thread th([&](){
         QSqlQuery selectQuery(db);
         selectQuery.exec("UPDATE Invoice SET id_supplier = '"+supplierId+"', id_car = '"+carId+"', kolvo = '"+kol+"', sale = '"+sale+"' WHERE id_invoice = '"+invoiceId+"'");
         //selectQuery.exec("UPDATE Orders SET id_client = '" + vector.at(1) +"', id = '" + vector.at(2)+"', delivery_address = '" + vector.at(6) +"',placement_date = '" + vector.at(3) +"', assignment_date = '" + vector.at(4) +"', execution_date = '" + vector.at(5) +"', sumcost_new = '" + vector.at(7) +"' WHERE id_order = '" + vector.at(0) +"'");
-    });
+    //);
 
-    th.join();
+    //th.join();
 }
 
 QVector<QString> Database_sql::getIdInvoice(int index)
@@ -72,6 +73,20 @@ QVector<QString> Database_sql::getIdInvoice(int index)
     return temp_vector;
 }
 
+int Database_sql::getLastIndexOrder()
+{
+        int index;
+    std::thread th([&](){
+        QSqlQuery selectQuery(db);
+        selectQuery.exec("SELECT id_order FROM Orders ORDER BY id_order DESC LIMIT 1");
+
+        while (selectQuery.next()) {
+            index = selectQuery.value(0).toInt();
+        }
+    });
+    th.join();
+    return index;
+}
 QVector<QString> Database_sql::getInvoiceDataVector(QString name, QString sort, int order)
 {
     QVector<QString> temp_vector;
@@ -345,17 +360,13 @@ int Database_sql::getIdDriverName(QString company)
 
 void Database_sql::orders_createNewData(QVector<QString> vec)
 {
-    QEventLoop loop;
-
-    std::thread th([&](){
+    //std::thread th([&](){
         QSqlQuery selectQuery(db);
         selectQuery.exec("INSERT INTO Orders (id_client, id, execution_date, placement_date, assignment_date, delivery_address, sumcost_new) VALUES ('"+vec[1]+"', '"+vec[2]+"', '"+vec[3]+"', '"+vec[4]+"', '"+vec[5]+"', '"+vec[6]+"', '"+vec[7]+"')");
-
-        loop.quit(); // Выход из цикла QEventLoop после завершения выполнения запроса
-    });
-
-    loop.exec(); // Ожидание завершения выполнения запроса
-    th.join();
+    //});
+    //std::this_thread::sleep_for(std::chrono::seconds(5));
+    qDebug() << "order";
+    //th.join();
 }
 
 void Database_sql::orders_addNewData(QVector<QString> vector)

@@ -828,19 +828,15 @@ Rectangle {
                                 newData = false
                             if(Transport_company.getOrderIndex(0) > 0)
                             {
-                                 Transport_company.setOrder_vector(Database.getDataVector(Transport_company.getOrderIndex(-1),"Orders","id_order"));
-                            //console.log(Transport_company.getInvoiceIndexTable())
-                            //if(Transport_company.getInvoiceIndexTable() > 0)
-                            //{
+                                Transport_company.setOrder_vector(Database.getDataVector(Transport_company.getOrderIndex(-1),"Orders","id_order"));
+
                                 Transport_company.invoice_clearVector()
-                                //testNode = "4";
                                 volume = []
                                 power = []
                                 cost = []
                                 sumCost_temp = 0
                                 my_food_list_repeater.model = 0
-                            //Transport_company.setIndexOrder(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),false))
-                            //Transport_company.setInvoiceIndexTable(-1)
+
                             Transport_company.setInvoiceIndex(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),false));
                             indexVector =  Transport_company.getInvoiceIndex(0)
                             Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Transport_company.getInvoiceIndex(0)));
@@ -849,7 +845,6 @@ Rectangle {
 
                             comboBox_driver.currentIndex = Database.getIndexDrivers(drivers_vector_order,Transport_company.Order_vector[2])
                             text_driver.text = comboBox_driver.currentText
-                            //console.log(testNode)
                              my_food_list_repeater.model = marksComboBox.length+1
                             }
                             break;
@@ -874,16 +869,18 @@ Rectangle {
                             Transport_company.Order_vector[1] = Database.getIdClientName(comboBox_clients.textAt(comboBox_clients.currentIndex))
                             Transport_company.Order_vector[2] = Database.getIdDriverName(comboBox_driver.textAt(comboBox_driver.currentIndex))
                             var temp_vector  = Database.getIdInvoice(Transport_company.Order_vector[0])
-                            console.log(temp_vector.length)
+                            //console.log(temp_vector.length)
                             while(temp_vector.length < marksComboBox.length)
                                 temp_vector.push("-1")
-                            console.log(temp_vector.length)
-                            console.log(temp_vector)
+                            //console.log(temp_vector.length)
+                            //console.log(temp_vector)
                             if(newData)
                             {
                                 Database.orders_createNewData(Transport_company.Order_vector)
+                                var indexTemp = Database.getLastIndexOrder()
+                                //console.log(Database.getLastIndexOrder())//Transport_company.Order_vector[0])
                                 for(let i = 0; i < marksComboBox.length; i++)
-                                    Database.invoices_createNewData(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], Transport_company.Order_vector[0])
+                                    Database.invoices_createNewData(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], indexTemp)
 
                             }
                             else
