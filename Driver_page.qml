@@ -96,7 +96,7 @@ Rectangle {
                     height: parent.height
                     font.pixelSize: parent.height * 0.8
                     color: "black"
-                    text: Transport_company.getDriversIndex(0)+1
+                    text: Driver_com.getDriversIndex(0)+1
                     horizontalAlignment: TextInput.AlignRight
                 }
 
@@ -104,7 +104,7 @@ Rectangle {
 
             Repeater
             {
-                model: Transport_company.Drivers_vector.length-2
+                model: Driver_com.Drivers_vector.length-2
                 Rectangle
                 {
                     Layout.alignment: Qt.AlignLeft
@@ -126,12 +126,12 @@ Rectangle {
                         height: parent.height
                         font.pixelSize: parent.height * 0.8
                         color: "black"
-                        text: qsTr(Transport_company.Drivers_vector[index+1])
+                        text: qsTr(Driver_com.Drivers_vector[index+1])
                         horizontalAlignment: TextInput.AlignRight
 
                         onTextChanged:
                         {
-                            Transport_company.Drivers_vector[index+1] = text_textInput.text
+                            Driver_com.Drivers_vector[index+1] = text_textInput.text
                         }
                     }
                 }
@@ -205,12 +205,12 @@ Rectangle {
                                height: parent.height
                                font.pixelSize: parent.height * 0.8
                                color: "black"
-                               text: qsTr(Transport_company.Drivers_vector[8])
+                               text: qsTr(Driver_com.Drivers_vector[8])
                                horizontalAlignment: TextInput.AlignRight
 
                                onTextChanged:
                                {
-                                   Transport_company.Drivers_vector[8] = image_textInput.text
+                                   Driver_com.Drivers_vector[8] = image_textInput.text
                                }
 
                                onFocusChanged:
@@ -278,7 +278,7 @@ Rectangle {
                id: image_logo
                visible: true
                enabled: true
-               source: Transport_company.Drivers_vector[8]
+               source: Driver_com.Drivers_vector[8]
                anchors.fill: parent
                fillMode: Image.PreserveAspectFit
                MouseArea
@@ -335,44 +335,44 @@ Rectangle {
                            case 0:
                                if(newData)
                                    newData = false
-                               if(Transport_company.getDriversIndex(0) > 0)
-                                    Transport_company.setDrivers_vector(Database.getDataVector(Transport_company.getDriversIndex(-1),"Drivers","id"));
-                               image_textInput.text = Transport_company.Drivers_vector[8];
-                               text_numer.text = Transport_company.getDriversIndex(0)+1;
+                               if(Driver_com.getDriversIndex(0) > 0)
+                                    Driver_com.setDrivers_vector(Database.getDataVector(Driver_com.getDriversIndex(-1),"Drivers","id"));
+                               image_textInput.text = Driver_com.Drivers_vector[8];
+                               text_numer.text = Driver_com.getDriversIndex(0)+1;
                                break;
                            case 1:
-                               Transport_company.drivers_clearVector();
+                               Driver_com.drivers_clearVector();
                                newData = true;
-                               text_numer.text = Transport_company.getDriversMaxIndex()+1;
+                               text_numer.text = Driver_com.getDriversMaxIndex()+1;
                                break;
                            case 2:
-                               console.log(Transport_company.Drivers_vector)
+                               console.log(Driver_com.Drivers_vector)
                                if(newData)
                                {
-                                   Database.drivers_createNewData(Transport_company.Drivers_vector)
-                                   Transport_company.setDriversMaxIndex( Transport_company.getDriversMaxIndex()+1)
-                                   Transport_company.setDrivers_vector(Database.getDataVector(Transport_company.getDriversIndex(0),"Drivers","id"));
-                                   text_numer.text = Transport_company.getDriversIndex(0)+1;
+                                   Database.drivers_createNewData(Driver_com.Drivers_vector)
+                                   Driver_com.setDriversMaxIndex( Driver_com.getDriversMaxIndex()+1)
+                                   Driver_com.setDrivers_vector(Database.getDataVector(Driver_com.getDriversIndex(0),"Drivers","id"));
+                                   text_numer.text = Driver_com.getDriversIndex(0)+1;
                                }
                                else
-                                   Database.drivers_addNewData(Transport_company.Drivers_vector);
+                                   Database.drivers_addNewData(Driver_com.Drivers_vector);
                                break;
                            case 3:
-                               Database.delete_Data(Transport_company.Drivers_vector[0], "Drivers","id");
-                               if(Transport_company.getDriversIndex(0) < Transport_company.getDriversMaxIndex()-1)
-                                  Transport_company.setDrivers_vector(Database.getDataVector(Transport_company.getDriversIndex(0),"Drivers","id"));
+                               Database.delete_Data(Driver_com.Drivers_vector[0], "Drivers","id");
+                               if(Driver_com.getDriversIndex(0) < Driver_com.getDriversMaxIndex()-1)
+                                  Driver_com.setDrivers_vector(Database.getDataVector(Driver_com.getDriversIndex(0),"Drivers","id"));
                                else
-                                   Transport_company.setDrivers_vector(Database.getDataVector(Transport_company.getDriversIndex(-1),"Drivers","id"));
-                               Transport_company.setDriversMaxIndex( Transport_company.getDriversMaxIndex()-1)
-                               text_numer.text = Transport_company.getDriversIndex(0)+1;
+                                   Driver_com.setDrivers_vector(Database.getDataVector(Driver_com.getDriversIndex(-1),"Drivers","id"));
+                               Driver_com.setDriversMaxIndex( Driver_com.getDriversMaxIndex()-1)
+                               text_numer.text = Driver_com.getDriversIndex(0)+1;
                                break;
                            case 4:
                                if(newData)
                                    newData = false
-                               if(Transport_company.getDriversIndex(0) < Transport_company.getDriversMaxIndex()-1)
-                                    Transport_company.setDrivers_vector(Database.getDataVector(Transport_company.getDriversIndex(1),"Drivers","id"));
-                               image_textInput.text = Transport_company.Drivers_vector[8];
-                               text_numer.text = Transport_company.getDriversIndex(0)+1;
+                               if(Driver_com.getDriversIndex(0) < Driver_com.getDriversMaxIndex()-1)
+                                    Driver_com.setDrivers_vector(Database.getDataVector(Driver_com.getDriversIndex(1),"Drivers","id"));
+                               image_textInput.text = Driver_com.Drivers_vector[8];
+                               text_numer.text = Driver_com.getDriversIndex(0)+1;
                                break;
                            }
                        }

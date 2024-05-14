@@ -9,6 +9,7 @@
 #include "suppliers.h"
 #include "cars.h"
 #include "clients.h"
+#include "drivers.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,6 +19,7 @@ int main(int argc, char *argv[])
     Suppliers supplier;
     Cars car;
     Clients client;
+    Drivers driver;
 
     Database_sql db;
     qDebug() << "Main thread: " << QThread::currentThreadId();
@@ -33,9 +35,9 @@ int main(int argc, char *argv[])
     client.setClientsMaxIndex(db.getMaxElement("Clients"));
     client.setClientsIndex(0);
 
-    ts_company.setDrivers_vector(db.getDataVector(0,"Drivers","id"));
-    ts_company.setDriversMaxIndex(db.getMaxElement("Drivers"));
-    ts_company.setDriversIndex(0);
+    driver.setDrivers_vector(db.getDataVector(0,"Drivers","id"));
+    driver.setDriversMaxIndex(db.getMaxElement("Drivers"));
+    driver.setDriversIndex(0);
 
     ts_company.setOrder_vector(db.getDataVector(0,"Orders","id_order"));
     ts_company.setOrderMaxIndex(db.getMaxElement("Orders"));
@@ -62,6 +64,7 @@ int main(int argc, char *argv[])
     rootContext->setContextProperty("Supplier_com", &supplier);
     rootContext->setContextProperty("Car_com", &car);
     rootContext->setContextProperty("Client_com", &client);
+    rootContext->setContextProperty("Driver_com", &driver);
     rootContext->setContextProperty("Database", &db);
 
 

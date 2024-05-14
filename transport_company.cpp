@@ -33,15 +33,15 @@ Transport_company::Transport_company(){}//:supplier_index(0) {}
 //     clients_maxIndex = element;
 // }
 
-void Transport_company::setDriversIndex(int num)
-{
-    drivers_index = num;
-}
+// void Transport_company::setDriversIndex(int num)
+// {
+//     drivers_index = num;
+// }
 
-void Transport_company::setDriversMaxIndex(int element)
-{
-    drivers_maxIndex = element;
-}
+// void Transport_company::setDriversMaxIndex(int element)
+// {
+//     drivers_maxIndex = element;
+// }
 
 void Transport_company::setOrderIndex(int num)
 {
@@ -89,12 +89,12 @@ void Transport_company::setInvoiceIndex(int num)
 //     emit Clients_vectorChanged();
 // }
 
-void Transport_company::drivers_clearVector()
-{
-    m_Drivers_vector.clear();
-    m_Drivers_vector.assign(9,"");
-    emit Drivers_vectorChanged();
-}
+// void Transport_company::drivers_clearVector()
+// {
+//     m_Drivers_vector.clear();
+//     m_Drivers_vector.assign(9,"");
+//     emit Drivers_vectorChanged();
+// }
 
 void Transport_company::order_clearVector()
 {
@@ -153,15 +153,15 @@ void Transport_company::invoice_clearVector()
 //     return clients_maxIndex;
 // }
 
-int Transport_company::getDriversIndex(int num)
-{
-    return drivers_index+=num;
-}
+// int Transport_company::getDriversIndex(int num)
+// {
+//     return drivers_index+=num;
+// }
 
-int Transport_company::getDriversMaxIndex()
-{
-    return drivers_maxIndex;
-}
+// int Transport_company::getDriversMaxIndex()
+// {
+//     return drivers_maxIndex;
+// }
 
 int Transport_company::getOrderIndex(int num)
 {
@@ -219,18 +219,18 @@ int Transport_company::getInvoiceIndex(int num)
 //     emit Clients_vectorChanged();
 // }
 
-QVector<QString> Transport_company::getDrivers_vector() const
-{
-    return m_Drivers_vector;
-}
+// QVector<QString> Transport_company::getDrivers_vector() const
+// {
+//     return m_Drivers_vector;
+// }
 
-void Transport_company::setDrivers_vector(const QVector<QString> &newDrivers_vector)
-{
-    if (m_Drivers_vector == newDrivers_vector)
-        return;
-    m_Drivers_vector = newDrivers_vector;
-    emit Drivers_vectorChanged();
-}
+// void Transport_company::setDrivers_vector(const QVector<QString> &newDrivers_vector)
+// {
+//     if (m_Drivers_vector == newDrivers_vector)
+//         return;
+//     m_Drivers_vector = newDrivers_vector;
+//     emit Drivers_vectorChanged();
+// }
 
 QVector<QString> Transport_company::getInvoice_vector() const
 {

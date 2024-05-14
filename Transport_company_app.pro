@@ -12,6 +12,7 @@ SOURCES += \
     cars.cpp \
     clients.cpp \
     database_sql.cpp \
+    drivers.cpp \
     main.cpp \
     suppliers.cpp \
     transport_company.cpp \
@@ -21,6 +22,7 @@ HEADERS += \
     cars.h \
     clients.h \
     database_sql.h \
+    drivers.h \
     suppliers.h \
     transport_company.h \
     widget.h
