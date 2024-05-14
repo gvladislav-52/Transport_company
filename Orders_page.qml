@@ -40,6 +40,14 @@ Rectangle {
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/, " ");
         }
 
+    function vectorPlus(vec)
+    {
+        var temp = 0
+        for(let i = 0; i < vec.length; i++)
+            temp += vec[i]
+        return temp
+    }
+
     ColumnLayout
     {
 
@@ -325,7 +333,7 @@ Rectangle {
                                 right: parent.right
                                 rightMargin: parent.width * 0.05
                             }
-                            text: formatNumberWithSpaces(sumCost_temp)
+                            text: vectorPlus(vectorSum)
                             font.pixelSize: parent.height* 0.4
                             horizontalAlignment: Text.AlignRight
                         }
@@ -556,10 +564,12 @@ Rectangle {
                                             if(kol_text.text==="0")
                                                 kol_text.text = 1;
                                             //var temp = Database.getItemCar(model_text.text,9)
-                                          var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                            var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                            cost_text.text = temp
                                             if(!newData)
                                                 sumCost_temp += temp
+                                            vectorSum[ebanIndex] = temp
+                                            console.log(vectorPlus(vectorSum))
 
                                             if(marks_text.text === "")
                                                 model_text.text = " "
@@ -580,6 +590,8 @@ Rectangle {
                                         var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                        // var temp = cost[ebanIndex]
                                         cost_text.text = temp
+                                        //vectorSum[ebanIndex] = temp
+                                        //console.log(vectorPlus(vectorSum))
                                         if(!newData)
                                             sumCost_temp += temp
 
@@ -694,10 +706,9 @@ Rectangle {
                                     onAccepted: {
                                         if(kol_text.text==="0")
                                             kol_text.text = 1;
-                                        if(sale_text.text === "")
-                                            cost_text.text = cost[ebanIndex]*kol_text.text
-                                        else
-                                            cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        var temp  = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        vectorSum[ebanIndex] = temp
+                                        cost_text_sum.text = vectorPlus(vectorSum)
                                     }
                                 }
                             }
@@ -745,11 +756,13 @@ Rectangle {
                                             kol_text.text = 1;
                                         if(!newData)
                                             sumCost_temp -= cost_text.text
-                                        cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        var temp  = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        cost_text.text = temp
                                         //console.log((cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100))
                                         //sumCost_temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
-
-                                        sumCost_temp += (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                       // sumCost_temp += (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        vectorSum[ebanIndex] = temp
+                                        cost_text_sum.text = vectorPlus(vectorSum)
                                     }
                                 }
                             }
@@ -858,6 +871,7 @@ Rectangle {
                             comboBox_driver.currentIndex = Database.getIndexDrivers(drivers_vector_order,Transport_company.Order_vector[2])
                             text_driver.text = comboBox_driver.currentText
                              my_food_list_repeater.model = marksComboBox.length+1
+                                cost_text_sum.text = vectorPlus(vectorSum)
                             }
                             break;
                         case 1:
@@ -870,6 +884,7 @@ Rectangle {
                             volume = []
                             power = []
                             cost = []
+                            vectorSum = []
                             sumCost_temp = 0
                             indexVector = 0;
                             client_text.text = "Выберете клиента"
@@ -929,6 +944,7 @@ Rectangle {
                                 volume = []
                                 power = []
                                 cost = []
+                                vectorSum = []
                                 sumCost_temp = 0
                                 my_food_list_repeater.model = 0
                                 //Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Database.getIndexOrder(Transport_company.getInvoiceIndex(0),true)));
@@ -944,6 +960,7 @@ Rectangle {
                                 text_driver.text = comboBox_driver.currentText
                             //console.log(modelsComboBox)
                                 my_food_list_repeater.model = marksComboBox.length+1
+                                cost_text_sum.text = vectorPlus(vectorSum)
                             }
                             break;
                         }
