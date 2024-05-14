@@ -8,7 +8,7 @@
 
 #include "suppliers.h"
 #include "cars.h"
-
+#include "clients.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
     Transport_company ts_company;
     Suppliers supplier;
     Cars car;
+    Clients client;
 
     Database_sql db;
     qDebug() << "Main thread: " << QThread::currentThreadId();
@@ -28,9 +29,9 @@ int main(int argc, char *argv[])
     car.setCarsMaxIndex(db.getMaxElement("Cars"));
     car.setCarsIndex(0);
 
-    ts_company.setClients_vector(db.getDataVector(0,"Clients","Id_client"));
-    ts_company.setClientsMaxIndex(db.getMaxElement("Clients"));
-    ts_company.setClientsIndex(0);
+    client.setClients_vector(db.getDataVector(0,"Clients","Id_client"));
+    client.setClientsMaxIndex(db.getMaxElement("Clients"));
+    client.setClientsIndex(0);
 
     ts_company.setDrivers_vector(db.getDataVector(0,"Drivers","id"));
     ts_company.setDriversMaxIndex(db.getMaxElement("Drivers"));
@@ -60,7 +61,9 @@ int main(int argc, char *argv[])
     rootContext->setContextProperty("Transport_company", &ts_company);
     rootContext->setContextProperty("Supplier_com", &supplier);
     rootContext->setContextProperty("Car_com", &car);
+    rootContext->setContextProperty("Client_com", &client);
     rootContext->setContextProperty("Database", &db);
+
 
     engine.load(url);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     cars.cpp \
+    clients.cpp \
     database_sql.cpp \
     main.cpp \
     suppliers.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     cars.h \
+    clients.h \
     database_sql.h \
     suppliers.h \
     transport_company.h \

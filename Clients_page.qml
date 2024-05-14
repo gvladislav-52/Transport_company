@@ -96,14 +96,14 @@ Rectangle {
                     height: parent.height
                     font.pixelSize: parent.height * 0.8
                     color: "black"
-                    text: Transport_company.getClientsIndex(0)+1
+                    text: Client_com.getClientsIndex(0)+1
                     horizontalAlignment: TextInput.AlignRight
                 }
 
             }
             Repeater
             {
-                model: Transport_company.Clients_vector.length-1
+                model: Client_com.Clients_vector.length-1
                 Rectangle
                 {
                     Layout.alignment: Qt.AlignLeft
@@ -125,12 +125,12 @@ Rectangle {
                         height: parent.height
                         font.pixelSize: parent.height * 0.8
                         color: "black"
-                        text: qsTr(Transport_company.Clients_vector[index+1])
+                        text: qsTr(Client_com.Clients_vector[index+1])
                         horizontalAlignment: TextInput.AlignRight
 
                         onTextChanged:
                         {
-                            Transport_company.Clients_vector[index+1] = text_textInput.text
+                            Client_com.Clients_vector[index+1] = text_textInput.text
                         }
                     }
                 }
@@ -185,44 +185,44 @@ Rectangle {
                     case 0:
                         if(newData)
                             newData = false
-                        if(Transport_company.getClientsIndex(0) > 0)
-                             Transport_company.setClients_vector(Database.getDataVector(Transport_company.getClientsIndex(-1),"Clients","Id_client"));
+                        if(Client_com.getClientsIndex(0) > 0)
+                             Client_com.setClients_vector(Database.getDataVector(Client_com.getClientsIndex(-1),"Clients","Id_client"));
                         //image_textInput.text = Transport_company.Clients_vector[6];
-                        text_numer.text = Transport_company.getClientsIndex(0)+1;
+                        text_numer.text = Client_com.getClientsIndex(0)+1;
                         break;
                     case 1:
-                        Transport_company.clients_clearVector();
+                        Client_com.clients_clearVector();
                         newData = true;
-                        text_numer.text = Transport_company.getClientsMaxIndex()+1;
+                        text_numer.text = Client_com.getClientsMaxIndex()+1;
                         break;
                     case 2:
-                        console.log(Transport_company.Clients_vector)
+                        console.log(Client_com.Clients_vector)
                         if(newData)
                         {
-                            Database.clients_createNewData(Transport_company.Clients_vector)
-                            Transport_company.setClientsMaxIndex( Transport_company.getClientsMaxIndex()+1)
-                            Transport_company.setClients_vector(Database.getDataVector(Transport_company.getClientsIndex(0),"Clients","Id_client"));
-                            text_numer.text = Transport_company.getClientsIndex(0)+1;
+                            Database.clients_createNewData(Client_com.Clients_vector)
+                            Client_com.setClientsMaxIndex( Client_com.getClientsMaxIndex()+1)
+                            Client_com.setClients_vector(Database.getDataVector(Client_com.getClientsIndex(0),"Clients","Id_client"));
+                            text_numer.text = Client_com.getClientsIndex(0)+1;
                         }
                         else
-                            Database.clients_addNewData(Transport_company.Clients_vector);
+                            Database.clients_addNewData(Client_com.Clients_vector);
                         break;
                     case 3:
-                        Database.delete_Data(Transport_company.Clients_vector[0], "Clients","id_client");
-                        if(Transport_company.getClientsIndex(0) < Transport_company.getClientsMaxIndex()-1)
-                           Transport_company.setClients_vector(Database.getDataVector(Transport_company.getClientsIndex(0),"Clients","Id_client"));
+                        Database.delete_Data(Client_com.Clients_vector[0], "Clients","id_client");
+                        if(Client_com.getClientsIndex(0) < Client_com.getClientsMaxIndex()-1)
+                           Client_com.setClients_vector(Database.getDataVector(Client_com.getClientsIndex(0),"Clients","Id_client"));
                         else
-                            Transport_company.setClients_vector(Database.getDataVector(Transport_company.getClientsIndex(-1),"Clients","Id_client"));
-                        Transport_company.setClientsMaxIndex( Transport_company.getClientsMaxIndex()-1)
-                        text_numer.text = Transport_company.getClientsIndex(0)+1;
+                            Client_com.setClients_vector(Database.getDataVector(Client_com.getClientsIndex(-1),"Clients","Id_client"));
+                        Client_com.setClientsMaxIndex( Client_com.getClientsMaxIndex()-1)
+                        text_numer.text = Client_com.getClientsIndex(0)+1;
                         break;
                     case 4:
                         if(newData)
                             newData = false
-                        if(Transport_company.getClientsIndex(0) < Transport_company.getClientsMaxIndex()-1)
-                             Transport_company.setClients_vector(Database.getDataVector(Transport_company.getClientsIndex(1),"Clients","Id_client"));
+                        if(Client_com.getClientsIndex(0) < Client_com.getClientsMaxIndex()-1)
+                             Client_com.setClients_vector(Database.getDataVector(Client_com.getClientsIndex(1),"Clients","Id_client"));
                         //image_textInput.text = Transport_company.Clients_vector[6];
-                        text_numer.text = Transport_company.getClientsIndex(0)+1;
+                        text_numer.text = Client_com.getClientsIndex(0)+1;
                         break;
                     }
                 }
