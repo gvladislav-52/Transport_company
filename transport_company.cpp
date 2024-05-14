@@ -1,17 +1,17 @@
 #include "transport_company.h"
 #include "qdebug.h"
 
-Transport_company::Transport_company():supplier_index(0) {}
+Transport_company::Transport_company(){}//:supplier_index(0) {}
 
-QVector<QString> Transport_company::getSupplier_vector() const
-{
-    return m_Supplier_vector;
-}
+// QVector<QString> Transport_company::getSupplier_vector() const
+// {
+//     return m_Supplier_vector;
+// }
 
-void Transport_company::setSupplierMaxIndex(int element)
-{
-    supplier_maxIndex = element;
-}
+// void Transport_company::setSupplierMaxIndex(int element)
+// {
+//     supplier_maxIndex = element;
+// }
 
 void Transport_company::setCarsIndex(int num)
 {
@@ -75,12 +75,12 @@ void Transport_company::cars_clearVector()
     emit Cars_vectorChanged();
 }
 
-void Transport_company::supplier_clearVector()
-{
-    m_Supplier_vector.clear();
-    m_Supplier_vector.assign(7,"");
-    emit Supplier_vectorChanged();
-}
+// void Transport_company::supplier_clearVector()
+// {
+//     m_Supplier_vector.clear();
+//     m_Supplier_vector.assign(7,"");
+//     emit Supplier_vectorChanged();
+// }
 
 void Transport_company::clients_clearVector()
 {
@@ -114,24 +114,24 @@ void Transport_company::invoice_clearVector()
 // {
 //     return m_Supplier_vector.at(index);
 // }
-void Transport_company::setSupplier_vector(const QVector<QString> newSupplier_vector)
-{
-    if (m_Supplier_vector == newSupplier_vector)
-        return;
-    m_Supplier_vector = newSupplier_vector;
-    emit Supplier_vectorChanged();
-}
+// void Transport_company::setSupplier_vector(const QVector<QString> newSupplier_vector)
+// {
+//     if (m_Supplier_vector == newSupplier_vector)
+//         return;
+//     m_Supplier_vector = newSupplier_vector;
+//     emit Supplier_vectorChanged();
+// }
 
-int Transport_company::getSupplierIndex(int num)
-{
-    return supplier_index +=num;
+// int Transport_company::getSupplierIndex(int num)
+// {
+//     return supplier_index +=num;
 
-}
+// }
 
-int Transport_company::getSupplierMaxIndex()
-{
-    return supplier_maxIndex;
-}
+// int Transport_company::getSupplierMaxIndex()
+// {
+//     return supplier_maxIndex;
+// }
 
 int Transport_company::getCarsIndex(int num)
 {
@@ -188,10 +188,10 @@ int Transport_company::getInvoiceIndex(int num)
 //     return invoice_indexTable;
 // }
 
-void Transport_company::setSupplierIndex(int num)
-{
-    supplier_index = num;
-}
+// void Transport_company::setSupplierIndex(int num)
+// {
+//     supplier_index = num;
+// }
 
 QVector<QString> Transport_company::getCars_vector() const
 {

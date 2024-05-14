@@ -11,11 +11,13 @@ CONFIG += c++17
 SOURCES += \
     database_sql.cpp \
     main.cpp \
+    suppliers.cpp \
     transport_company.cpp \
     widget.cpp
 
 HEADERS += \
     database_sql.h \
+    suppliers.h \
     transport_company.h \
     widget.h
 

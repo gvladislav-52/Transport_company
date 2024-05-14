@@ -6,16 +6,21 @@
 #include "database_sql.h"
 #include <QThread>
 
+#include "suppliers.h"
+
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
     Transport_company ts_company;
+    Suppliers supplier;
+
     Database_sql db;
     qDebug() << "Main thread: " << QThread::currentThreadId();
-    ts_company.setSupplier_vector(db.getDataVector(0,"Supplier","Id_supplier"));
-    ts_company.setSupplierMaxIndex(db.getMaxElement("Supplier"));
-    ts_company.setSupplierIndex(0);
+    supplier.setSupplier_vector(db.getDataVector(0,"Supplier","Id_supplier"));
+    supplier.setSupplierMaxIndex(db.getMaxElement("Supplier"));
+    supplier.setSupplierIndex(0);
 
     ts_company.setCars_vector(db.getDataVector(0,"Cars","Id_car"));
     ts_company.setCarsMaxIndex(db.getMaxElement("Cars"));
@@ -51,6 +56,7 @@ int main(int argc, char *argv[])
 
     QQmlContext *rootContext = engine.rootContext();
     rootContext->setContextProperty("Transport_company", &ts_company);
+    rootContext->setContextProperty("Supplier_com", &supplier);
     rootContext->setContextProperty("Database", &db);
 
     engine.load(url);
