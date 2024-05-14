@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    cars.cpp \
     database_sql.cpp \
     main.cpp \
     suppliers.cpp \
@@ -16,6 +17,7 @@ SOURCES += \
     widget.cpp
 
 HEADERS += \
+    cars.h \
     database_sql.h \
     suppliers.h \
     transport_company.h \

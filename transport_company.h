@@ -7,7 +7,7 @@ class Transport_company: public QObject
 {
     Q_OBJECT
     //Q_PROPERTY(QVector<QString> Supplier_vector READ getSupplier_vector WRITE setSupplier_vector NOTIFY Supplier_vectorChanged FINAL)
-    Q_PROPERTY(QVector<QString> Cars_vector READ getCars_vector WRITE setCars_vector NOTIFY Cars_vectorChanged FINAL)
+    //Q_PROPERTY(QVector<QString> Cars_vector READ getCars_vector WRITE setCars_vector NOTIFY Cars_vectorChanged FINAL)
     Q_PROPERTY(QVector<QString> Clients_vector READ getClients_vector WRITE setClients_vector NOTIFY Clients_vectorChanged FINAL)
     Q_PROPERTY(QVector<QString> Drivers_vector READ getDrivers_vector WRITE setDrivers_vector NOTIFY Drivers_vectorChanged FINAL)
     Q_PROPERTY(QVector<QString> Order_vector READ getOrder_vector WRITE setOrder_vector NOTIFY Order_vectorChanged FINAL)
@@ -15,7 +15,7 @@ class Transport_company: public QObject
 public:
     Transport_company();
     //QVector<QString> getSupplier_vector() const;
-    QVector<QString> getCars_vector() const;
+    //QVector<QString> getCars_vector() const;
     QVector<QString> getClients_vector() const;
     QVector<QString> getDrivers_vector() const;
 
@@ -27,7 +27,7 @@ public:
 
 signals:
     //void Supplier_vectorChanged();
-    void Cars_vectorChanged();
+    //void Cars_vectorChanged();
 
     void Clients_vectorChanged();
 
@@ -40,8 +40,8 @@ signals:
 public slots:
     //int getSupplierIndex(int num);
     //int getSupplierMaxIndex();
-    int getCarsIndex(int num);
-    int getCarsMaxIndex();
+    //int getCarsIndex(int num);
+    //int getCarsMaxIndex();
     int getClientsIndex(int num);
     int getClientsMaxIndex();
     int getDriversIndex(int num);
@@ -56,8 +56,8 @@ public slots:
 
     //void setSupplierIndex(int num);
     //void setSupplierMaxIndex(int element);
-    void setCarsIndex(int num);
-    void setCarsMaxIndex(int element);
+    //void setCarsIndex(int num);
+    //void setCarsMaxIndex(int element);
     void setClientsIndex(int num);
     void setClientsMaxIndex(int element);
     void setDriversIndex(int num);
@@ -69,14 +69,14 @@ public slots:
     //void setInvoiceMaxIndex(int element);
     //void setInvoiceIndexTable(int num);
 
-    void cars_clearVector();
+    //void cars_clearVector();
     //void supplier_clearVector();
     void clients_clearVector();
     void drivers_clearVector();
     void order_clearVector();
     void invoice_clearVector();
 
-    void setCars_vector(const QVector<QString> &newCars_vector);
+    //void setCars_vector(const QVector<QString> &newCars_vector);
     //void setSupplier_vector(const QVector<QString> newSupplier_vector);
     void setClients_vector(const QVector<QString> &newClients_vector);
     void setDrivers_vector(const QVector<QString> &newDrivers_vector);
@@ -88,9 +88,9 @@ private:
     // int supplier_index;
     // int supplier_maxIndex;
 
-    QVector<QString> m_Cars_vector;
-    int cars_index = 0;
-    int cars_maxIndex;
+    // QVector<QString> m_Cars_vector;
+    // int cars_index = 0;
+    // int cars_maxIndex;
 
     QVector<QString> m_Clients_vector;
     int clients_index = 0;

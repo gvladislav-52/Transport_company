@@ -97,7 +97,7 @@ Rectangle {
                     height: parent.height
                     font.pixelSize: parent.height * 0.8
                     color: "black"
-                    text: Transport_company.getCarsIndex(0)+1
+                    text: Car_com.getCarsIndex(0)+1
                     horizontalAlignment: TextInput.AlignRight
                 }
 
@@ -111,7 +111,7 @@ Rectangle {
                 clip: true
 
                 ComboBox {
-                    id: f
+                    id: comboboxcar
                     anchors {
                         verticalCenter: parent.verticalCenter
                     }
@@ -140,7 +140,7 @@ Rectangle {
 
             Repeater
             {
-                model: Transport_company.Cars_vector.length-3
+                model: Car_com.Cars_vector.length-3
                 Rectangle
                 {
                     Layout.alignment: Qt.AlignLeft
@@ -163,12 +163,12 @@ Rectangle {
                         height: parent.height
                         font.pixelSize: parent.height * 0.8
                         color: "black"
-                        text: qsTr(Transport_company.Cars_vector[index+2])
+                        text: qsTr(Car_com.Cars_vector[index+2])
                         horizontalAlignment: TextInput.AlignRight
 
                         onTextChanged:
                         {
-                            Transport_company.Cars_vector[index+2] = text_textInput.text
+                            Car_com.Cars_vector[index+2] = text_textInput.text
                         }
                     }
 
@@ -243,12 +243,12 @@ Rectangle {
                                height: parent.height
                                font.pixelSize: parent.height * 0.8
                                color: "black"
-                               text: qsTr(Transport_company.Cars_vector[10])
+                               text: qsTr(Car_com.Cars_vector[10])
                                horizontalAlignment: TextInput.AlignRight
 
                                onTextChanged:
                                {
-                                   Transport_company.Cars_vector[10] = image_textInput.text
+                                   Car_com.Cars_vector[10] = image_textInput.text
                                }
 
                                onFocusChanged:
@@ -316,7 +316,7 @@ Rectangle {
                id: image_logo
                visible: true
                enabled: true
-               source: Transport_company.Cars_vector[10]
+               source: Car_com.Cars_vector[10]
                anchors.fill: parent
                fillMode: Image.PreserveAspectFit
                MouseArea
@@ -373,57 +373,57 @@ Rectangle {
                            case 0:
                                if(newData)
                                    newData = false
-                               if(Transport_company.getCarsIndex(0) > 0)
-                                    Transport_company.setCars_vector(Database.getDataVector(Transport_company.getCarsIndex(-1),"Cars","Id_car"));
-                               image_textInput.text = Transport_company.Cars_vector[10]
-                               comboBox.currentIndex = Database.getIndexSupplier(vectorComboBox,Transport_company.Cars_vector[1])
-                               text_number.text = Transport_company.getCarsIndex(0)+1;
+                               if(Car_com.getCarsIndex(0) > 0)
+                                    Car_com.setCars_vector(Database.getDataVector(Car_com.getCarsIndex(-1),"Cars","Id_car"));
+                               image_textInput.text = Car_com.Cars_vector[10]
+                               comboboxcar.currentIndex = Database.getIndexSupplier(vectorComboBox,Car_com.Cars_vector[1])
+                               text_number.text = Car_com.getCarsIndex(0)+1;
                                //comboBox.currentIndex = Transport_company.Cars_vector[1]
                                break;
                            case 1:
-                               Transport_company.cars_clearVector();
+                               Car_com.cars_clearVector();
                                newData = true;
-                               text_number.text= Transport_company.getCarsMaxIndex()+1;
+                               text_number.text= Car_com.getCarsMaxIndex()+1;
                                break;
                            case 2:
                                //console.log(Transport_company.Cars_vector)
                                //Database.cars_addNewData(bufferText)
 
                                //Transport_company.Cars_vector[1] = comboBox.currentIndex;
-                               Transport_company.Cars_vector[1] = Database.getSupplierId(comboBox.textAt(comboBox.currentIndex))
+                               Car_com.Cars_vector[1] = Database.getSupplierId(comboboxcar.textAt(comboboxcar.currentIndex))
                                if(newData)
                                {
-                                   Database.cars_createNewData(Transport_company.Cars_vector)
-                                   Transport_company.setCarsMaxIndex(Transport_company.getCarsMaxIndex()+1)
-                                   Transport_company.setCars_vector(Database.getDataVector(Transport_company.getCarsIndex(0),"Cars","Id_car"));
-                                   text_number.text = Transport_company.getCarsIndex(0)+1;
+                                   Database.cars_createNewData(Car_com.Cars_vector)
+                                   Car_com.setCarsMaxIndex(Car_com.getCarsMaxIndex()+1)
+                                   Car_com.setCars_vector(Database.getDataVector(Car_com.getCarsIndex(0),"Cars","Id_car"));
+                                   text_number.text = Car_com.getCarsIndex(0)+1;
                                }
                                else
                                {
-                                   Database.cars_addNewData(Transport_company.Cars_vector);
+                                   Database.cars_addNewData(Car_com.Cars_vector);
                                }
                                if(newData)
                                    newData = false
 
                                break;
                            case 3:
-                               console.log(Transport_company.Cars_vector)
-                               Database.delete_Data(Transport_company.Cars_vector[0], "Cars","id_car");
-                               if(Transport_company.getCarsIndex(0) < Transport_company.getCarsMaxIndex()-1)
-                                  Transport_company.setCars_vector(Database.getDataVector(Transport_company.getCarsIndex(0),"Cars","Id_car"));
+                               console.log(Car_com.Cars_vector)
+                               Database.delete_Data(Car_com.Cars_vector[0], "Cars","id_car");
+                               if(Car_com.getCarsIndex(0) < Car_com.getCarsMaxIndex()-1)
+                                  Car_com.setCars_vector(Database.getDataVector(Car_com.getCarsIndex(0),"Cars","Id_car"));
                                else
-                                   Transport_company.setCars_vector(Database.getDataVector(Transport_company.getCarsIndex(-1),"Cars","Id_car"));
-                               Transport_company.setCarsMaxIndex( Transport_company.getCarsMaxIndex()-1)
-                               text_number.text = Transport_company.getCarsIndex(0)+1;
+                                   Car_com.setCars_vector(Database.getDataVector(Car_com.getCarsIndex(-1),"Cars","Id_car"));
+                               Car_com.setCarsMaxIndex( Car_com.getCarsMaxIndex()-1)
+                               text_number.text = Car_com.getCarsIndex(0)+1;
                                break;
                            case 4:
                                if(newData)
                                    newData = false
-                               if(Transport_company.getCarsIndex(0) < Transport_company.getCarsMaxIndex()-1)
-                                    Transport_company.setCars_vector(Database.getDataVector(Transport_company.getCarsIndex(1),"Cars","Id_car"));
-                               image_textInput.text = Transport_company.Cars_vector[10];
-                               comboBox.currentIndex = Database.getIndexSupplier(vectorComboBox,Transport_company.Cars_vector[1])
-                               text_number.text = Transport_company.getCarsIndex(0)+1;
+                               if(Car_com.getCarsIndex(0) < Car_com.getCarsMaxIndex()-1)
+                                    Car_com.setCars_vector(Database.getDataVector(Car_com.getCarsIndex(1),"Cars","Id_car"));
+                               image_textInput.text = Car_com.Cars_vector[10];
+                               comboboxcar.currentIndex = Database.getIndexSupplier(vectorComboBox,Car_com.Cars_vector[1])
+                               text_number.text = Car_com.getCarsIndex(0)+1;
                                break;
                            }
                        }

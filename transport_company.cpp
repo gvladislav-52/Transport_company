@@ -13,15 +13,15 @@ Transport_company::Transport_company(){}//:supplier_index(0) {}
 //     supplier_maxIndex = element;
 // }
 
-void Transport_company::setCarsIndex(int num)
-{
-    cars_index = num;
-}
+// void Transport_company::setCarsIndex(int num)
+// {
+//     cars_index = num;
+// }
 
-void Transport_company::setCarsMaxIndex(int element)
-{
-    cars_maxIndex = element;
-}
+// void Transport_company::setCarsMaxIndex(int element)
+// {
+//     cars_maxIndex = element;
+// }
 
 void Transport_company::setClientsIndex(int num)
 {
@@ -68,12 +68,12 @@ void Transport_company::setInvoiceIndex(int num)
 //     invoice_indexTable += num;
 // }
 
-void Transport_company::cars_clearVector()
-{
-    m_Cars_vector.clear();
-    m_Cars_vector.assign(11,"");
-    emit Cars_vectorChanged();
-}
+// void Transport_company::cars_clearVector()
+// {
+//     m_Cars_vector.clear();
+//     m_Cars_vector.assign(11,"");
+//     emit Cars_vectorChanged();
+// }
 
 // void Transport_company::supplier_clearVector()
 // {
@@ -133,15 +133,15 @@ void Transport_company::invoice_clearVector()
 //     return supplier_maxIndex;
 // }
 
-int Transport_company::getCarsIndex(int num)
-{
-    return cars_index +=num;
-}
+// int Transport_company::getCarsIndex(int num)
+// {
+//     return cars_index +=num;
+// }
 
-int Transport_company::getCarsMaxIndex()
-{
-    return cars_maxIndex;
-}
+// int Transport_company::getCarsMaxIndex()
+// {
+//     return cars_maxIndex;
+// }
 
 int Transport_company::getClientsIndex(int num)
 {
@@ -193,18 +193,18 @@ int Transport_company::getInvoiceIndex(int num)
 //     supplier_index = num;
 // }
 
-QVector<QString> Transport_company::getCars_vector() const
-{
-    return m_Cars_vector;
-}
+// QVector<QString> Transport_company::getCars_vector() const
+// {
+//     return m_Cars_vector;
+// }
 
-void Transport_company::setCars_vector(const QVector<QString> &newCars_vector)
-{
-    if (m_Cars_vector == newCars_vector)
-        return;
-    m_Cars_vector = newCars_vector;
-    emit Cars_vectorChanged();
-}
+// void Transport_company::setCars_vector(const QVector<QString> &newCars_vector)
+// {
+//     if (m_Cars_vector == newCars_vector)
+//         return;
+//     m_Cars_vector = newCars_vector;
+//     emit Cars_vectorChanged();
+// }
 
 QVector<QString> Transport_company::getClients_vector() const
 {
