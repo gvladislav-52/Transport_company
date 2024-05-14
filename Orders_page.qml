@@ -26,7 +26,7 @@ Rectangle {
     property var volume: []
     property var power: []
     property var cost: []
-    property real sumCost_temp: 0
+
     property var driver_temp: Database.getDriverName(Transport_company.Order_vector[2])
     property var clients_temp: Database.getClientName(Transport_company.Order_vector[1])
 
@@ -35,10 +35,6 @@ Rectangle {
     property var vectorSum: []
 
     property var newData: false
-
-    function formatNumberWithSpaces(number) {
-            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/, " ");
-        }
 
     function vectorPlus(vec)
     {
@@ -177,18 +173,12 @@ Rectangle {
                             onTextChanged:
                             {
                                 clients_temp = client_text.text
-                                //comboBox_driver.model = Database.getAllModelCar(Database.getTextSupplier(Transport_company.Invoice_vector[(ebanIndex*6)+1]),true)
                             }
                         }
 
 
                             onActivated: {
-                                //Transport_company.Invoice_vector[(ebanIndex*6)+1] = comboBox_driver.currentIndex
                                 client_text.text = comboBox_clients.currentText
-                                //comboBox1.model = Database.getAllModelCar(comboBox.textAt(comboBox.currentIndex),true)
-                                //model_text.text = ""
-                                //}
-                            //}
                         }
                     }
                 }
@@ -232,18 +222,12 @@ Rectangle {
                             onTextChanged:
                             {
                                 driver_temp = text_driver.text
-                                //comboBox_driver.model = Database.getAllModelCar(Database.getTextSupplier(Transport_company.Invoice_vector[(ebanIndex*6)+1]),true)
                             }
                         }
 
 
                             onActivated: {
-                                //Transport_company.Invoice_vector[(ebanIndex*6)+1] = comboBox_driver.currentIndex
                                 text_driver.text = comboBox_driver.currentText
-                                //comboBox1.model = Database.getAllModelCar(comboBox.textAt(comboBox.currentIndex),true)
-                                //model_text.text = ""
-                                //}
-                            //}
                         }
                     }
                 }
@@ -477,7 +461,7 @@ Rectangle {
 
                                     contentItem: Text {
                                         id: marks_text
-                                        text: marksComboBox[ebanIndex]//Database.getTextSupplier(Transport_company.Invoice_vector[(ebanIndex*6)+1])
+                                        text: marksComboBox[ebanIndex]
                                         color: "black"
                                         font.bold: true
                                         font.pixelSize: comboBox.height * 0.3
@@ -505,7 +489,6 @@ Rectangle {
                                                 if(my_food_list_repeater.model-index === 1)
                                                 {
                                                      my_food_list_repeater.model = ++my_food_list_repeater.model
-                                                    // sumCost_temp = 0.0
                                                 }
 
 
@@ -544,7 +527,7 @@ Rectangle {
 
                                     contentItem: Text {
                                         id: model_text
-                                        text: modelsComboBox[ebanIndex]//Database.getTextCar(Transport_company.Invoice_vector[(ebanIndex*6)+2])
+                                        text: modelsComboBox[ebanIndex]
                                         color: "black"
                                         font.bold: true
                                         font.pixelSize: comboBox1.height * 0.3
@@ -563,11 +546,8 @@ Rectangle {
 
                                             if(kol_text.text==="0")
                                                 kol_text.text = 1;
-                                            //var temp = Database.getItemCar(model_text.text,9)
                                             var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                            cost_text.text = temp
-                                            if(!newData)
-                                                sumCost_temp += temp
                                             vectorSum[ebanIndex] = temp
                                             console.log(vectorPlus(vectorSum))
 
@@ -588,14 +568,7 @@ Rectangle {
                                         if(kol_text.text==="0")
                                             kol_text.text = 1;
                                         var temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
-                                       // var temp = cost[ebanIndex]
                                         cost_text.text = temp
-                                        //vectorSum[ebanIndex] = temp
-                                        //console.log(vectorPlus(vectorSum))
-                                        if(!newData)
-                                            sumCost_temp += temp
-
-
                                         if(marks_text.text === "")
                                             model_text.text = " "
                                     }
@@ -690,10 +663,10 @@ Rectangle {
                                         kolText[ebanIndex] = kol_text.text
                                         if(kol_text.text==="0")
                                             kol_text.text = 1;
-                                        if(sale_text.text === "")
-                                            cost_text.text = cost[ebanIndex]*kol_text.text
-                                        else
-                                            cost_text.text = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        var temp  = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
+                                        cost_text.text = temp
+                                        vectorSum[ebanIndex] = temp
+                                        cost_text_sum.text = vectorPlus(vectorSum)
 
                                     }
 
@@ -754,13 +727,8 @@ Rectangle {
                                     onAccepted: {
                                         if(kol_text.text==="0")
                                             kol_text.text = 1;
-                                        if(!newData)
-                                            sumCost_temp -= cost_text.text
                                         var temp  = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                         cost_text.text = temp
-                                        //console.log((cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100))
-                                        //sumCost_temp = (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
-                                       // sumCost_temp += (cost[ebanIndex]*kol_text.text)*((100-parseInt(sale_text.text))/100)
                                         vectorSum[ebanIndex] = temp
                                         cost_text_sum.text = vectorPlus(vectorSum)
                                     }
@@ -859,7 +827,6 @@ Rectangle {
                                 volume = []
                                 power = []
                                 cost = []
-                                sumCost_temp = 0
                                 my_food_list_repeater.model = 0
 
                             Transport_company.setInvoiceIndex(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),false));
@@ -878,34 +845,30 @@ Rectangle {
                             newData = true;
                             Transport_company.order_clearVector();
                             Transport_company.invoice_clearVector()
-                            //testNode = "4";
                             kolText = []
                             saleText = []
                             volume = []
                             power = []
                             cost = []
                             vectorSum = []
-                            sumCost_temp = 0
                             indexVector = 0;
                             client_text.text = "Выберете клиента"
                             text_driver.text = "Выберете водителя"
                             my_food_list_repeater.model = 1;
+                            cost_text_sum.text = 0
                             break;
                         case 2:
-                            Transport_company.Order_vector[7] = sumCost_temp
+
+                            Transport_company.Order_vector[7] = vectorPlus(vectorSum)
                             Transport_company.Order_vector[1] = Database.getIdClientName(comboBox_clients.textAt(comboBox_clients.currentIndex))
                             Transport_company.Order_vector[2] = Database.getIdDriverName(comboBox_driver.textAt(comboBox_driver.currentIndex))
                             var temp_vector  = Database.getIdInvoice(Transport_company.Order_vector[0])
-                            //console.log(temp_vector.length)
                             while(temp_vector.length < marksComboBox.length)
                                 temp_vector.push("-1")
-                            //console.log(temp_vector.length)
-                            //console.log(temp_vector)
                             if(newData)
                             {
                                 Database.orders_createNewData(Transport_company.Order_vector)
                                 var indexTemp = Database.getLastIndexOrder()
-                                //console.log(Database.getLastIndexOrder())//Transport_company.Order_vector[0])
                                 for(let i = 0; i < marksComboBox.length; i++)
                                     Database.invoices_createNewData(Database.getSupplierId(marksComboBox[i]),Database.getIdCarName(modelsComboBox[i]),kolText[i],saleText[i], indexTemp)
 
@@ -937,19 +900,12 @@ Rectangle {
                             if(Transport_company.getOrderIndex(0) < Transport_company.getOrderMaxIndex()-1)
                             {
                                  Transport_company.setOrder_vector(Database.getDataVector(Transport_company.getOrderIndex(1),"Orders","id_order"));
-                           //if(Transport_company.getInvoiceIndexTable() < Transport_company.getInvoiceMaxIndex()-1)
-                           // {
                                 Transport_company.invoice_clearVector()
-                                //testNode = "5";
                                 volume = []
                                 power = []
                                 cost = []
                                 vectorSum = []
-                                sumCost_temp = 0
                                 my_food_list_repeater.model = 0
-                                //Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Database.getIndexOrder(Transport_company.getInvoiceIndex(0),true)));
-                            //console.log(testNode)
-                            //Transport_company.setInvoiceIndexTable(1)
                             Transport_company.setInvoiceIndex(Database.getIndexOrder(Transport_company.getInvoiceIndex(0),true));
                             indexVector =  Transport_company.getInvoiceIndex(0)
                             Transport_company.setInvoice_vector(Database.getInvoiceDataVector("Invoice","id_order",Transport_company.getInvoiceIndex(0)));
@@ -958,7 +914,6 @@ Rectangle {
 
                                 comboBox_driver.currentIndex = Database.getIndexDrivers(drivers_vector_order,Transport_company.Order_vector[2])
                                 text_driver.text = comboBox_driver.currentText
-                            //console.log(modelsComboBox)
                                 my_food_list_repeater.model = marksComboBox.length+1
                                 cost_text_sum.text = vectorPlus(vectorSum)
                             }
