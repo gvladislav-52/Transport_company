@@ -11,8 +11,6 @@ Rectangle {
     property var button_name: ["qrc:/Button/arrow.png","qrc:/Button/add.png","qrc:/Button/save.png","qrc:/Button/del.png","qrc:/Button/arrow.png"]
     property var label_name: ["Марка","Модель","Объем","Мощность","Количество","Скидка","Итоговая цена"]
 
-    property var ttest: [20,36,1,32,213]
-
     property var supplier_vector_order
     property var model_vector_order
     property var clients_vector_order
