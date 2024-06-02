@@ -15,13 +15,13 @@ void Drivers::setDriversMaxIndex(int element)
 void Drivers::drivers_clearVector()
 {
     m_Drivers_vector.clear();
-    m_Drivers_vector.assign(9,"");
+    m_Drivers_vector.assign(9, "");
     emit Drivers_vectorChanged();
 }
 
 int Drivers::getDriversIndex(int num)
 {
-    return drivers_index+=num;
+    return drivers_index += num;
 }
 
 int Drivers::getDriversMaxIndex()

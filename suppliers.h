@@ -3,10 +3,11 @@
 
 #include <QObject>
 
-class Suppliers: public QObject
+class Suppliers : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QVector<QString> Supplier_vector READ getSupplier_vector WRITE setSupplier_vector NOTIFY Supplier_vectorChanged FINAL)
+    Q_PROPERTY(QVector<QString> Supplier_vector READ getSupplier_vector WRITE setSupplier_vector
+                   NOTIFY Supplier_vectorChanged FINAL)
 public:
     Suppliers();
     QVector<QString> getSupplier_vector() const;
@@ -19,6 +20,7 @@ public slots:
     void setSupplierMaxIndex(int element);
     void supplier_clearVector();
     void setSupplier_vector(const QVector<QString> newSupplier_vector);
+
 private:
     QVector<QString> m_Supplier_vector;
     int supplier_index = 0;

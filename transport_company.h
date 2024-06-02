@@ -3,11 +3,13 @@
 
 #include <QObject>
 
-class Transport_company: public QObject
+class Transport_company : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QVector<QString> Order_vector READ getOrder_vector WRITE setOrder_vector NOTIFY Order_vectorChanged FINAL)
-    Q_PROPERTY(QVector<QString> Invoice_vector READ getInvoice_vector WRITE setInvoice_vector NOTIFY Invoice_vectorChanged FINAL)
+    Q_PROPERTY(QVector<QString> Order_vector READ getOrder_vector WRITE setOrder_vector NOTIFY
+                   Order_vectorChanged FINAL)
+    Q_PROPERTY(QVector<QString> Invoice_vector READ getInvoice_vector WRITE setInvoice_vector NOTIFY
+                   Invoice_vectorChanged FINAL)
 public:
     Transport_company();
 
@@ -38,7 +40,6 @@ public slots:
     void setInvoice_vector(const QVector<QString> &newInvoice_vector);
 
 private:
-
     QVector<QString> m_Invoice_vector;
     int invoice_index = 0;
 

@@ -15,8 +15,10 @@ public slots:
     int getLastIndexOrder();
     void invoice_truncate(QString index);
     QVector<QString> getIdInvoice(int index);
-    void invoices_addNewData(QString supplierId, QString carId, QString kol, QString sale, QString orderId);
-    void invoices_createNewData(QString supplierId, QString carId, QString kol, QString sale, QString orderId);
+    void invoices_addNewData(
+        QString supplierId, QString carId, QString kol, QString sale, QString orderId);
+    void invoices_createNewData(
+        QString supplierId, QString carId, QString kol, QString sale, QString orderId);
     void orders_addNewData(QVector<QString> vector);
     void orders_createNewData(QVector<QString> vec);
     int getIndexOrder(int vecData, bool curs);
@@ -31,8 +33,8 @@ public slots:
     QVector<QString> getInvoiceDataVector(QString name, QString sort, int order);
     QVector<QString> getDataVector(int index, QString name, QString sort);
     QVector<QString> getAllSupplierName();
-    QVector<QString> getAllModelCar(QString temp,bool botemp = false);
-    int getItemCar(QString temp,int index);
+    QVector<QString> getAllModelCar(QString temp, bool botemp = false);
+    int getItemCar(QString temp, int index);
     QString getSupplierId(QString company);
     int getIdDriverName(QString company);
     int getIdClientName(QString company);
@@ -60,6 +62,7 @@ public slots:
 
     void drivers_createNewData(QVector<QString> vec);
     void drivers_addNewData(QVector<QString> vector);
+
 private:
     QSqlDatabase db;
 signals:

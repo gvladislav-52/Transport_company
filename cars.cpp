@@ -15,13 +15,13 @@ void Cars::setCarsMaxIndex(int element)
 void Cars::cars_clearVector()
 {
     m_Cars_vector.clear();
-    m_Cars_vector.assign(11,"");
+    m_Cars_vector.assign(11, "");
     emit Cars_vectorChanged();
 }
 
 int Cars::getCarsIndex(int num)
 {
-    return cars_index +=num;
+    return cars_index += num;
 }
 
 int Cars::getCarsMaxIndex()

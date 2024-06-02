@@ -15,13 +15,13 @@ void Clients::setClientsMaxIndex(int element)
 void Clients::clients_clearVector()
 {
     m_Clients_vector.clear();
-    m_Clients_vector.assign(5,"");
+    m_Clients_vector.assign(5, "");
     emit Clients_vectorChanged();
 }
 
 int Clients::getClientsIndex(int num)
 {
-    return clients_index+=num;
+    return clients_index += num;
 }
 
 int Clients::getClientsMaxIndex()

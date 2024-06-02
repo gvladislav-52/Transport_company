@@ -15,7 +15,7 @@ void Suppliers::setSupplierMaxIndex(int element)
 void Suppliers::supplier_clearVector()
 {
     m_Supplier_vector.clear();
-    m_Supplier_vector.assign(7,"");
+    m_Supplier_vector.assign(7, "");
     emit Supplier_vectorChanged();
 }
 
@@ -29,8 +29,7 @@ void Suppliers::setSupplier_vector(const QVector<QString> newSupplier_vector)
 
 int Suppliers::getSupplierIndex(int num)
 {
-    return supplier_index +=num;
-
+    return supplier_index += num;
 }
 
 int Suppliers::getSupplierMaxIndex()

@@ -1,7 +1,7 @@
 #include "transport_company.h"
 #include "qdebug.h"
 
-Transport_company::Transport_company(){}
+Transport_company::Transport_company() {}
 
 void Transport_company::setOrderIndex(int num)
 {
@@ -21,20 +21,20 @@ void Transport_company::setInvoiceIndex(int num)
 void Transport_company::order_clearVector()
 {
     m_Order_vector.clear();
-    m_Order_vector.assign(7,"");
+    m_Order_vector.assign(7, "");
     emit Order_vectorChanged();
 }
 
 void Transport_company::invoice_clearVector()
 {
     m_Invoice_vector.clear();
-    m_Invoice_vector.assign(7,"");
+    m_Invoice_vector.assign(7, "");
     emit Invoice_vectorChanged();
 }
 
 int Transport_company::getOrderIndex(int num)
 {
-    return order_index+=num;
+    return order_index += num;
 }
 
 int Transport_company::getOrderMaxIndex()
@@ -44,7 +44,7 @@ int Transport_company::getOrderMaxIndex()
 
 int Transport_company::getInvoiceIndex(int num)
 {
-    return invoice_index+=num;
+    return invoice_index += num;
 }
 
 QVector<QString> Transport_company::getInvoice_vector() const

@@ -3,10 +3,11 @@
 
 #include <QObject>
 
-class Cars: public QObject
+class Cars : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QVector<QString> Cars_vector READ getCars_vector WRITE setCars_vector NOTIFY Cars_vectorChanged FINAL)
+    Q_PROPERTY(QVector<QString> Cars_vector READ getCars_vector WRITE setCars_vector NOTIFY
+                   Cars_vectorChanged FINAL)
 public:
     Cars();
     QVector<QString> getCars_vector() const;
@@ -19,6 +20,7 @@ public slots:
     void setCarsMaxIndex(int element);
     void cars_clearVector();
     void setCars_vector(const QVector<QString> &newCars_vector);
+
 private:
     QVector<QString> m_Cars_vector;
     int cars_index = 0;
