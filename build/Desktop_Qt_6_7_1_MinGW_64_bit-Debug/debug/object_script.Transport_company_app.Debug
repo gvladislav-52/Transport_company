@@ -1,0 +1,16 @@
+debug/cars.o
+debug/clients.o
+debug/database_sql.o
+debug/drivers.o
+debug/main.o
+debug/suppliers.o
+debug/transport_company.o
+debug/widget.o
+debug/qrc_res.o
+debug/moc_cars.o
+debug/moc_clients.o
+debug/moc_database_sql.o
+debug/moc_drivers.o
+debug/moc_suppliers.o
+debug/moc_transport_company.o
+debug/moc_widget.o

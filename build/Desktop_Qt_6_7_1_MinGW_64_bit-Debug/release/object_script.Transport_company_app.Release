@@ -1,0 +1,16 @@
+release/cars.o
+release/clients.o
+release/database_sql.o
+release/drivers.o
+release/main.o
+release/suppliers.o
+release/transport_company.o
+release/widget.o
+release/qrc_res.o
+release/moc_cars.o
+release/moc_clients.o
+release/moc_database_sql.o
+release/moc_drivers.o
+release/moc_suppliers.o
+release/moc_transport_company.o
+release/moc_widget.o
